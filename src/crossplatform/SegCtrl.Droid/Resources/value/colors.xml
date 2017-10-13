@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="normal">@android:color/transparent</color>
+    <color name="selected">#007AFF</color>
+</resources>
