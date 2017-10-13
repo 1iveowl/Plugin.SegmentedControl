@@ -7,25 +7,18 @@
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+            <StackLayout>
+                <control:SegmentedControl x:Name="SegmentedControl" SelectedSegment="{Binding SelectedSegment}" ValueChanged="SegmentedControl_OnValueChanged">
+                    <control:SegmentedControl.Children>
+                        <control:SegmentedControlOption Text="Item 1" />
+                        <control:SegmentedControlOption Text="Item 2" />
+                        <control:SegmentedControlOption Text="Item 3" />
+                        <control:SegmentedControlOption Text="Item 4" />
+                    </control:SegmentedControl.Children>
+                </control:SegmentedControl>
+            </StackLayout>
 
-            <ScrollView>
-                <StackLayout x:Name="segContainer"
-                             Padding="12"
-                             Spacing="12">
-                    <control:SegmentedControl x:Name="SegControl" SelectedSegment="{Binding SelectedSegment}" ValueChanged="SegControl_OnValueChanged">
-                        <control:SegmentedControl.Children>
-                            <control:SegmentedControlOption Text="Items" />
-                            <control:SegmentedControlOption Text="Notes" />
-                            <control:SegmentedControlOption Text="Approvers" />
-                            <control:SegmentedControlOption Text="Attachments" />
-                        </control:SegmentedControl.Children>
-                    </control:SegmentedControl>
-                    <StackLayout x:Name="SegContent" />
-                    <Button Text="Navigate" Clicked="Button_OnClicked"/>
-                </StackLayout>
-            </ScrollView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

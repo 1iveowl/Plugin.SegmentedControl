@@ -15,14 +15,10 @@ namespace Test.SegmentedControl
             InitializeComponent();
         }
 
-        private void SegControl_OnValueChanged(object sender, SegmentSelectEventArgs e)
+        private void SegmentedControl_OnValueChanged(object sender, SegmentSelectEventArgs e)
         {
-            throw new NotImplementedException();
+
         }
 
-        private void Button_OnClicked(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
