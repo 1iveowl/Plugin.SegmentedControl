@@ -107,6 +107,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SegmentedControlRenderer.cs" />
     <EmbeddedResource Include="Properties\SegCtrl.UWP.rd.xml" />
   </ItemGroup>
   <ItemGroup>

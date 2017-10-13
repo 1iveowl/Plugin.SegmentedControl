@@ -13,8 +13,8 @@ namespace SegCtrl.Droid
 {
     public class SegmentedControlRenderer : ViewRenderer<SegmentedControl, RadioGroup>
     {
-        RadioGroup nativeControl;
-        RadioButton _v;
+        private RadioGroup _nativeControl;
+        private RadioButton _v;
 
         protected override void OnElementChanged(ElementChangedEventArgs<SegmentedControl> e)
         {
@@ -30,8 +30,8 @@ namespace SegCtrl.Droid
             {
                 // Unsubscribe from event handlers and cleanup any resources
 
-                if (nativeControl != null)
-                    nativeControl.CheckedChange -= NativeControl_ValueChanged;
+                if (_nativeControl != null)
+                    _nativeControl.CheckedChange -= NativeControl_ValueChanged;
 
                 if (Element != null)
                     Element.SizeChanged -= Element_SizeChanged;
@@ -41,17 +41,17 @@ namespace SegCtrl.Droid
             {
                 // Configure the control and subscribe to event handlers
 
-                Element.SizeChanged += Element_SizeChanged;
+                if (Element != null) Element.SizeChanged += Element_SizeChanged;
             }
         }
 
-        void Element_SizeChanged(object sender, EventArgs e)
+        private void Element_SizeChanged(object sender, EventArgs e)
         {
             if (Control == null && Element != null)
             {
                 var layoutInflater = LayoutInflater.From(Forms.Context);
 
-                nativeControl = (RadioGroup)layoutInflater.Inflate(Resource.Layout.RadioGroup, null);
+                _nativeControl = (RadioGroup)layoutInflater.Inflate(Resource.Layout.RadioGroup, null);
 
                 for (var i = 0; i < Element.Children.Count; i++)
                 {
@@ -68,17 +68,17 @@ namespace SegCtrl.Droid
 
                     ConfigureRadioButton(i, v);
 
-                    nativeControl.AddView(v);
+                    _nativeControl.AddView(v);
                 }
 
-                var option = (RadioButton)nativeControl.GetChildAt(Element.SelectedSegment);
+                var option = (RadioButton)_nativeControl.GetChildAt(Element.SelectedSegment);
 
                 if (option != null)
                     option.Checked = true;
 
-                nativeControl.CheckedChange += NativeControl_ValueChanged;
+                _nativeControl.CheckedChange += NativeControl_ValueChanged;
 
-                SetNativeControl(nativeControl);
+                SetNativeControl(_nativeControl);
             }
         }
 
@@ -90,12 +90,12 @@ namespace SegCtrl.Droid
             {
                 case "Renderer":
                     Element_SizeChanged(null, null);
-                    Element?.SendValueChanged();
+                    Element?.RaiseSelectionChanged();
                     break;
                 case "SelectedSegment":
-                    if (nativeControl != null && Element != null)
+                    if (_nativeControl != null && Element != null)
                     {
-                        var option = (RadioButton)nativeControl.GetChildAt(Element.SelectedSegment);
+                        var option = (RadioButton)_nativeControl.GetChildAt(Element.SelectedSegment);
 
                         if (option != null)
                             option.Checked = true;
@@ -104,7 +104,7 @@ namespace SegCtrl.Droid
                         {
                             var layoutInflater = LayoutInflater.From(Forms.Context);
 
-                            nativeControl = (RadioGroup)layoutInflater.Inflate(Resource.Layout.RadioGroup, null);
+                            _nativeControl = (RadioGroup)layoutInflater.Inflate(Resource.Layout.RadioGroup, null);
 
                             for (var i = 0; i < Element.Children.Count; i++)
                             {
@@ -121,15 +121,15 @@ namespace SegCtrl.Droid
 
                                 ConfigureRadioButton(i, v);
 
-                                nativeControl.AddView(v);
+                                _nativeControl.AddView(v);
                             }
 
-                            nativeControl.CheckedChange += NativeControl_ValueChanged;
+                            _nativeControl.CheckedChange += NativeControl_ValueChanged;
 
-                            SetNativeControl(nativeControl);
+                            SetNativeControl(_nativeControl);
                         }
 
-                        Element.SendValueChanged();
+                        Element.RaiseSelectionChanged();
                     }
                     break;
                 case "TintColor":
@@ -139,29 +139,28 @@ namespace SegCtrl.Droid
                     OnPropertyChanged();
                     break;
                 case "SelectedTextColor":
-                    if (nativeControl != null && Element != null)
+                    if (_nativeControl != null && Element != null)
                     {
-                        var v = (RadioButton)nativeControl.GetChildAt(Element.SelectedSegment);
+                        var v = (RadioButton)_nativeControl.GetChildAt(Element.SelectedSegment);
                         v.SetTextColor(Element.SelectedTextColor.ToAndroid());
                     }
                     break;
             }
         }
 
-        void OnPropertyChanged()
+        private void OnPropertyChanged()
         {
-            if (nativeControl != null && Element != null)
-            {
-                for (var i = 0; i < Element.Children.Count; i++)
-                {
-                    var v = (RadioButton)nativeControl.GetChildAt(i);
+            if (_nativeControl == null || Element == null) return;
 
-                    ConfigureRadioButton(i, v);
-                }
+            for (var i = 0; i < Element.Children.Count; i++)
+            {
+                var v = (RadioButton)_nativeControl.GetChildAt(i);
+
+                ConfigureRadioButton(i, v);
             }
         }
 
-        void ConfigureRadioButton(int i, RadioButton v)
+        private void ConfigureRadioButton(int i, RadioButton v)
         {
             if (i == Element.SelectedSegment)
             {
@@ -194,7 +193,7 @@ namespace SegCtrl.Droid
             v.Enabled = Element.IsEnabled;
         }
 
-        void NativeControl_ValueChanged(object sender, RadioGroup.CheckedChangeEventArgs e)
+        private void NativeControl_ValueChanged(object sender, RadioGroup.CheckedChangeEventArgs e)
         {
             var rg = (RadioGroup)sender;
             if (rg.CheckedRadioButtonId != -1)
@@ -216,11 +215,11 @@ namespace SegCtrl.Droid
 
         protected override void Dispose(bool disposing)
         {
-            if (nativeControl != null)
+            if (_nativeControl != null)
             {
-                nativeControl.CheckedChange -= NativeControl_ValueChanged;
-                nativeControl.Dispose();
-                nativeControl = null;
+                _nativeControl.CheckedChange -= NativeControl_ValueChanged;
+                _nativeControl.Dispose();
+                _nativeControl = null;
                 _v = null;
             }
 

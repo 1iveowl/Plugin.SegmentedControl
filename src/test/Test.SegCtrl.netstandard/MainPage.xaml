@@ -5,13 +5,13 @@
              xmlns:control="clr-namespace:Plugin.SegmentedControl.Netstandard.Control;assembly=Plugin.SegmentedControl.Netstandard"
              x:Class="Test.SegmentedControl.MainPage">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout BackgroundColor="White">
             <Label Text="Welcome to Xamarin.Forms!"
                 HorizontalOptions="CenterAndExpand" />
             <StackLayout>
-                <control:SegmentedControl x:Name="SegmentedControl" SelectedSegment="{Binding SelectedSegment}" ValueChanged="SegmentedControl_OnValueChanged">
+                <control:SegmentedControl x:Name="SegmentedControl" SelectedSegment="{Binding SelectedSegment}" SegmentSelected="SegmentedControl_OnValueChanged" TintColor="BlueViolet">
                     <control:SegmentedControl.Children>
-                        <control:SegmentedControlOption Text="Item 1" />
+                        <control:SegmentedControlOption Text="Item 1"/>
                         <control:SegmentedControlOption Text="Item 2" />
                         <control:SegmentedControlOption Text="Item 3" />
                         <control:SegmentedControlOption Text="Item 4" />

@@ -52,13 +52,13 @@ namespace Plugin.SegmentedControl.iOS
             switch (e.PropertyName)
             {
                 case "Renderer":
-                    Element?.SendValueChanged();
+                    Element?.RaiseSelectionChanged();
                     break;
                 case "SelectedSegment":
                     if (_nativeControl != null && Element != null)
                     {
                         _nativeControl.SelectedSegment = Element.SelectedSegment;
-                        Element.SendValueChanged();
+                        Element.RaiseSelectionChanged();
                     }
                     break;
                 case "TintColor":
@@ -114,6 +114,10 @@ namespace Plugin.SegmentedControl.iOS
             {
                 return;
             }
+        }
+
+        public new static void Init()
+        {
         }
     }
 }
