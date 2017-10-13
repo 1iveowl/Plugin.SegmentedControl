@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Test.SegmentedControl"
+             xmlns:control="clr-namespace:Plugin.SegmentedControl.Netstandard.Control;assembly=Plugin.SegmentedControl.Netstandard"
+             x:Class="Test.SegmentedControl.MainPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Welcome to Xamarin.Forms!"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+
+            <ScrollView>
+                <StackLayout x:Name="segContainer"
+                             Padding="12"
+                             Spacing="12">
+                    <control:SegmentedControl x:Name="SegControl" SelectedSegment="{Binding SelectedSegment}" ValueChanged="SegControl_OnValueChanged">
+                        <control:SegmentedControl.Children>
+                            <control:SegmentedControlOption Text="Items" />
+                            <control:SegmentedControlOption Text="Notes" />
+                            <control:SegmentedControlOption Text="Approvers" />
+                            <control:SegmentedControlOption Text="Attachments" />
+                        </control:SegmentedControl.Children>
+                    </control:SegmentedControl>
+                    <StackLayout x:Name="SegContent" />
+                    <Button Text="Navigate" Clicked="Button_OnClicked"/>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

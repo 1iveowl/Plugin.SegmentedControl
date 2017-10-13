@@ -8,6 +8,23 @@
             <Label Text="Welcome to Xamarin.Forms!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+
+            <ScrollView>
+                <StackLayout x:Name="segContainer"
+                             Padding="12"
+                             Spacing="12">
+                    <controls:SegmentedControl x:Name="SegControl" SelectedSegment="{Binding SelectedSegment}" ValueChanged="Handle_ValueChanged">
+                        <controls:SegmentedControl.Children>
+                            <controls:SegmentedControlOption Text="Items" />
+                            <controls:SegmentedControlOption Text="Notes" />
+                            <controls:SegmentedControlOption Text="Approvers" />
+                            <controls:SegmentedControlOption Text="Attachments" />
+                        </controls:SegmentedControl.Children>
+                    </controls:SegmentedControl>
+                    <StackLayout x:Name="SegContent" />
+                    <Button Text="Navigate" Clicked="Handle_Clicked"/>
+                </StackLayout>
+            </ScrollView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

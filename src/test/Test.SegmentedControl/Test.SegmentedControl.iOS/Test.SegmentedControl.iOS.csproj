@@ -145,9 +145,9 @@
       <Project>{aba23bab-084a-443e-b9cc-37b0a826377e}</Project>
       <Name>SegCtlr.Netstandard</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Test.SegmentedControl\Test.SegmentedControl.csproj">
-      <Project>{ce4bb314-d4d8-411b-be6b-e9d78bd86c08}</Project>
-      <Name>Test.SegmentedControl</Name>
+    <ProjectReference Include="..\..\Test.SegCtrl.netstandard\Test.SegCtrl.netstandard.csproj">
+      <Project>{085d550d-9e27-474f-a79e-4578224f8664}</Project>
+      <Name>Test.SegCtrl.netstandard</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
