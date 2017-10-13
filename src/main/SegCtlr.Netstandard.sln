@@ -17,11 +17,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SegCtrl.UWP", "..\crossplat
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{F6468D98-0EC8-412A-865C-6AC3F010C044}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.SegmentedControl.Android", "..\test\Test.SegmentedControl\Test.SegmentedControl.Android\Test.SegmentedControl.Android.csproj", "{D41A679F-F6FD-45B5-B63C-304C720090CC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.SegCtrl.Android", "..\test\Test.SegCtrl.Android\Test.SegCtrl.Android.csproj", "{D41A679F-F6FD-45B5-B63C-304C720090CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.SegmentedControl.UWP", "..\test\Test.SegmentedControl\Test.SegmentedControl.UWP\Test.SegmentedControl.UWP.csproj", "{D133A400-6A9B-4414-A989-6165FF3A3BAC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.SegCtlr.UWP", "..\test\Test.SegCtrl.UWP\Test.SegCtlr.UWP.csproj", "{D133A400-6A9B-4414-A989-6165FF3A3BAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.SegmentedControl.iOS", "..\test\Test.SegmentedControl\Test.SegmentedControl.iOS\Test.SegmentedControl.iOS.csproj", "{2C3B781D-170C-44FA-BB73-E454A4AE73BD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.SegCtlr.iOS", "..\test\Test.SegCtrl.iOS\Test.SegCtlr.iOS.csproj", "{2C3B781D-170C-44FA-BB73-E454A4AE73BD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.SegCtrl.netstandard", "..\test\Test.SegCtrl.netstandard\Test.SegCtrl.netstandard.csproj", "{085D550D-9E27-474F-A79E-4578224F8664}"
 EndProject

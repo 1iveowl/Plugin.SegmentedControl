@@ -152,15 +152,15 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\crossplatform\SegCtrl.UWP\SegCtrl.UWP.csproj">
+    <ProjectReference Include="..\..\crossplatform\SegCtrl.UWP\SegCtrl.UWP.csproj">
       <Project>{2848d7d8-3c18-4df0-8638-cbccc36a325b}</Project>
       <Name>SegCtrl.UWP</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\main\SegCtlr.Netstandard\SegCtlr.Netstandard.csproj">
+    <ProjectReference Include="..\..\main\SegCtlr.Netstandard\SegCtlr.Netstandard.csproj">
       <Project>{aba23bab-084a-443e-b9cc-37b0a826377e}</Project>
       <Name>SegCtlr.Netstandard</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Test.SegCtrl.netstandard\Test.SegCtrl.netstandard.csproj">
+    <ProjectReference Include="..\Test.SegCtrl.netstandard\Test.SegCtrl.netstandard.csproj">
       <Project>{085d550d-9e27-474f-a79e-4578224f8664}</Project>
       <Name>Test.SegCtrl.netstandard</Name>
     </ProjectReference>
