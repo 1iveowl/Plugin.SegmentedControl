@@ -42,7 +42,9 @@ namespace Plugin.SegmentedControl.UWP
         {
             base.OnElementPropertyChanged(sender, e);
 
-            RebuildButtons();
+            _segmentList.Add(Element.Children[0]);
+
+            //RebuildButtons();
 
             //switch (e.PropertyName)
             //{
@@ -61,7 +63,7 @@ namespace Plugin.SegmentedControl.UWP
 
             var label = new TextBlock
             {
-                Text = "Test"
+                Text = _segmentList[0].Text,
             };
 
             _grid.Children.Add(label);
