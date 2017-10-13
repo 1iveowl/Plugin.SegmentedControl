@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2002
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SegCtlr.Netstandard", "SegCtlr.Netstandard\SegCtlr.Netstandard.csproj", "{ABA23BAB-084A-443E-B9CC-37B0A826377E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Abstraction", "Abstraction", "{D54B9249-B233-42AD-8346-2E59628B9B34}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CrossPlatform", "CrossPlatform", "{C5A73308-8FF9-4767-91CF-1B97B38B0403}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SegCtrl.Droid", "..\crossplatform\SegCtrl.Droid\SegCtrl.Droid.csproj", "{615565C8-84DE-4B6B-80DD-106695429AD8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ABA23BAB-084A-443E-B9CC-37B0A826377E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABA23BAB-084A-443E-B9CC-37B0A826377E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABA23BAB-084A-443E-B9CC-37B0A826377E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABA23BAB-084A-443E-B9CC-37B0A826377E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{615565C8-84DE-4B6B-80DD-106695429AD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{615565C8-84DE-4B6B-80DD-106695429AD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{615565C8-84DE-4B6B-80DD-106695429AD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{615565C8-84DE-4B6B-80DD-106695429AD8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{ABA23BAB-084A-443E-B9CC-37B0A826377E} = {D54B9249-B233-42AD-8346-2E59628B9B34}
+		{615565C8-84DE-4B6B-80DD-106695429AD8} = {C5A73308-8FF9-4767-91CF-1B97B38B0403}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1C34EA6A-1B6B-4B5A-B3D8-165B651A6744}
+	EndGlobalSection
+EndGlobal
