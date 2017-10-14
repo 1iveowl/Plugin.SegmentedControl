@@ -6,6 +6,7 @@
     <Style TargetType="control:SegmentRadioButton" x:Key="SegmentedRadioButtonStyle">
         <Setter Property="Background" Value="{ThemeResource ButtonBackground}" />
         <Setter Property="SelectedTextColor" Value="{ThemeResource ButtonForeground}"></Setter>
+        <Setter Property="TintColor" Value="{ThemeResource ButtonBackground}"></Setter>
         <Setter Property="Foreground" Value="{ThemeResource ButtonForeground}" />
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="BorderThickness" Value="{ThemeResource ButtonBorderThemeThickness}" />

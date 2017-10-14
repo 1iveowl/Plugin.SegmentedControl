@@ -111,6 +111,7 @@ namespace Plugin.SegmentedControl.UWP
                     IsChecked = child.value.IsEnabled,
                     BorderBrush = (SolidColorBrush)_converter.Convert(Element.TintColor, null, null, ""),
                     SelectedTextColor = (SolidColorBrush)_converter.Convert(Element.SelectedTextColor, null, null, ""),
+                    TintColor = (SolidColorBrush)_converter.Convert(Element.TintColor, null, null, ""),
                 };
 
                 if (child.value.IsEnabled)
