@@ -5,8 +5,10 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 using Plugin.SegmentedControl.Netstandard.Control;
 using Plugin.SegmentedControl.UWP;
 using Plugin.SegmentedControl.UWP.Control;
@@ -22,6 +24,8 @@ namespace Plugin.SegmentedControl.UWP
         //private readonly IList<SegmentedControlOption> _segmentList;
         //private readonly ObservableCollection<SegmentedControlOption> _segmentCollection;
         private SegmentedUserControl _segmentedUserControl;
+
+        private readonly ColorConverter _converter = new ColorConverter();
 
         public SegmentedControlRenderer()
         {
@@ -97,26 +101,39 @@ namespace Plugin.SegmentedControl.UWP
 
             foreach (var child in Element.Children.Select((value, i) => new {i, value}))
             {
-                var radioButton = new SegmentRadioButton()
+                var segmentButton = new SegmentRadioButton()
                 {
                     Style = (Style)_segmentedUserControl.Resources["SegmentedRadioButton"],
                     Content = child.value.Text,
                     Tag = child.value.Text,
                     HorizontalAlignment = HorizontalAlignment.Stretch,
                     VerticalAlignment = VerticalAlignment.Stretch,
-                    IsChecked = child.value.IsEnabled
+                    IsChecked = child.value.IsEnabled,
+                    BorderBrush = (SolidColorBrush)_converter.Convert(Element.TintColor, null, null, ""),
                 };
 
-                radioButton.Checked += SegmentRadioButtonOnChecked;
+
+                if (child.value.IsEnabled)
+                {
+                    segmentButton.Background = (SolidColorBrush)_converter.Convert(Element.TintColor, null, null, "");
+                    segmentButton.Foreground = (SolidColorBrush)_converter.Convert(Element.SelectedTextColor, null, null, "");
+                }
+                else
+                {
+                    segmentButton.Background = new SolidColorBrush(Colors.Transparent);
+                    segmentButton.Foreground = (SolidColorBrush)_converter.Convert(Element.TintColor, null, null, "");
+                }
+
+                segmentButton.Checked += SegmentRadioButtonOnChecked;
                 
                 grid.ColumnDefinitions.Add(new ColumnDefinition
                 {
                     Width = new GridLength(1, GridUnitType.Star),
                 });
 
-                radioButton.SetValue(Grid.ColumnProperty, child.i);
+                segmentButton.SetValue(Grid.ColumnProperty, child.i);
 
-                grid.Children.Add(radioButton);
+                grid.Children.Add(segmentButton);
             }
 
             

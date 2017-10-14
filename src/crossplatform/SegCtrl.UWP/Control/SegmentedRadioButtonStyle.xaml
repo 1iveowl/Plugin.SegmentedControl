@@ -81,14 +81,14 @@
                             </VisualStateGroup>
                             <VisualStateGroup x:Name="CheckStates">
                                 <VisualState x:Name="Checked">
-                                    <Storyboard>
+                                    <!--<Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="BorderBrush">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlBackgroundAccentBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="BorderThickness">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="4" />
                                         </ObjectAnimationUsingKeyFrames>
-                                    </Storyboard>
+                                    </Storyboard>-->
                                 </VisualState>
                                 <VisualState x:Name="Unchecked" />
                                 <VisualState x:Name="Indeterminate" />
