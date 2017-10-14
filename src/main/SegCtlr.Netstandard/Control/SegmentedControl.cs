@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
 using Xamarin.Forms;
 using Plugin.SegmentedControl.Netstandard.Event;
 
@@ -34,6 +33,14 @@ namespace Plugin.SegmentedControl.Netstandard.Control
         {
             get => (int)GetValue(SelectedSegmentProperty);
             set => SetValue(SelectedSegmentProperty, value);
+        }
+
+        public static readonly BindableProperty FontSizeProperty = BindableProperty.Create("FontSize", typeof(double), typeof(SegmentedControl), 12);
+
+        public double FontSize
+        {
+            get => (double) GetValue(FontSizeProperty);
+            set => SetValue(FontSizeProperty, value);
         }
 
         public SegmentedControl()
