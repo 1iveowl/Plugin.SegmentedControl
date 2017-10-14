@@ -116,8 +116,9 @@ namespace Plugin.SegmentedControl.iOS
             }
         }
 
-        public new static void Init()
+        public static void Initialize()
         {
+
         }
     }
 }

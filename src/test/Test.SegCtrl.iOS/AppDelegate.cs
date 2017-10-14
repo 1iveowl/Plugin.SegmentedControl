@@ -25,7 +25,7 @@ namespace Test.SegmentedControl.iOS
         {
             global::Xamarin.Forms.Forms.Init();
 
-            SegmentedControlRenderer.Init();
+            SegmentedControlRenderer.Initialize();
 
             LoadApplication(new App());
 
