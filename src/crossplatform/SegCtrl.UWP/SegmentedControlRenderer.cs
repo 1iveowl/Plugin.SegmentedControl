@@ -92,7 +92,14 @@ namespace Plugin.SegmentedControl.UWP
 
         private void CreateSegmentedRadioButtonControl()
         {
-            _segmentedUserControl = new SegmentedUserControl();
+            _segmentedUserControl = new SegmentedUserControl
+            {
+                Resources =
+                {
+                    ["SelectedTextColor"] = (SolidColorBrush) _converter.Convert(Element.SelectedTextColor, null, null, "")
+                }
+            };
+
 
             var grid = _segmentedUserControl.Body;
 
@@ -116,12 +123,12 @@ namespace Plugin.SegmentedControl.UWP
                 if (child.value.IsEnabled)
                 {
                     segmentButton.Background = (SolidColorBrush)_converter.Convert(Element.TintColor, null, null, "");
-                    segmentButton.Foreground = (SolidColorBrush)_converter.Convert(Element.SelectedTextColor, null, null, "");
+                    //segmentButton.Foreground = (SolidColorBrush)_converter.Convert(Element.SelectedTextColor, null, null, "");
                 }
                 else
                 {
                     segmentButton.Background = new SolidColorBrush(Colors.Transparent);
-                    segmentButton.Foreground = (SolidColorBrush)_converter.Convert(Element.TintColor, null, null, "");
+                    //segmentButton.Foreground = (SolidColorBrush)_converter.Convert(Element.TintColor, null, null, "");
                 }
 
                 segmentButton.Checked += SegmentRadioButtonOnChecked;
