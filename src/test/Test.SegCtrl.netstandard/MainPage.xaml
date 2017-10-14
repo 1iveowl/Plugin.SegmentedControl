@@ -13,7 +13,8 @@
                                           SelectedSegment="{Binding SelectedSegment}" 
                                           SegmentSelected="SegmentedControl_OnValueChanged" 
                                           TintColor="BlueViolet"
-                                          SelectedTextColor="Red">
+                                          SelectedTextColor="White"
+                                          BackgroundColor="Black">
                     <control:SegmentedControl.Children>
                         <control:SegmentedControlOption Text="Item 1" IsEnabled="False"/>
                         <control:SegmentedControlOption Text="Item 2" IsEnabled="False"/>

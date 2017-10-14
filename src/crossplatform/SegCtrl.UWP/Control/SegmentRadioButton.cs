@@ -25,5 +25,10 @@ namespace Plugin.SegmentedControl.UWP.Control
             get => (SolidColorBrush) GetValue(TintColorProperty);
             set => SetValue(TintColorProperty, value);
         }
+
+        public SegmentRadioButton()
+        {
+            
+        }
     }
 }

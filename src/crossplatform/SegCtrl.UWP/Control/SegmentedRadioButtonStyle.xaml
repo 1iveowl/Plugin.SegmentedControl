@@ -4,18 +4,18 @@
     xmlns:control="using:Plugin.SegmentedControl.UWP.Control">
 
     <Style TargetType="control:SegmentRadioButton" x:Key="SegmentedRadioButtonStyle">
-        <Setter Property="Background" Value="{ThemeResource ButtonBackground}" />
+        <!--<Setter Property="Background" Value="{ThemeResource ButtonBackground}" />-->
         <Setter Property="SelectedTextColor" Value="{ThemeResource ButtonForeground}"></Setter>
         <Setter Property="TintColor" Value="{ThemeResource ButtonBackground}"></Setter>
-        <Setter Property="Foreground" Value="{ThemeResource ButtonForeground}" />
-        <Setter Property="BorderBrush" Value="Transparent" />
+        <!--<Setter Property="Foreground" Value="{ThemeResource ButtonForeground}" />-->
+        <Setter Property="BorderBrush" Value="{ThemeResource ButtonBackground}" />
         <Setter Property="BorderThickness" Value="{ThemeResource ButtonBorderThemeThickness}" />
         <Setter Property="Padding" Value="8,4,8,4" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
+        <!--<Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />-->
         <Setter Property="FontWeight" Value="Normal" />
-        <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}" />
+        <!--<Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}" />-->
         <Setter Property="UseSystemFocusVisuals" Value="True" />
         <Setter Property="FocusVisualMargin" Value="-3" />
         <Setter Property="Template">
@@ -28,7 +28,8 @@
                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                             AutomationProperties.AccessibilityView="Raw"
-     
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
                             Content="{TemplateBinding Content}"
                             ContentTemplate="{TemplateBinding ContentTemplate}"
                             ContentTransitions="{TemplateBinding ContentTransitions}" />
@@ -96,6 +97,9 @@
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding SelectedTextColor, RelativeSource={RelativeSource TemplatedParent}}" />
                                         </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding TintColor, RelativeSource={RelativeSource TemplatedParent}}" />
+                                        </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Unchecked">
@@ -109,6 +113,9 @@
 
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding Foreground, RelativeSource={RelativeSource TemplatedParent}}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}" />
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
