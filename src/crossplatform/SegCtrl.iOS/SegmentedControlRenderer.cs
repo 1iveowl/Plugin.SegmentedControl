@@ -36,12 +36,12 @@ namespace Plugin.SegmentedControl.iOS
 
             if (e.OldElement != null)
             {
-                if (_nativeControl != null) _nativeControl.ValueChanged -= NativeControl_ValueChanged;
+                if (_nativeControl != null) _nativeControl.ValueChanged -= NativeControl_SelectionChanged;
             }
 
             if (e.NewElement != null)
             {
-                if (_nativeControl != null) _nativeControl.ValueChanged += NativeControl_ValueChanged;
+                if (_nativeControl != null) _nativeControl.ValueChanged += NativeControl_SelectionChanged;
             }
         }
 
@@ -92,7 +92,7 @@ namespace Plugin.SegmentedControl.iOS
             _nativeControl.SetTitleTextAttributes(attr, UIControlState.Selected);
         }
 
-        private void NativeControl_ValueChanged(object sender, EventArgs e)
+        private void NativeControl_SelectionChanged(object sender, EventArgs e)
         {
             Element.SelectedSegment = (int)_nativeControl.SelectedSegment;
         }
@@ -101,19 +101,12 @@ namespace Plugin.SegmentedControl.iOS
         {
             if (_nativeControl != null)
             {
-                _nativeControl.ValueChanged -= NativeControl_ValueChanged;
+                _nativeControl.ValueChanged -= NativeControl_SelectionChanged;
                 _nativeControl.Dispose();
                 _nativeControl = null;
             }
 
-            try
-            {
-                base.Dispose(disposing);
-            }
-            catch (Exception ex)
-            {
-                return;
-            }
+            base.Dispose(disposing);
         }
 
         public static void Initialize()

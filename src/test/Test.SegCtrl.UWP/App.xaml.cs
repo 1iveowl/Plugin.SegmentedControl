@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Plugin.SegmentedControl.UWP;
 
 namespace Test.SegmentedControl.UWP
 {
@@ -39,6 +40,7 @@ namespace Test.SegmentedControl.UWP
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            SegmentedControlRenderer.Initialize();
 
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)

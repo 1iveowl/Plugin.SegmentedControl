@@ -1,48 +1,64 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Plugin.SegmentedControl.Netstandard.Control;
 using Plugin.SegmentedControl.UWP;
-using Xamarin.Forms;
 using Xamarin.Forms.Platform.UWP;
-using ColumnDefinition = Windows.UI.Xaml.Controls.ColumnDefinition;
+using Xamarin.Forms.Xaml;
 using Grid = Windows.UI.Xaml.Controls.Grid;
-using GridLength = Xamarin.Forms.GridLength;
-using GridUnitType = Xamarin.Forms.GridUnitType;
-using TextAlignment = Xamarin.Forms.TextAlignment;
 
 [assembly: ExportRenderer(typeof(SegmentedControl), typeof(SegmentedControlRenderer))]
 namespace Plugin.SegmentedControl.UWP
 {
-    public class SegmentedControlRenderer : ViewRenderer<Netstandard.Control.SegmentedControl, Grid>
+    public class SegmentedControlRenderer : ViewRenderer<Netstandard.Control.SegmentedControl, Plugin.SegmentedControl.UWP.Control.SegmentedControl>
     {
-        private readonly IList<SegmentedControlOption> _segmentList;
-
-        private Grid _grid;
-        
+        //private readonly IList<SegmentedControlOption> _segmentList;
+        //private readonly ObservableCollection<SegmentedControlOption> _segmentCollection;
+        private Plugin.SegmentedControl.UWP.Control.SegmentedControl _segmentedControl;
 
         public SegmentedControlRenderer()
         {
-            var segmentCollection = new ObservableCollection<SegmentedControlOption>();
+            //_segmentCollection = new ObservableCollection<SegmentedControlOption>();
+            //_segmentCollection.CollectionChanged += OnSegmentCollectionChanged;
+            //_segmentList = _segmentCollection;
+        }
 
-            segmentCollection.CollectionChanged += (s, e) =>
+        //private void OnSegmentCollectionChanged(object s, NotifyCollectionChangedEventArgs e)
+        //{
+        //    RebuildButtons();
+        //}
+
+        protected override void OnElementChanged(ElementChangedEventArgs<Netstandard.Control.SegmentedControl> e)
+        {
+            base.OnElementChanged(e);
+
+            if (_segmentedControl == null)
             {
-                RebuildButtons();
-            };
+                _segmentedControl = new Plugin.SegmentedControl.UWP.Control.SegmentedControl();
+            }
 
-            _segmentList = segmentCollection;
+            if (e.NewElement != null)
+            {
+                
+            }
 
-
+            if (e.OldElement != null)
+            {
+                
+            }
+            
+            //_segmentList.Add(Element.Children[0]);
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
 
-            _segmentList.Add(Element.Children[0]);
+            
 
             //RebuildButtons();
 
@@ -52,23 +68,46 @@ namespace Plugin.SegmentedControl.UWP
             //}
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (_segmentedControl != null)
+            {
+                //_segmentCollection.CollectionChanged -= OnSegmentCollectionChanged;
+            }
+
+            base.Dispose(disposing);
+        }
+
+        private void CreateSegmentedRadioButtonControl()
+        {
+            _segmentedControl = new Grid();
+
+            foreach (var child in Element.Children)
+            {
+                var radioButton = new RadioButton
+                {
+                    Style = (Style) Application.Current.Resources[""],
+
+                };
+            }
+        }
+
         private void RebuildButtons()
         {
             //this.ColumnDefinitions.Clear();
             this.Children.Clear();
 
-            _grid = new Grid();
-            _grid.Children.Clear();
-            _grid.ColumnDefinitions.Clear();
+            _segmentedControl.Children.Clear();
+            _segmentedControl.ColumnDefinitions.Clear();
 
             var label = new TextBlock
             {
-                Text = _segmentList[0].Text,
+                //Text = _segmentList[0].Text,
             };
 
-            _grid.Children.Add(label);
+            _segmentedControl.Children.Add(label);
 
-            SetNativeControl(_grid);
+            SetNativeControl(_segmentedControl);
 
             //for (var i = 0; i < _segmentList.Count; i++)
             //{
@@ -156,6 +195,22 @@ namespace Plugin.SegmentedControl.UWP
         //        label.TextColor = OnColor;
         //    }
         //}
+        public static void Initialize()
+        {
+            //var resDir = Application.Current.Resources.MergedDictionaries.FirstOrDefault();
+            //var mergedDir = Application.Current.Resources.MergedDictionaries.FirstOrDefault(d => d.Source.AbsoluteUri == "ms-ressouce:///Files/Style/SegmentedRadioButtonStyle.xaml");
+            
+
+            //var ctrl = new Control.SegmentedControl();
+
+            //var radioButton = new RadioButton
+            //{
+            //    Style = (Style)ctrl.Resources["SegmentedRadioButton"],
+
+            //};
+
+            //var t = "";
+        }
 
     }
 }
