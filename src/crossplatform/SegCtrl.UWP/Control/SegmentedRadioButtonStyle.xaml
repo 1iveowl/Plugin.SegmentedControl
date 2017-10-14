@@ -37,7 +37,7 @@
                                         <PointerUpThemeAnimation Storyboard.TargetName="RootGrid" />
                                     </Storyboard>
                                 </VisualState>
-                                <VisualState x:Name="PointerOver">
+                                <!--<VisualState x:Name="PointerOver">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RootGrid" Storyboard.TargetProperty="Background">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonBackgroundPointerOver}" />
@@ -64,7 +64,7 @@
                                         </ObjectAnimationUsingKeyFrames>
                                         <PointerDownThemeAnimation Storyboard.TargetName="RootGrid" />
                                     </Storyboard>
-                                </VisualState>
+                                </VisualState>-->
                                 <VisualState x:Name="Disabled">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RootGrid" Storyboard.TargetProperty="Background">

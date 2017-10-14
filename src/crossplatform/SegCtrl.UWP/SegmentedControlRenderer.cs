@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -61,6 +62,10 @@ namespace Plugin.SegmentedControl.UWP
         {
             base.OnElementPropertyChanged(sender, e);
 
+            if (e.PropertyName != "IsEnabled")
+            {
+                var t = e.PropertyName;
+            }
             
 
             //RebuildButtons();
@@ -92,14 +97,17 @@ namespace Plugin.SegmentedControl.UWP
 
             foreach (var child in Element.Children.Select((value, i) => new {i, value}))
             {
-                var radioButton = new RadioButton()
+                var radioButton = new SegmentRadioButton()
                 {
                     Style = (Style)_segmentedUserControl.Resources["SegmentedRadioButton"],
                     Content = child.value.Text,
                     Tag = child.value.Text,
                     HorizontalAlignment = HorizontalAlignment.Stretch,
-                    VerticalAlignment = VerticalAlignment.Stretch
+                    VerticalAlignment = VerticalAlignment.Stretch,
+                    IsChecked = child.value.IsEnabled
                 };
+
+                radioButton.Checked += SegmentRadioButtonOnChecked;
                 
                 grid.ColumnDefinitions.Add(new ColumnDefinition
                 {
@@ -111,9 +119,19 @@ namespace Plugin.SegmentedControl.UWP
                 grid.Children.Add(radioButton);
             }
 
-            ((RadioButton) grid.Children[0]).IsChecked = true;
+            
 
             SetNativeControl(_segmentedUserControl);
+        }
+
+        private void SegmentRadioButtonOnChecked(object sender, RoutedEventArgs e)
+        {
+            var button = (SegmentRadioButton) sender;
+
+            if (button != null)
+            {
+                Debug.WriteLine($"Segment pressed: {button.Tag}");
+            }
         }
 
         private void RebuildButtons()

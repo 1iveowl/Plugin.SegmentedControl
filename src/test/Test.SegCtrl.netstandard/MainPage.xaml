@@ -11,10 +11,10 @@
             <StackLayout Margin="24, 24, 24, 24">
                 <control:SegmentedControl x:Name="SegmentedControl" SelectedSegment="{Binding SelectedSegment}" SegmentSelected="SegmentedControl_OnValueChanged" TintColor="BlueViolet">
                     <control:SegmentedControl.Children>
-                        <control:SegmentedControlOption Text="Item 1"/>
-                        <control:SegmentedControlOption Text="Item 2" />
-                        <control:SegmentedControlOption Text="Item 3" />
-                        <control:SegmentedControlOption Text="Item 4" />
+                        <control:SegmentedControlOption Text="Item 1" IsEnabled="False"/>
+                        <control:SegmentedControlOption Text="Item 2" IsEnabled="False"/>
+                        <control:SegmentedControlOption Text="Item 3" IsEnabled="True"/>
+                        <control:SegmentedControlOption Text="Item 4" IsEnabled="False"/>
                     </control:SegmentedControl.Children>
                 </control:SegmentedControl>
             </StackLayout>
