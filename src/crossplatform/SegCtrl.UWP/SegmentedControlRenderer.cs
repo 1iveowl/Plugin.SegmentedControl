@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -7,6 +8,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Plugin.SegmentedControl.Netstandard.Control;
 using Plugin.SegmentedControl.UWP;
+using Plugin.SegmentedControl.UWP.Control;
 using Xamarin.Forms.Platform.UWP;
 using Xamarin.Forms.Xaml;
 using Grid = Windows.UI.Xaml.Controls.Grid;
@@ -14,11 +16,11 @@ using Grid = Windows.UI.Xaml.Controls.Grid;
 [assembly: ExportRenderer(typeof(SegmentedControl), typeof(SegmentedControlRenderer))]
 namespace Plugin.SegmentedControl.UWP
 {
-    public class SegmentedControlRenderer : ViewRenderer<Netstandard.Control.SegmentedControl, Plugin.SegmentedControl.UWP.Control.SegmentedControl>
+    public class SegmentedControlRenderer : ViewRenderer<Netstandard.Control.SegmentedControl, Control.SegmentedUserControl>
     {
         //private readonly IList<SegmentedControlOption> _segmentList;
         //private readonly ObservableCollection<SegmentedControlOption> _segmentCollection;
-        private Plugin.SegmentedControl.UWP.Control.SegmentedControl _segmentedControl;
+        private SegmentedUserControl _segmentedUserControl;
 
         public SegmentedControlRenderer()
         {
@@ -36,9 +38,10 @@ namespace Plugin.SegmentedControl.UWP
         {
             base.OnElementChanged(e);
 
-            if (_segmentedControl == null)
+            if (_segmentedUserControl == null)
             {
-                _segmentedControl = new Plugin.SegmentedControl.UWP.Control.SegmentedControl();
+                CreateSegmentedRadioButtonControl();
+                
             }
 
             if (e.NewElement != null)
@@ -70,7 +73,7 @@ namespace Plugin.SegmentedControl.UWP
 
         protected override void Dispose(bool disposing)
         {
-            if (_segmentedControl != null)
+            if (_segmentedUserControl != null)
             {
                 //_segmentCollection.CollectionChanged -= OnSegmentCollectionChanged;
             }
@@ -80,34 +83,55 @@ namespace Plugin.SegmentedControl.UWP
 
         private void CreateSegmentedRadioButtonControl()
         {
-            _segmentedControl = new Grid();
+            _segmentedUserControl = new SegmentedUserControl();
 
-            foreach (var child in Element.Children)
+            var grid = _segmentedUserControl.Body;
+
+            grid.ColumnDefinitions.Clear();
+            grid.Children.Clear();
+
+            foreach (var child in Element.Children.Select((value, i) => new {i, value}))
             {
-                var radioButton = new RadioButton
+                var radioButton = new RadioButton()
                 {
-                    Style = (Style) Application.Current.Resources[""],
-
+                    Style = (Style)_segmentedUserControl.Resources["SegmentedRadioButton"],
+                    Content = child.value.Text,
+                    Tag = child.value.Text,
+                    HorizontalAlignment = HorizontalAlignment.Stretch,
+                    VerticalAlignment = VerticalAlignment.Stretch
                 };
+                
+                grid.ColumnDefinitions.Add(new ColumnDefinition
+                {
+                    Width = new GridLength(1, GridUnitType.Star),
+                });
+
+                radioButton.SetValue(Grid.ColumnProperty, child.i);
+
+                grid.Children.Add(radioButton);
             }
+
+            ((RadioButton) grid.Children[0]).IsChecked = true;
+
+            SetNativeControl(_segmentedUserControl);
         }
 
         private void RebuildButtons()
         {
-            //this.ColumnDefinitions.Clear();
-            this.Children.Clear();
+            ////this.ColumnDefinitions.Clear();
+            //this.Children.Clear();
 
-            _segmentedControl.Children.Clear();
-            _segmentedControl.ColumnDefinitions.Clear();
+            //_segmentedControl.Children.Clear();
+            //_segmentedControl.ColumnDefinitions.Clear();
 
-            var label = new TextBlock
-            {
-                //Text = _segmentList[0].Text,
-            };
+            //var label = new TextBlock
+            //{
+            //    //Text = _segmentList[0].Text,
+            //};
 
-            _segmentedControl.Children.Add(label);
+            //_segmentedControl.Children.Add(label);
 
-            SetNativeControl(_segmentedControl);
+            //SetNativeControl(_segmentedControl);
 
             //for (var i = 0; i < _segmentList.Count; i++)
             //{

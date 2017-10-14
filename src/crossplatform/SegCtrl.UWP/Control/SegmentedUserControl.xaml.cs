@@ -17,9 +17,10 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Plugin.SegmentedControl.UWP.Control
 {
-    public sealed partial class SegmentedControl : UserControl
+    public sealed partial class SegmentedUserControl : UserControl
     {
-        public SegmentedControl()
+        public Grid Body => mainGrid;
+        public SegmentedUserControl()
         {
             this.InitializeComponent();
         }
