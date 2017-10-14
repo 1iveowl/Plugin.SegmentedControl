@@ -14,7 +14,7 @@
                                           SegmentSelected="SegmentedControl_OnValueChanged" 
                                           TintColor="BlueViolet"
                                           SelectedTextColor="White"
-                                          BackgroundColor="Black">
+                                          BackgroundColor="Transparent">
                     <control:SegmentedControl.Children>
                         <control:SegmentedControlOption Text="Item 1" IsEnabled="False"/>
                         <control:SegmentedControlOption Text="Item 2" IsEnabled="False"/>
@@ -23,7 +23,6 @@
                     </control:SegmentedControl.Children>
                 </control:SegmentedControl>
             </StackLayout>
-
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

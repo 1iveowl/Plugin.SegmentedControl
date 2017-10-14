@@ -5,11 +5,11 @@
 
     <Style TargetType="control:SegmentRadioButton" x:Key="SegmentedRadioButtonStyle">
         <!--<Setter Property="Background" Value="{ThemeResource ButtonBackground}" />-->
-        <Setter Property="SelectedTextColor" Value="{ThemeResource ButtonForeground}"></Setter>
-        <Setter Property="TintColor" Value="{ThemeResource ButtonBackground}"></Setter>
+        <!--<Setter Property="SelectedTextColor" Value="{ThemeResource ButtonForeground}"></Setter>
+        <Setter Property="TintColor" Value="{ThemeResource ButtonBackground}"></Setter>-->
         <!--<Setter Property="Foreground" Value="{ThemeResource ButtonForeground}" />-->
-        <Setter Property="BorderBrush" Value="{ThemeResource ButtonBackground}" />
-        <Setter Property="BorderThickness" Value="{ThemeResource ButtonBorderThemeThickness}" />
+        <!--<Setter Property="BorderBrush" Value="{ThemeResource ButtonBackground}" />-->
+        <!--<Setter Property="BorderThickness" Value="{ThemeResource ButtonBorderThemeThickness}" />-->
         <Setter Property="Padding" Value="8,4,8,4" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="VerticalAlignment" Value="Center" />
@@ -85,15 +85,6 @@
                             <VisualStateGroup x:Name="CheckStates">
                                 <VisualState x:Name="Checked">
                                     <Storyboard>
-                                        <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="BorderBrush">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlBackgroundAccentBrush}" />
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="BorderThickness">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="4" />
-                                        </ObjectAnimationUsingKeyFrames>
-                                        {Binding MyProperty, RelativeSource={RelativeSource TemplatedParent}}
-                                        -->
-
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding SelectedTextColor, RelativeSource={RelativeSource TemplatedParent}}" />
                                         </ObjectAnimationUsingKeyFrames>
@@ -104,13 +95,6 @@
                                 </VisualState>
                                 <VisualState x:Name="Unchecked">
                                     <Storyboard>
-                                        <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="BorderBrush">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlBackgroundAccentBrush}" />
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="BorderThickness">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="4" />
-                                        </ObjectAnimationUsingKeyFrames>-->
-
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding Foreground, RelativeSource={RelativeSource TemplatedParent}}" />
                                         </ObjectAnimationUsingKeyFrames>
