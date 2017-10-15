@@ -1,5 +1,6 @@
 ﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
 
 namespace Plugin.SegmentedControl.UWP.Control
@@ -26,6 +27,15 @@ namespace Plugin.SegmentedControl.UWP.Control
             set => SetValue(TintColorProperty, value);
         }
 
+        public static readonly DependencyProperty DisabledColorProperty = DependencyProperty.Register(
+            "DisabledColor", typeof(SolidColorBrush), typeof(SegmentRadioButton), new PropertyMetadata(default(SolidColorBrush), new PropertyChangedCallback(OnDisabledColorChanged)));
+
+        public SolidColorBrush DisabledColor
+        {
+            get => (SolidColorBrush) GetValue(DisabledColorProperty);
+            set => SetValue(DisabledColorProperty, value);
+        }
+
         public SegmentRadioButton()
         {
             
@@ -43,6 +53,15 @@ namespace Plugin.SegmentedControl.UWP.Control
                     segment.IsChecked = false;
                     segment.IsChecked = true;
                 }
+            }
+        }
+
+        private static void OnDisabledColorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is SegmentRadioButton segment)
+            {
+                segment.BorderBrush = (SolidColorBrush)e.NewValue;
+                segment.TintColor = (SolidColorBrush)e.NewValue;
             }
         }
 

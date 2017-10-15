@@ -29,17 +29,16 @@ namespace Plugin.SegmentedControl.UWP
             if (_segmentedUserControl == null)
             {
                 CreateSegmentedRadioButtonControl();
-                
-            }
-
-            if (e.NewElement != null)
-            {
-                
             }
 
             if (e.OldElement != null)
             {
-                
+                DisposeEventHandlers();
+            }
+
+            if (e.NewElement != null)
+            {
+                CreateSegmentedRadioButtonControl();
             }
         }
 
@@ -58,11 +57,32 @@ namespace Plugin.SegmentedControl.UWP
             switch (e.PropertyName)
             {
                 case "TintColor":
-                    SetTintColor();
+                    _segmentedUserControl.SegmentedControlGrid.BorderBrush = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, "");
+
+                    foreach (var segment in _segmentedUserControl.SegmentedControlGrid.Children)
+                    {
+                        ((SegmentRadioButton)segment).TintColor = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, "");
+                    }
                     break;
                 case "IsEnabled":
-                    SetTintColor();
+                    if (Element.IsEnabled)
+                    {
+                        _segmentedUserControl.SegmentedControlGrid.BorderBrush = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, "");
+                    }
+                    else
+                    {
+                        _segmentedUserControl.SegmentedControlGrid.BorderBrush = (SolidColorBrush)_colorConverter.Convert(Element.DisabledColor, null, null, "");
+                    }
                     break;
+                case "DisabledColor":
+                    _segmentedUserControl.SegmentedControlGrid.BorderBrush = (SolidColorBrush)_colorConverter.Convert(Element.DisabledColor, null, null, "");
+
+                    foreach (var segment in _segmentedUserControl.SegmentedControlGrid.Children)
+                    {
+                        ((SegmentRadioButton)segment).DisabledColor = (SolidColorBrush)_colorConverter.Convert(Element.DisabledColor, null, null, "");
+                    }
+                    break;
+                    
                 case "SelectedTextColor":
                     SetSelectedTextColor();
                     break;
@@ -71,25 +91,38 @@ namespace Plugin.SegmentedControl.UWP
             }
         }
 
-        private void SetTintColor()
-        {
-            if (Element.IsEnabled)
-            {
-                _segmentedUserControl.SegmentedControlGrid.BorderBrush = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, "");
-                foreach (var segment in _segmentedUserControl.SegmentedControlGrid.Children)
-                {
-                    ((SegmentRadioButton)segment).TintColor = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, "");
-                }
-            }
-            else
-            {
-                _segmentedUserControl.SegmentedControlGrid.BorderBrush = new SolidColorBrush(Windows.UI.Colors.Gray);
-                foreach (var segment in _segmentedUserControl.SegmentedControlGrid.Children)
-                {
-                    ((SegmentRadioButton)segment).TintColor = new SolidColorBrush(Windows.UI.Colors.Gray);
-                }
-            }
-        }
+        //private void SetTintColor()
+        //{
+        //    if (Element.IsEnabled)
+        //    {
+        //        _segmentedUserControl.SegmentedControlGrid.BorderBrush = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, "");
+
+        //        foreach (var segment in _segmentedUserControl.SegmentedControlGrid.Children)
+        //        {
+        //            ((SegmentRadioButton)segment).TintColor = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, "");
+        //        }
+        //    }
+        //    else
+        //    {
+        //        _segmentedUserControl.SegmentedControlGrid.BorderBrush = new SolidColorBrush(Windows.UI.Colors.Gray);
+        //        foreach (var segment in _segmentedUserControl.SegmentedControlGrid.Children)
+        //        {
+        //            ((SegmentRadioButton)segment).TintColor = new SolidColorBrush(Windows.UI.Colors.Gray);
+        //        }
+        //    }
+        //}
+
+        //private void SetTintColor(SegmentRadioButton segment)
+        //{
+        //    if (Element.IsEnabled)
+        //    {
+        //        segment.TintColor = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, "");
+        //    }
+        //    else
+        //    {
+        //        segment.TintColor = (SolidColorBrush)_colorConverter.Convert(Element.DisabledColor, null, null, "");
+        //    }
+        //}
 
         private void SetSelectedTextColor()
         {
@@ -121,12 +154,17 @@ namespace Plugin.SegmentedControl.UWP
                     BorderBrush = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, ""),
                     SelectedTextColor = (SolidColorBrush)_colorConverter.Convert(Element.SelectedTextColor, null, null, ""),
                     TintColor = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, ""),
-                    BorderThickness = child.i > 0 ? new Thickness(1, 0, 0, 0) : new Thickness(0, 0, 0, 0)
+                    DisabledColor = (SolidColorBrush)_colorConverter.Convert(Element.DisabledColor, null, null, ""),
+                    BorderThickness = child.i > 0 ? new Thickness(1, 0, 0, 0) : new Thickness(0, 0, 0, 0),
+                    IsEnabled = Element.IsEnabled
                 };
 
                 segmentButton.Checked += SegmentRadioButtonOnChecked;
 
-                segmentButton.IsChecked = child.value.IsEnabled;
+                if (child.i == Element.SelectedSegment)
+                {
+                    segmentButton.IsChecked = true;
+                }
                 
                 grid.ColumnDefinitions.Add(new ColumnDefinition
                 {
@@ -154,15 +192,20 @@ namespace Plugin.SegmentedControl.UWP
 
         protected override void Dispose(bool disposing)
         {
+            DisposeEventHandlers();
+
+            base.Dispose(disposing);
+        }
+
+        private void DisposeEventHandlers()
+        {
             if (_segmentedUserControl != null)
             {
                 foreach (var segment in _segmentedUserControl.SegmentedControlGrid.Children)
                 {
-                    ((SegmentRadioButton) segment).Checked -= SegmentRadioButtonOnChecked;
+                    ((SegmentRadioButton)segment).Checked -= SegmentRadioButtonOnChecked;
                 }
             }
-
-            base.Dispose(disposing);
         }
     }
 }

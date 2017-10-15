@@ -27,6 +27,15 @@ namespace Plugin.SegmentedControl.Netstandard.Control
             set => SetValue(SelectedTextColorProperty, value);
         }
 
+        public static readonly BindableProperty DisabledColorProperty = BindableProperty.Create("DisabledColor", typeof(Color), typeof(SegmentedControl), Color.Gray);
+
+        public Color DisabledColor
+        {
+            get => (Color)GetValue(DisabledColorProperty);
+            set => SetValue(DisabledColorProperty, value);
+        }
+
+
         public static readonly BindableProperty SelectedSegmentProperty = BindableProperty.Create("SelectedSegment", typeof(int), typeof(SegmentedControl), 0);
 
         public int SelectedSegment
@@ -35,14 +44,22 @@ namespace Plugin.SegmentedControl.Netstandard.Control
             set => SetValue(SelectedSegmentProperty, value);
         }
 
-        //TODO Implement across platforms
-        public static readonly BindableProperty FontSizeProperty = BindableProperty.Create("FontSize", typeof(double), typeof(SegmentedControl), (double)12);
 
-        public double FontSize
-        {
-            get => (double)GetValue(FontSizeProperty);
-            set => SetValue(FontSizeProperty, value);
-        }
+        //public static readonly BindableProperty FontSizeProperty = BindableProperty.Create("FontSize", typeof(double), typeof(SegmentedControl), Device.GetNamedSize(NamedSize.Medium, typeof(Label)));
+
+        //public double FontSize
+        //{
+        //    get => (double)GetValue(FontSizeProperty);
+        //    set => SetValue(FontSizeProperty, value);
+        //}
+
+        //public static readonly BindableProperty FontWeigthProperty = BindableProperty.Create("FontAttributes", typeof(FontAttributes), typeof(SegmentedControl), default(FontAttributes));
+
+        //public FontAttributes FontAttributes
+        //{
+        //    get => (FontAttributes)GetValue(FontWeigthProperty);
+        //    set => SetValue(FontWeigthProperty, value);
+        //}
 
         public SegmentedControl()
         {

@@ -10,6 +10,9 @@ namespace Test.SegmentedControl
 {
     public partial class MainPage : ContentPage
     {
+
+        public int SegmentSelection => 2;
+
         public MainPage()
         {
             InitializeComponent();
@@ -33,6 +36,11 @@ namespace Test.SegmentedControl
         private void ButtonSelectedTextColor_OnClicked(object sender, EventArgs e)
         {
             SegmentedControl.SelectedTextColor = Color.Red;
+        }
+
+        private void Disable_OnClicked(object sender, EventArgs e)
+        {
+            SegmentedControl.DisabledColor = Color.Gray;
         }
     }
 }

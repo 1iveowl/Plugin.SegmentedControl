@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Plugin.SegmentedControl.iOS;
 using Plugin.SegmentedControl.Netstandard.Control;
 using UIKit;
@@ -20,9 +21,9 @@ namespace Plugin.SegmentedControl.iOS
             {
                 _nativeControl = new UISegmentedControl();
 
-                for (var i = 0; i < Element.Children.Count; i++)
+                foreach (var child in Element.Children.Select((value, i) => new {value, i}))
                 {
-                    _nativeControl.InsertSegment(Element.Children[i].Text, i, false);
+                    _nativeControl.InsertSegment(Element.Children[child.i].Text, child.i, false);
                 }
 
                 _nativeControl.Enabled = Element.IsEnabled;
@@ -76,7 +77,6 @@ namespace Plugin.SegmentedControl.iOS
                 default:
                     break;
             }
-
         }
 
         private void SetSelectedTextColor()
