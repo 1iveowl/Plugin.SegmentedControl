@@ -40,7 +40,19 @@ namespace Test.SegmentedControl
 
         private void Disable_OnClicked(object sender, EventArgs e)
         {
-            SegmentedControl.DisabledColor = Color.Gray;
+            SegmentedControl.IsEnabled = false;
+
+        }
+
+        private void Enable_OnClicked(object sender, EventArgs e)
+        {
+            SegmentedControl.IsEnabled = true;
+
+        }
+
+        private void ChangeDisabledColor_OnClicked(object sender, EventArgs e)
+        {
+            SegmentedControl.DisabledColor = Color.Brown;
         }
     }
 }

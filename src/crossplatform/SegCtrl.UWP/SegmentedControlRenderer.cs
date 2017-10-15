@@ -67,10 +67,18 @@ namespace Plugin.SegmentedControl.UWP
                 case "IsEnabled":
                     if (Element.IsEnabled)
                     {
+                        foreach (var segment in _segmentedUserControl.SegmentedControlGrid.Children)
+                        {
+                            ((SegmentRadioButton)segment).IsEnabled = true;
+                        }
                         _segmentedUserControl.SegmentedControlGrid.BorderBrush = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, "");
                     }
                     else
                     {
+                        foreach (var segment in _segmentedUserControl.SegmentedControlGrid.Children)
+                        {
+                            ((SegmentRadioButton)segment).IsEnabled = false;
+                        }
                         _segmentedUserControl.SegmentedControlGrid.BorderBrush = (SolidColorBrush)_colorConverter.Convert(Element.DisabledColor, null, null, "");
                     }
                     break;

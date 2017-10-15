@@ -60,8 +60,12 @@ namespace Plugin.SegmentedControl.UWP.Control
         {
             if (d is SegmentRadioButton segment)
             {
-                segment.BorderBrush = (SolidColorBrush)e.NewValue;
-                segment.TintColor = (SolidColorBrush)e.NewValue;
+                if (segment.IsChecked ?? false)
+                {
+                    // Hack to make the selected segment re-draw.
+                    segment.IsChecked = false;
+                    segment.IsChecked = true;
+                }
             }
         }
 

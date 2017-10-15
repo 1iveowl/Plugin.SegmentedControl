@@ -28,6 +28,8 @@
                 <Button Text="Tint Color Change Button" Clicked="ButtonTintColor_OnClicked"></Button>
                 <Button Text="Selected Text Change Button" Clicked="ButtonSelectedTextColor_OnClicked"></Button>
                 <Button Text="Disable Segment Control" Clicked="Disable_OnClicked"></Button>
+                <Button Text="Enable Segment Control" Clicked="Enable_OnClicked"></Button>
+                <Button Text="Change Disabled Color" Clicked="ChangeDisabledColor_OnClicked"></Button>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>
