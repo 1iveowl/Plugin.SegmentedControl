@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq;
 using Plugin.Segmented.Control;
-using Plugin.SegmentedControl.iOS;
+using Plugin.Segmented.Control.iOS;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
 [assembly: ExportRenderer(typeof(SegmentedControl), typeof(SegmentedControlRenderer))]
-namespace Plugin.SegmentedControl.iOS
+namespace Plugin.Segmented.Control.iOS
 {
     public class SegmentedControlRenderer : ViewRenderer<Segmented.Control.SegmentedControl, UISegmentedControl>
     {

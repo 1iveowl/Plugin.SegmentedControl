@@ -3,13 +3,14 @@ using Android.Graphics.Drawables;
 using Android.Views;
 using Android.Widget;
 using Plugin.Segmented.Control;
-using SegCtrl.Droid;
+using Plugin.Segmented.Control.Droid;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using Resource = Android.Resource;
 
 [assembly: ExportRenderer(typeof(SegmentedControl), typeof(SegmentedControlRenderer))]
 
-namespace SegCtrl.Droid
+namespace Plugin.Segmented.Control.Droid
 {
     public class SegmentedControlRenderer : ViewRenderer<SegmentedControl, RadioGroup>
     {

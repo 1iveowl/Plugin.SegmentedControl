@@ -4,15 +4,15 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Plugin.Segmented.Control;
-using Plugin.SegmentedControl.UWP;
-using Plugin.SegmentedControl.UWP.Control;
+using Plugin.Segmented.Control.UWP;
 using Xamarin.Forms.Platform.UWP;
 using Grid = Windows.UI.Xaml.Controls.Grid;
+using SegmentedUserControl = Plugin.Segmented.Control.UWP.SegmentedUserControl;
 
 [assembly: ExportRenderer(typeof(SegmentedControl), typeof(SegmentedControlRenderer))]
-namespace Plugin.SegmentedControl.UWP
+namespace Plugin.Segmented.Control.UWP
 {
-    public class SegmentedControlRenderer : ViewRenderer<Segmented.Control.SegmentedControl, Control.SegmentedUserControl>
+    public class SegmentedControlRenderer : ViewRenderer<Segmented.Control.SegmentedControl, SegmentedUserControl>
     {
         private SegmentedUserControl _segmentedUserControl;
 

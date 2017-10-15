@@ -1,8 +1,8 @@
 ﻿<UserControl
-    x:Class="Plugin.SegmentedControl.UWP.Control.SegmentedUserControl"
+    x:Class="Plugin.Segmented.Control.UWP.SegmentedUserControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Plugin.SegmentedControl.UWP.Control"
+    xmlns:local="using:Plugin.Segmented.Control.UWP"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -15,12 +15,4 @@
     <Grid x:Name="mainGrid" BorderThickness="2,2,2,2" CornerRadius="6">
         
     </Grid>
-
-    <!--<RadioButton Style="{StaticResource SegmentedRadioButton}" 
-                 VerticalAlignment="Stretch" 
-                 HorizontalAlignment="Stretch"
-                 Content="Items"
-                 GroupName="SegmentedRadioControls">
-
-    </RadioButton>-->
 </UserControl>

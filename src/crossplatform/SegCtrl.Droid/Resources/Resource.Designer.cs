@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("SegCtrl.Droid.Resource", IsApplication=false)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("Plugin.Segmented.Control.Droid.Resource", IsApplication=false)]
 
-namespace SegCtrl.Droid
+namespace Plugin.Segmented.Control.Droid
 {
 	
 	

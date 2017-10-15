@@ -1,5 +1,5 @@
 ﻿using Foundation;
-using Plugin.SegmentedControl.iOS;
+using Plugin.Segmented.Control.iOS;
 using Test.SegmentedControl;
 using UIKit;
 

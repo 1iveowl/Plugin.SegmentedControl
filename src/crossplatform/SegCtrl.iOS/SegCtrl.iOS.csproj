@@ -9,9 +9,9 @@
     <ProjectGuid>{39CD5D35-D98E-49A2-868B-89E7B64D25DE}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
-    <RootNamespace>Plugin.SegmentedControl.iOS</RootNamespace>
+    <RootNamespace>Plugin.Segmented.Control.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>Plugin.SegmentedControl.iOS</AssemblyName>
+    <AssemblyName>Plugin.Segmented.Control.iOS</AssemblyName>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>

@@ -7,8 +7,8 @@
     <ProjectGuid>{2848D7D8-3C18-4DF0-8638-CBCCC36A325B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Plugin.SegmentedControl.UWP</RootNamespace>
-    <AssemblyName>Plugin.SegmentedControl.UWP</AssemblyName>
+    <RootNamespace>Plugin.Segmented.Control.UWP</RootNamespace>
+    <AssemblyName>Plugin.Segmented.Control.UWP</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.16299.0</TargetPlatformVersion>
@@ -106,10 +106,10 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Control\SegmentedUserControl.xaml.cs">
+    <Compile Include="SegmentedUserControl.xaml.cs">
       <DependentUpon>SegmentedUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Control\SegmentRadioButton.cs" />
+    <Compile Include="SegmentRadioButton.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SegmentedControlRenderer.cs" />
     <EmbeddedResource Include="Properties\SegCtrl.UWP.rd.xml" />
@@ -129,17 +129,19 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Control\SegmentedUserControl.xaml">
+    <Page Include="SegmentedUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Control\SegmentedRadioButtonStyle.xaml">
+    <Page Include="SegmentedRadioButtonStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Control\" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
