@@ -55,8 +55,8 @@
   </metadata>
   <files>
 
-    <!--.NET Standard 1.4 --><!--
-    <file src="..\crossplatform\Plugin.Hockeyapp.Xamarin.Forms.netstandard1.4\bin\Release\netstandard1.4\Plugin.Hockeyapp.Xamarin.Forms.*" target="lib\netstandard1.4"/>-->
+    <!--.NET Standard 1.4--> 
+    <file src="..\main\SegCtlr.Netstandard\bin\Release\netstandard1.4\Plugin.SegmentedControl.*" target="lib\netstandard1.4"/>
     
     <!--Xamarin.Android-->
     <file src="..\crossplatform\SegCtrl.Droid\bin\Release\Plugin.SegmentedControl.*" target="lib\MonoAndroid10"/>
@@ -67,5 +67,6 @@
     <!--UWP-->
     <file src="..\crossplatform\SegCtrl.UWP\bin\Release\Plugin.SegmentedControl.*" target="lib\uap10.0" />
     <file src="..\crossplatform\SegCtrl.UWP\bin\Release\Control\*.xbf" target="lib\uap10.0\Control" />
+    
   </files>
 </package>
