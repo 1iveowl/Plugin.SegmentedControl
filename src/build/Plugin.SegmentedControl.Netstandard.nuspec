@@ -65,7 +65,7 @@
     <file src="..\crossplatform\SegCtrl.iOS\bin\Release\Plugin.Segmented.*" target="lib\Xamarin.iOS10"/>
 
     <!--UWP-->
-    <file src="..\crossplatform\SegCtrl.UWP\bin\Release\Plugin.Segmented.*" target="lib\uap10.0" exclude="*.xml"/>
+    <file src="..\crossplatform\SegCtrl.UWP\bin\Release\Plugin.Segmented.*" target="lib\uap10.0" exclude="**\*.xr.xml"/>
     <file src="..\crossplatform\SegCtrl.UWP\bin\Release\*.xbf" target="lib\uap10.0\" />
     <file src="..\crossplatform\SegCtrl.UWP\bin\Release\Plugin.Segmented.Control.UWP.xr.xml" target="lib\uap10.0\Plugin.Segmented.Control.UWP" />
     

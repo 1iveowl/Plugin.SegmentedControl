@@ -6,7 +6,6 @@ using Plugin.Segmented.Control;
 using Plugin.Segmented.Control.Droid;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using Resource = Android.Resource;
 
 [assembly: ExportRenderer(typeof(SegmentedControl), typeof(SegmentedControlRenderer))]
 
@@ -233,7 +232,7 @@ namespace Plugin.Segmented.Control.Droid
             {
                 base.Dispose(disposing);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return;
             }
