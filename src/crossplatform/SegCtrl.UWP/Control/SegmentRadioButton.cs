@@ -55,6 +55,7 @@ namespace Plugin.SegmentedControl.UWP.Control
                     else
                     {
                         VisualStateManager.GoToState(this, "Checked", false);
+  
                         segment.IsChecked = false;
                         segment.IsChecked = true;
                     }
@@ -82,11 +83,12 @@ namespace Plugin.SegmentedControl.UWP.Control
         {
             if (d is SegmentRadioButton segment)
             {
+                segment.DisabledColor = (SolidColorBrush) e.NewValue;
+
                 if (segment.IsChecked ?? false)
                 {
-                    // Hack to make the selected segment re-draw.
-                    segment.IsChecked = false;
-                    segment.IsChecked = true;
+                    //segment.IsChecked = false;
+                    //segment.IsChecked = true;
                 }
             }
         }

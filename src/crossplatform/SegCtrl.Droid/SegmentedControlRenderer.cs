@@ -169,7 +169,7 @@ namespace SegCtrl.Droid
             }
             else
             {
-                var textColor = Element.IsEnabled ? Element.TintColor.ToAndroid() : Color.Gray.ToAndroid();
+                var textColor = Element.IsEnabled ? Element.TintColor.ToAndroid() : Element.DisabledColor.ToAndroid();
                 v.SetTextColor(textColor);
             }
 
@@ -186,7 +186,7 @@ namespace SegCtrl.Droid
                 ? drawable1 
                 : (GradientDrawable)((InsetDrawable)children[1]).Drawable;
 
-            var color = Element.IsEnabled ? Element.TintColor.ToAndroid() : Color.Gray.ToAndroid();
+            var color = Element.IsEnabled ? Element.TintColor.ToAndroid() : Element.DisabledColor.ToAndroid();
 
             selectedShape.SetStroke(3, color);
             selectedShape.SetColor(color);
@@ -206,7 +206,7 @@ namespace SegCtrl.Droid
 
                 var v = (RadioButton)rg.GetChildAt(radioId);
 
-                var color = Element.IsEnabled ? Element.TintColor.ToAndroid() : Color.Gray.ToAndroid();
+                var color = Element.IsEnabled ? Element.TintColor.ToAndroid() : Element.DisabledColor.ToAndroid();
                 _v?.SetTextColor(color);
                 v.SetTextColor(Element.SelectedTextColor.ToAndroid());
                 _v = v;

@@ -27,7 +27,7 @@ namespace Plugin.SegmentedControl.iOS
                 }
 
                 _nativeControl.Enabled = Element.IsEnabled;
-                _nativeControl.TintColor = Element.IsEnabled ? Element.TintColor.ToUIColor() : Color.Gray.ToUIColor();
+                _nativeControl.TintColor = Element.IsEnabled ? Element.TintColor.ToUIColor() : Element.DisabledColor.ToUIColor();
                 SetSelectedTextColor();
 
                 _nativeControl.SelectedSegment = Element.SelectedSegment;
@@ -65,11 +65,11 @@ namespace Plugin.SegmentedControl.iOS
                     Element.RaiseSelectionChanged();
                     break;
                 case "TintColor":
-                    _nativeControl.TintColor = Element.IsEnabled ? Element.TintColor.ToUIColor() : Color.Gray.ToUIColor();
+                    _nativeControl.TintColor = Element.IsEnabled ? Element.TintColor.ToUIColor() : Element.DisabledColor.ToUIColor();
                     break;
                 case "IsEnabled":
                     _nativeControl.Enabled = Element.IsEnabled;
-                    _nativeControl.TintColor = Element.IsEnabled ? Element.TintColor.ToUIColor() : Color.Gray.ToUIColor();
+                    _nativeControl.TintColor = Element.IsEnabled ? Element.TintColor.ToUIColor() : Element.DisabledColor.ToUIColor();
                     break;
                 case "SelectedTextColor":
                     SetSelectedTextColor();
