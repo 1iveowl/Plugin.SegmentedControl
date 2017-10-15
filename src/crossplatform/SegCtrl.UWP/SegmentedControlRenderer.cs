@@ -3,7 +3,7 @@ using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
-using Plugin.SegmentedControl.Netstandard.Control;
+using Plugin.Segmented.Control;
 using Plugin.SegmentedControl.UWP;
 using Plugin.SegmentedControl.UWP.Control;
 using Xamarin.Forms.Platform.UWP;
@@ -12,7 +12,7 @@ using Grid = Windows.UI.Xaml.Controls.Grid;
 [assembly: ExportRenderer(typeof(SegmentedControl), typeof(SegmentedControlRenderer))]
 namespace Plugin.SegmentedControl.UWP
 {
-    public class SegmentedControlRenderer : ViewRenderer<Netstandard.Control.SegmentedControl, Control.SegmentedUserControl>
+    public class SegmentedControlRenderer : ViewRenderer<Segmented.Control.SegmentedControl, Control.SegmentedUserControl>
     {
         private SegmentedUserControl _segmentedUserControl;
 
@@ -22,7 +22,7 @@ namespace Plugin.SegmentedControl.UWP
         {
         }
 
-        protected override void OnElementChanged(ElementChangedEventArgs<Netstandard.Control.SegmentedControl> e)
+        protected override void OnElementChanged(ElementChangedEventArgs<Segmented.Control.SegmentedControl> e)
         {
             base.OnElementChanged(e);
 

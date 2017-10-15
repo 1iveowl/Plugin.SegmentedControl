@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Plugin.SegmentedControl.Netstandard.Event;
+using Plugin.Segmented.Event;
 using Xamarin.Forms;
 
 namespace Test.SegmentedControl

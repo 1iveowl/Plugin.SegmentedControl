@@ -2,7 +2,7 @@
 using Android.Graphics.Drawables;
 using Android.Views;
 using Android.Widget;
-using Plugin.SegmentedControl.Netstandard.Control;
+using Plugin.Segmented.Control;
 using SegCtrl.Droid;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
-namespace Plugin.SegmentedControl.Netstandard.Control
+namespace Plugin.Segmented.Control
 {
     public class SegmentedControlOption : View
     {

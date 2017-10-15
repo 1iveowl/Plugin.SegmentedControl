@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
+using Plugin.Segmented.Control;
 using Plugin.SegmentedControl.iOS;
-using Plugin.SegmentedControl.Netstandard.Control;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
@@ -9,11 +9,11 @@ using Xamarin.Forms.Platform.iOS;
 [assembly: ExportRenderer(typeof(SegmentedControl), typeof(SegmentedControlRenderer))]
 namespace Plugin.SegmentedControl.iOS
 {
-    public class SegmentedControlRenderer : ViewRenderer<Netstandard.Control.SegmentedControl, UISegmentedControl>
+    public class SegmentedControlRenderer : ViewRenderer<Segmented.Control.SegmentedControl, UISegmentedControl>
     {
         private UISegmentedControl _nativeControl;
 
-        protected override void OnElementChanged(ElementChangedEventArgs<Netstandard.Control.SegmentedControl> e)
+        protected override void OnElementChanged(ElementChangedEventArgs<Segmented.Control.SegmentedControl> e)
         {
             base.OnElementChanged(e);
 

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Plugin.Segmented.Event;
 using Xamarin.Forms;
-using Plugin.SegmentedControl.Netstandard.Event;
 
-namespace Plugin.SegmentedControl.Netstandard.Control
+namespace Plugin.Segmented.Control
 {
     public class SegmentedControl : View, IViewContainer<SegmentedControlOption>
     {

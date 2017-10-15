@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.4</TargetFramework>
-    <AssemblyName>Plugin.SegmentedControl.Netstandard</AssemblyName>
-    <RootNamespace>Plugin.SegmentedControl.Netstandard</RootNamespace>
+    <AssemblyName>Plugin.Segmented</AssemblyName>
+    <RootNamespace>Plugin.Segmented</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

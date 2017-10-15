@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Plugin.SegmentedControl.Netstandard.Event
+namespace Plugin.Segmented.Event
 {
     public class SegmentSelectEventArgs : EventArgs
     {
