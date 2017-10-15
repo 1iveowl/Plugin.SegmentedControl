@@ -11,7 +11,7 @@
             <StackLayout Margin="24, 24, 24, 24" x:Name="SegmentWithStack">
                 <control:SegmentedControl x:Name="SegmentedControl" 
                                           SelectedSegment="{Binding SelectedSegment}" 
-                                          SegmentSelected="SegmentedControl_OnValueChanged" 
+                                          OnSegmentSelected="SegmentedControl_OnValueChanged" 
                                           TintColor="BlueViolet"
                                           SelectedTextColor="White"
                                           BackgroundColor="Transparent">

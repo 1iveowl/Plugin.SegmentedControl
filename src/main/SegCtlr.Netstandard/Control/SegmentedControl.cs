@@ -8,7 +8,7 @@ namespace Plugin.SegmentedControl.Netstandard.Control
 {
     public class SegmentedControl : View, IViewContainer<SegmentedControlOption>
     {
-        public event EventHandler<SegmentSelectEventArgs> SegmentSelected;
+        public event EventHandler<SegmentSelectEventArgs> OnSegmentSelected;
         public IList<SegmentedControlOption> Children { get; set; }
 
         public static readonly BindableProperty TintColorProperty = BindableProperty.Create("TintColor", typeof(Color), typeof(SegmentedControl), Color.Blue);
@@ -53,7 +53,7 @@ namespace Plugin.SegmentedControl.Netstandard.Control
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void RaiseSelectionChanged()
         {
-            SegmentSelected?.Invoke(this, new SegmentSelectEventArgs { NewValue = this.SelectedSegment });
+            OnSegmentSelected?.Invoke(this, new SegmentSelectEventArgs { NewValue = this.SelectedSegment });
         }
     }
 }
