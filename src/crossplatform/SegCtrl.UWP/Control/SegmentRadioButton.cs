@@ -39,7 +39,27 @@ namespace Plugin.SegmentedControl.UWP.Control
 
         public SegmentRadioButton()
         {
-            
+            this.IsEnabledChanged += SegmentRadioButton_IsEnabledChanged;
+        }
+
+        private void SegmentRadioButton_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (sender is SegmentRadioButton segment)
+            {
+                if (segment.IsChecked ?? false)
+                {
+                    if (!segment.IsEnabled)
+                    {
+                        VisualStateManager.GoToState(this, "DisabledAndChecked", false);
+                    }
+                    else
+                    {
+                        VisualStateManager.GoToState(this, "Checked", false);
+                        segment.IsChecked = false;
+                        segment.IsChecked = true;
+                    }
+                }
+            }
         }
 
         private static void OnTintChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

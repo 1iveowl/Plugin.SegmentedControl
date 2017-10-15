@@ -71,13 +71,6 @@ namespace Plugin.SegmentedControl.UWP
                         {
                             var segment = (SegmentRadioButton) uiElement;
                             segment.IsEnabled = true;
-
-                            if (segment.IsChecked ?? false)
-                            {
-                                segment.Background = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, "");
-                                segment.TintColor = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, "");
-                            }
-                            
                         }
                         _segmentedUserControl.SegmentedControlGrid.BorderBrush = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, "");
                     }
@@ -87,13 +80,6 @@ namespace Plugin.SegmentedControl.UWP
                         {
                             var segment = (SegmentRadioButton)uiElement;
                             segment.IsEnabled = false;
-
-                            if (segment.IsChecked ?? false)
-                            {
-                                segment.Background = (SolidColorBrush)_colorConverter.Convert(Element.DisabledColor, null, null, "");
-                                segment.TintColor = (SolidColorBrush)_colorConverter.Convert(Element.DisabledColor, null, null, "");
-
-                            }
                         }
                         _segmentedUserControl.SegmentedControlGrid.BorderBrush = (SolidColorBrush)_colorConverter.Convert(Element.DisabledColor, null, null, "");
                     }
@@ -112,39 +98,6 @@ namespace Plugin.SegmentedControl.UWP
                     break;
             }
         }
-
-        //private void SetTintColor()
-        //{
-        //    if (Element.IsEnabled)
-        //    {
-        //        _segmentedUserControl.SegmentedControlGrid.BorderBrush = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, "");
-
-        //        foreach (var segment in _segmentedUserControl.SegmentedControlGrid.Children)
-        //        {
-        //            ((SegmentRadioButton)segment).TintColor = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, "");
-        //        }
-        //    }
-        //    else
-        //    {
-        //        _segmentedUserControl.SegmentedControlGrid.BorderBrush = new SolidColorBrush(Windows.UI.Colors.Gray);
-        //        foreach (var segment in _segmentedUserControl.SegmentedControlGrid.Children)
-        //        {
-        //            ((SegmentRadioButton)segment).TintColor = new SolidColorBrush(Windows.UI.Colors.Gray);
-        //        }
-        //    }
-        //}
-
-        //private void SetTintColor(SegmentRadioButton segment)
-        //{
-        //    if (Element.IsEnabled)
-        //    {
-        //        segment.TintColor = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, "");
-        //    }
-        //    else
-        //    {
-        //        segment.TintColor = (SolidColorBrush)_colorConverter.Convert(Element.DisabledColor, null, null, "");
-        //    }
-        //}
 
         private void SetSelectedTextColor()
         {
