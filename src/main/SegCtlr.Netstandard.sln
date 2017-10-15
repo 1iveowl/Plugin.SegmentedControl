@@ -26,8 +26,18 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.SegCtrl.netstandard", "..\test\Test.SegCtrl.netstandard\Test.SegCtrl.netstandard.csproj", "{085D550D-9E27-474F-A79E-4578224F8664}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{33251B03-DF66-4CA2-B24F-BD267184F4C4}"
+	ProjectSection(SolutionItems) = preProject
+		..\build\build.ps1 = ..\build\build.ps1
+		..\build\Plugin.SegmentedControl.Netstandard.nuspec = ..\build\Plugin.SegmentedControl.Netstandard.nuspec
+		..\build\publish.ps1 = ..\build\publish.ps1
+		..\build\publishLocal.ps1 = ..\build\publishLocal.ps1
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GitHub", "GitHub", "{788B4700-4995-4AD9-A3C9-0E637AD760DC}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\.gitignore = ..\..\.gitignore
+		..\..\README.md = ..\..\README.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Main", "Main", "{A61994BD-A497-4FA5-B00C-EAC91FDFD0C5}"
 EndProject
