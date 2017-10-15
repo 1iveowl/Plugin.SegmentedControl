@@ -67,24 +67,38 @@ namespace Plugin.SegmentedControl.UWP
                 case "IsEnabled":
                     if (Element.IsEnabled)
                     {
-                        foreach (var segment in _segmentedUserControl.SegmentedControlGrid.Children)
+                        foreach (var uiElement in _segmentedUserControl.SegmentedControlGrid.Children)
                         {
-                            ((SegmentRadioButton)segment).IsEnabled = true;
+                            var segment = (SegmentRadioButton) uiElement;
+                            segment.IsEnabled = true;
+
+                            if (segment.IsChecked ?? false)
+                            {
+                                segment.Background = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, "");
+                                segment.TintColor = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, "");
+                            }
+                            
                         }
                         _segmentedUserControl.SegmentedControlGrid.BorderBrush = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, "");
                     }
                     else
                     {
-                        foreach (var segment in _segmentedUserControl.SegmentedControlGrid.Children)
+                        foreach (var uiElement in _segmentedUserControl.SegmentedControlGrid.Children)
                         {
-                            ((SegmentRadioButton)segment).IsEnabled = false;
+                            var segment = (SegmentRadioButton)uiElement;
+                            segment.IsEnabled = false;
+
+                            if (segment.IsChecked ?? false)
+                            {
+                                segment.Background = (SolidColorBrush)_colorConverter.Convert(Element.DisabledColor, null, null, "");
+                                segment.TintColor = (SolidColorBrush)_colorConverter.Convert(Element.DisabledColor, null, null, "");
+
+                            }
                         }
                         _segmentedUserControl.SegmentedControlGrid.BorderBrush = (SolidColorBrush)_colorConverter.Convert(Element.DisabledColor, null, null, "");
                     }
                     break;
                 case "DisabledColor":
-                    _segmentedUserControl.SegmentedControlGrid.BorderBrush = (SolidColorBrush)_colorConverter.Convert(Element.DisabledColor, null, null, "");
-
                     foreach (var segment in _segmentedUserControl.SegmentedControlGrid.Children)
                     {
                         ((SegmentRadioButton)segment).DisabledColor = (SolidColorBrush)_colorConverter.Convert(Element.DisabledColor, null, null, "");

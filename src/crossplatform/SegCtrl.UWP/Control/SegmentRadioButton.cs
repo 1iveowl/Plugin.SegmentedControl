@@ -36,6 +36,7 @@ namespace Plugin.SegmentedControl.UWP.Control
             set => SetValue(DisabledColorProperty, value);
         }
 
+
         public SegmentRadioButton()
         {
             
@@ -55,6 +56,7 @@ namespace Plugin.SegmentedControl.UWP.Control
                 }
             }
         }
+
 
         private static void OnDisabledColorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -81,6 +83,5 @@ namespace Plugin.SegmentedControl.UWP.Control
                 }
             }
         }
-
     }
 }
