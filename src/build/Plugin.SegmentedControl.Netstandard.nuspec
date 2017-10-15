@@ -66,7 +66,7 @@
 
     <!--UWP-->
     <file src="..\crossplatform\SegCtrl.UWP\bin\Release\Plugin.Segmented.*" target="lib\uap10.0" />
-    <file src="..\crossplatform\SegCtrl.UWP\bin\Release\Control\*.xbf" target="lib\uap10.0\Control" />
+    <file src="..\crossplatform\SegCtrl.UWP\bin\Release\*.xbf" target="lib\uap10.0" />
     
   </files>
 </package>
