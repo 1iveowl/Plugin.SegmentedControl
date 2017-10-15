@@ -89,11 +89,9 @@
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding SelectedTextColor, RelativeSource={RelativeSource TemplatedParent}}" />
-                                            <!--<DiscreteObjectKeyFrame KeyTime="0" Value="{TemplateBinding SelectedTextColor}" />-->
                                         </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Background">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding TintColor, RelativeSource={RelativeSource TemplatedParent}}" />
-                                            <!--<DiscreteObjectKeyFrame KeyTime="0" Value="{TemplateBinding TintColor}" />-->
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>

@@ -16,7 +16,7 @@ namespace Plugin.SegmentedControl.UWP
     {
         private SegmentedUserControl _segmentedUserControl;
 
-        private readonly ColorConverter _converter = new ColorConverter();
+        private readonly ColorConverter _colorConverter = new ColorConverter();
 
         public SegmentedControlRenderer()
         {
@@ -75,10 +75,10 @@ namespace Plugin.SegmentedControl.UWP
         {
             if (Element.IsEnabled)
             {
-                _segmentedUserControl.SegmentedControlGrid.BorderBrush = (SolidColorBrush)_converter.Convert(Element.TintColor, null, null, "");
+                _segmentedUserControl.SegmentedControlGrid.BorderBrush = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, "");
                 foreach (var segment in _segmentedUserControl.SegmentedControlGrid.Children)
                 {
-                    ((SegmentRadioButton)segment).TintColor = (SolidColorBrush)_converter.Convert(Element.TintColor, null, null, "");
+                    ((SegmentRadioButton)segment).TintColor = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, "");
                 }
             }
             else
@@ -95,7 +95,7 @@ namespace Plugin.SegmentedControl.UWP
         {
             foreach (var segment in _segmentedUserControl.SegmentedControlGrid.Children)
             {
-                ((SegmentRadioButton)segment).SelectedTextColor = (SolidColorBrush)_converter.Convert(Element.SelectedTextColor, null, null, "");
+                ((SegmentRadioButton)segment).SelectedTextColor = (SolidColorBrush)_colorConverter.Convert(Element.SelectedTextColor, null, null, "");
             }
         }
 
@@ -104,7 +104,7 @@ namespace Plugin.SegmentedControl.UWP
             _segmentedUserControl = new SegmentedUserControl();
 
             var grid = _segmentedUserControl.SegmentedControlGrid;
-            grid.BorderBrush = (SolidColorBrush) _converter.Convert(Element.TintColor, null, null, "");
+            grid.BorderBrush = (SolidColorBrush) _colorConverter.Convert(Element.TintColor, null, null, "");
 
             grid.ColumnDefinitions.Clear();
             grid.Children.Clear();
@@ -118,9 +118,9 @@ namespace Plugin.SegmentedControl.UWP
                     Tag = child.i,
                     HorizontalAlignment = HorizontalAlignment.Stretch,
                     VerticalAlignment = VerticalAlignment.Stretch,
-                    BorderBrush = (SolidColorBrush)_converter.Convert(Element.TintColor, null, null, ""),
-                    SelectedTextColor = (SolidColorBrush)_converter.Convert(Element.SelectedTextColor, null, null, ""),
-                    TintColor = (SolidColorBrush)_converter.Convert(Element.TintColor, null, null, ""),
+                    BorderBrush = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, ""),
+                    SelectedTextColor = (SolidColorBrush)_colorConverter.Convert(Element.SelectedTextColor, null, null, ""),
+                    TintColor = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, ""),
                     BorderThickness = child.i > 0 ? new Thickness(1, 0, 0, 0) : new Thickness(0, 0, 0, 0)
                 };
 
