@@ -36,11 +36,11 @@ namespace Plugin.SegmentedControl.Netstandard.Control
         }
 
         //TODO Implement across platforms
-        public static readonly BindableProperty FontSizeProperty = BindableProperty.Create("FontSize", typeof(double), typeof(SegmentedControl), 12);
+        public static readonly BindableProperty FontSizeProperty = BindableProperty.Create("FontSize", typeof(double), typeof(SegmentedControl), (double)12);
 
         public double FontSize
         {
-            get => (double) GetValue(FontSizeProperty);
+            get => (double)GetValue(FontSizeProperty);
             set => SetValue(FontSizeProperty, value);
         }
 

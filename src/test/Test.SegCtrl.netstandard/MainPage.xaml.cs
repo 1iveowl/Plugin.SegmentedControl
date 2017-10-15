@@ -17,8 +17,22 @@ namespace Test.SegmentedControl
 
         private void SegmentedControl_OnValueChanged(object sender, SegmentSelectEventArgs e)
         {
-
+            ChoiceLabel.Text = SegmentedControl.SelectedSegment.ToString();
         }
 
+        private void Button_OnClicked(object sender, EventArgs e)
+        {
+            SegmentWithStack.Children.Remove(SegmentedControl);
+        }
+
+        private void ButtonTintColor_OnClicked(object sender, EventArgs e)
+        {
+            SegmentedControl.TintColor = Color.Aqua;
+        }
+
+        private void ButtonSelectedTextColor_OnClicked(object sender, EventArgs e)
+        {
+            SegmentedControl.SelectedTextColor = Color.Red;
+        }
     }
 }

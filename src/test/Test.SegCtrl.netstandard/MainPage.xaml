@@ -8,7 +8,7 @@
         <StackLayout BackgroundColor="White">
             <Label Text="Welcome to Xamarin.Forms!"
                 HorizontalOptions="CenterAndExpand" />
-            <StackLayout Margin="24, 24, 24, 24">
+            <StackLayout Margin="24, 24, 24, 24" x:Name="SegmentWithStack">
                 <control:SegmentedControl x:Name="SegmentedControl" 
                                           SelectedSegment="{Binding SelectedSegment}" 
                                           SegmentSelected="SegmentedControl_OnValueChanged" 
@@ -22,6 +22,10 @@
                         <control:SegmentedControlOption Text="Item 4" IsEnabled="False"/>
                     </control:SegmentedControl.Children>
                 </control:SegmentedControl>
+                <Label x:Name="ChoiceLabel" Text="Start"></Label>
+                <Button Text="Remove" Clicked="Button_OnClicked"></Button>
+                <Button Text="Tint Color Change Button" Clicked="ButtonTintColor_OnClicked"></Button>
+                <Button Text="Selected Text Change Button" Clicked="ButtonSelectedTextColor_OnClicked"></Button>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

@@ -49,36 +49,29 @@ namespace Plugin.SegmentedControl.iOS
         {
             base.OnElementPropertyChanged(sender, e);
 
+            if (e.PropertyName == "Renderer")
+            {
+                Element?.RaiseSelectionChanged();
+                return;
+            }
+
+            if (_nativeControl == null || Element == null) return;
+
             switch (e.PropertyName)
             {
-                case "Renderer":
-                    Element?.RaiseSelectionChanged();
-                    break;
                 case "SelectedSegment":
-                    if (_nativeControl != null && Element != null)
-                    {
-                        _nativeControl.SelectedSegment = Element.SelectedSegment;
-                        Element.RaiseSelectionChanged();
-                    }
+                    _nativeControl.SelectedSegment = Element.SelectedSegment;
+                    Element.RaiseSelectionChanged();
                     break;
                 case "TintColor":
-                    if (_nativeControl != null && Element != null)
-                    {
-                        _nativeControl.TintColor = Element.IsEnabled ? Element.TintColor.ToUIColor() : Color.Gray.ToUIColor();
-                    }
+                    _nativeControl.TintColor = Element.IsEnabled ? Element.TintColor.ToUIColor() : Color.Gray.ToUIColor();
                     break;
                 case "IsEnabled":
-                    if (_nativeControl != null && Element != null)
-                    {
-                        _nativeControl.Enabled = Element.IsEnabled;
-                        _nativeControl.TintColor = Element.IsEnabled ? Element.TintColor.ToUIColor() : Color.Gray.ToUIColor();
-                    }
+                    _nativeControl.Enabled = Element.IsEnabled;
+                    _nativeControl.TintColor = Element.IsEnabled ? Element.TintColor.ToUIColor() : Color.Gray.ToUIColor();
                     break;
                 case "SelectedTextColor":
-                    if (_nativeControl != null && Element != null)
-                    {
-                        SetSelectedTextColor();
-                    }
+                    SetSelectedTextColor();
                     break;
                 default:
                     break;

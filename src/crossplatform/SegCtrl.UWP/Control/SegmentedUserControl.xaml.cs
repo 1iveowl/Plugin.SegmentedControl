@@ -19,7 +19,7 @@ namespace Plugin.SegmentedControl.UWP.Control
 {
     public sealed partial class SegmentedUserControl : UserControl
     {
-        public Grid Body => mainGrid;
+        public Grid SegmentedControlGrid => mainGrid;
         public SegmentedUserControl()
         {
             this.InitializeComponent();

@@ -173,16 +173,18 @@ namespace SegCtrl.Droid
                 v.SetTextColor(textColor);
             }
 
-            GradientDrawable selectedShape;
-            GradientDrawable unselectedShape;
-
             var gradientDrawable = (StateListDrawable)v.Background;
             var drawableContainerState = (DrawableContainer.DrawableContainerState)gradientDrawable.GetConstantState();
             var children = drawableContainerState.GetChildren();
 
             // Doesnt works on API < 18
-            selectedShape = children[0] is GradientDrawable ? (GradientDrawable)children[0] : (GradientDrawable)((InsetDrawable)children[0]).Drawable;
-            unselectedShape = children[1] is GradientDrawable ? (GradientDrawable)children[1] : (GradientDrawable)((InsetDrawable)children[1]).Drawable;
+            var selectedShape = children[0] is GradientDrawable drawable 
+                ? drawable 
+                : (GradientDrawable)((InsetDrawable)children[0]).Drawable;
+
+            var unselectedShape = children[1] is GradientDrawable drawable1 
+                ? drawable1 
+                : (GradientDrawable)((InsetDrawable)children[1]).Drawable;
 
             var color = Element.IsEnabled ? Element.TintColor.ToAndroid() : Color.Gray.ToAndroid();
 
