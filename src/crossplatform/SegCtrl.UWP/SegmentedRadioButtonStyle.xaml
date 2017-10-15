@@ -6,6 +6,7 @@
     <Style TargetType="control1:SegmentRadioButton" x:Key="SegmentedRadioButtonStyle">
         <Setter Property="UseSystemFocusVisuals" Value="True" />
         <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="Padding" Value="8,4,8,4"></Setter>
         <Setter Property="Background" Value="Transparent"></Setter>
         <Setter Property="Template">
