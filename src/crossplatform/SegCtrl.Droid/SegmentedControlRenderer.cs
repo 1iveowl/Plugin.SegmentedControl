@@ -51,7 +51,7 @@ namespace Plugin.Segmented.Control.Droid
             {
                 var layoutInflater = LayoutInflater.From(Forms.Context);
 
-                _nativeControl = (RadioGroup)layoutInflater.Inflate(Resource.Layout.RadioGroup, null);
+                _nativeControl = (RadioGroup)layoutInflater.Inflate(Plugin.Segmented.Control.Droid.Resource.Layout.RadioGroup, null);
 
                 for (var i = 0; i < Element.Children.Count; i++)
                 {
