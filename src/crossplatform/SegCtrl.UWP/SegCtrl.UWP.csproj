@@ -112,7 +112,7 @@
     <Compile Include="SegmentRadioButton.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SegmentedControlRenderer.cs" />
-    <EmbeddedResource Include="Properties\SegCtrl.UWP.rd.xml" />
+    <EmbeddedResource Include="Properties\Plugin.Segmented.Control.UWP.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
