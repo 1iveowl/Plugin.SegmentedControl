@@ -45,20 +45,7 @@ namespace Plugin.Segmented.Control.UWP
         {
             if (sender is SegmentRadioButton segment)
             {
-                if (segment.IsChecked ?? false)
-                {
-                    if (!segment.IsEnabled)
-                    {
-                        VisualStateManager.GoToState(this, "DisabledAndChecked", false);
-                    }
-                    else
-                    {
-                        VisualStateManager.GoToState(this, "Checked", false);
-  
-                        segment.IsChecked = false;
-                        segment.IsChecked = true;
-                    }
-                }
+                Refresh(segment);
             }
         }
 
@@ -67,13 +54,7 @@ namespace Plugin.Segmented.Control.UWP
             if (d is SegmentRadioButton segment)
             {
                 segment.BorderBrush = (SolidColorBrush) e.NewValue;
-
-                if (segment.IsChecked ?? false)
-                {
-                    // Hack to make the selected segment re-draw.
-                    segment.IsChecked = false;
-                    segment.IsChecked = true;
-                }
+                Refresh(segment);
             }
         }
 
@@ -82,13 +63,8 @@ namespace Plugin.Segmented.Control.UWP
         {
             if (d is SegmentRadioButton segment)
             {
-                segment.DisabledColor = (SolidColorBrush) e.NewValue;
-
-                if (segment.IsChecked ?? false)
-                {
-                    //segment.IsChecked = false;
-                    //segment.IsChecked = true;
-                }
+                segment.BorderBrush = (SolidColorBrush)e.NewValue;
+                Refresh(segment);
             }
         }
 
@@ -96,12 +72,21 @@ namespace Plugin.Segmented.Control.UWP
         {
             if (d is SegmentRadioButton segment)
             {
-                if (segment.IsChecked ?? false)
-                {
-                    // Hack to make the selected segment re-draw.
-                    segment.IsChecked = false;
-                    segment.IsChecked = true;
-                }
+                Refresh(segment);
+            }
+        }
+
+        private static void Refresh(SegmentRadioButton segment)
+        {
+            VisualStateManager.GoToState(segment, "Indeterminate", false);
+
+            if (segment.IsChecked ?? false)
+            {
+                VisualStateManager.GoToState(segment, segment.IsEnabled ? "Checked" : "DisabledAndChecked", false);
+            }
+            else
+            {
+                VisualStateManager.GoToState(segment, segment.IsEnabled ? "Unchecked" : "DisabledAndUnchecked", false);
             }
         }
     }

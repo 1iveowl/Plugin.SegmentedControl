@@ -89,6 +89,12 @@ namespace Plugin.Segmented.Control.UWP
                     {
                         ((SegmentRadioButton)segment).DisabledColor = (SolidColorBrush)_colorConverter.Convert(Element.DisabledColor, null, null, "");
                     }
+
+                    if (!Element.IsEnabled)
+                    {
+                        _segmentedUserControl.SegmentedControlGrid.BorderBrush = (SolidColorBrush)_colorConverter.Convert(Element.DisabledColor, null, null, "");
+                    }
+
                     break;
                     
                 case "SelectedTextColor":
