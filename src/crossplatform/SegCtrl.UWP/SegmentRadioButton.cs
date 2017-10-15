@@ -78,6 +78,9 @@ namespace Plugin.Segmented.Control.UWP
 
         private static void Refresh(SegmentRadioButton segment)
         {
+            // Go to "Indeterminate" State to ensure that the GotoState is refreshed even if the state is the same. 
+            // Necessary because properties might have changed even when the state have not.
+
             VisualStateManager.GoToState(segment, "Indeterminate", false);
 
             if (segment.IsChecked ?? false)
