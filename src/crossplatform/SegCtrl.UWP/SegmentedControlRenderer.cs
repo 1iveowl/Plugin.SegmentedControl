@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -48,7 +49,7 @@ namespace Plugin.Segmented.Control.UWP
 
             if (e.PropertyName == "Renderer")
             {
-                Element?.RaiseSelectionChanged();
+                //Element?.RaiseSelectionChanged();
                 return;
             }
 
@@ -117,6 +118,8 @@ namespace Plugin.Segmented.Control.UWP
         {
             _segmentedUserControl = new SegmentedUserControl();
 
+            var radioButtonGroupName = Guid.NewGuid().ToString();
+
             var grid = _segmentedUserControl.SegmentedControlGrid;
             grid.BorderBrush = (SolidColorBrush) _colorConverter.Convert(Element.TintColor, null, null, "");
 
@@ -127,6 +130,7 @@ namespace Plugin.Segmented.Control.UWP
             {
                 var segmentButton = new SegmentRadioButton()
                 {
+                    GroupName = radioButtonGroupName,
                     Style = (Style)_segmentedUserControl.Resources["SegmentedRadioButtonStyle"],
                     Content = child.value.Text,
                     Tag = child.i,
@@ -167,7 +171,7 @@ namespace Plugin.Segmented.Control.UWP
             if (button != null)
             {
                 Element.SelectedSegment = int.Parse(button.Tag.ToString());
-                Element.RaiseSelectionChanged();
+                Element?.RaiseSelectionChanged();
             }
         }
 

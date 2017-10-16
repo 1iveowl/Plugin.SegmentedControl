@@ -71,6 +71,7 @@ namespace Plugin.Segmented.Control
         public void RaiseSelectionChanged()
         {
             OnSegmentSelected?.Invoke(this, new SegmentSelectEventArgs { NewValue = this.SelectedSegment });
+
         }
     }
 }
