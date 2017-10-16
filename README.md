@@ -33,7 +33,7 @@ public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 ```
 
 ### Android & UWP
-No special needs
+No special needs.
 
 ### Xamarin Forms
 
@@ -43,7 +43,7 @@ The Xamarin Forms must use .NET Standard. I suggest using .NET Standard 1.4.
 Here is a great blog post about how to move your PCL to .NET Standard: [Building Xamarin.Forms Apps with .NET Standard](https://blog.xamarin.com/building-xamarin-forms-apps-net-standard/)
 
 #### XAML
-![Plugin Segmented Control Picture](https://github.com/1iveowl/Plugin.SegmentedControl/blob/master/src/asset/SegmentedRadioButtonControl.png "Plugin Segmented Control")
+![Plugin Segmented Control Picture](https://github.com/1iveowl/Plugin.SegmentedControl/blob/master/src/asset/SegmentedRadioButtonControl-1.png "Plugin Segmented Control")
 
 `xmlns:control="clr-namespace:Plugin.Segmented.Control;assembly=Plugin.Segmented"`
 
