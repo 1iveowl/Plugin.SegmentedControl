@@ -43,26 +43,27 @@ The Xamarin Forms must use .NET Standard. I suggest using .NET Standard 1.4.
 Here is a great blog post about how to move your PCL to .NET Standard: [Building Xamarin.Forms Apps with .NET Standard](https://blog.xamarin.com/building-xamarin-forms-apps-net-standard/)
 
 #### XAML
-To get this: ![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+![Plugin Segmented Control Picture](https://github.com/1iveowl/Plugin.SegmentedControl/blob/master/src/asset/SegmentedRadioButtonControl.png "Plugin Segmented Control")
+
+`xmlns:control="clr-namespace:Plugin.Segmented.Control;assembly=Plugin.Segmented"`
 
 ```xml
-<control1:SegmentedControl x:Name="SegmentedControl" 
+<control:SegmentedControl x:Name="SegmentedControl" 
                             SelectedSegment="{Binding SegmentSelection}" 
                             OnSegmentSelected="SegmentedControl_OnValueChanged" 
                             TintColor="BlueViolet"
                             SelectedTextColor="White"
                             DisabledColor="Gray"
                             Margin="8,8,8,8">
-    <control1:SegmentedControl.Children>
-        <control1:SegmentedControlOption Text="Item 1"/>
-        <control1:SegmentedControlOption Text="Item 2"/>
-        <control1:SegmentedControlOption Text="Item 3"/>
-        <control1:SegmentedControlOption Text="Item 4"/>
-    </control1:SegmentedControl.Children>
-</control1:SegmentedControl>
+    <control:SegmentedControl.Children>
+        <control:SegmentedControlOption Text="Item 1"/>
+        <control:SegmentedControlOption Text="Item 2"/>
+        <control:SegmentedControlOption Text="Item 3"/>
+        <control:SegmentedControlOption Text="Item 4"/>
+    </control:SegmentedControl.Children>
+</control:SegmentedControl>
 
 ```
-
 
 
 ## Credits
