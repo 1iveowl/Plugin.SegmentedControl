@@ -9,4 +9,4 @@ else {
 
 .\build.ps1 $version
 
-c:\tools\nuget\Nuget.exe push ".\NuGet\Plugin.SegmentedControl.Netstandard.$version.symbols.nupkg" -Source https://www.nuget.org
+Nuget.exe push ".\NuGet\Plugin.SegmentedControl.Netstandard.$version.symbols.nupkg" -Source https://www.nuget.org

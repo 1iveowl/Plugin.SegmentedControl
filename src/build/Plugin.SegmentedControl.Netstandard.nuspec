@@ -12,7 +12,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
       Segmented control for Xamarin Forms for iOS, Android and UWP</description>
-    <releaseNotes></releaseNotes>
+    <releaseNotes>[UWP] Fixed bug with multiple SegmentControls on same page.</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>xamarin xamarin.forms segmentedcontrol netstandard</tags>
     <dependencies>
