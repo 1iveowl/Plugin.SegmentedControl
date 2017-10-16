@@ -2,27 +2,27 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Test.SegmentedControl"
-             xmlns:control1="clr-namespace:Plugin.Segmented.Control;assembly=Plugin.Segmented"
+             xmlns:control="clr-namespace:Plugin.Segmented.Control;assembly=Plugin.Segmented"
              x:Class="Test.SegmentedControl.MainPage">
     <ContentPage.Content>
         <StackLayout BackgroundColor="White">
             <Label Text="Welcome to Xamarin.Forms!"
                 HorizontalOptions="CenterAndExpand" />
             <StackLayout Margin="24, 24, 24, 24" x:Name="SegmentWithStack">
-                <control1:SegmentedControl x:Name="SegmentedControl" 
-                                          SelectedSegment="{Binding SegmentSelection}" 
-                                          OnSegmentSelected="SegmentedControl_OnValueChanged" 
-                                          TintColor="BlueViolet"
-                                          SelectedTextColor="White"
-                                          DisabledColor="Gray"
-                                          Margin="8,8,8,8">
-                    <control1:SegmentedControl.Children>
-                        <control1:SegmentedControlOption Text="Item 1"/>
-                        <control1:SegmentedControlOption Text="Item 2"/>
-                        <control1:SegmentedControlOption Text="Item 3"/>
-                        <control1:SegmentedControlOption Text="Item 4"/>
-                    </control1:SegmentedControl.Children>
-                </control1:SegmentedControl>
+<control:SegmentedControl x:Name="SegmentedControl" 
+                            SelectedSegment="{Binding SegmentSelection}" 
+                            OnSegmentSelected="SegmentedControl_OnValueChanged" 
+                            TintColor="BlueViolet"
+                            SelectedTextColor="White"
+                            DisabledColor="Gray"
+                            Margin="8,8,8,8">
+    <control:SegmentedControl.Children>
+        <control:SegmentedControlOption Text="Item 1"/>
+        <control:SegmentedControlOption Text="Item 2"/>
+        <control:SegmentedControlOption Text="Item 3"/>
+        <control:SegmentedControlOption Text="Item 4"/>
+    </control:SegmentedControl.Children>
+</control:SegmentedControl>
                 <Label x:Name="ChoiceLabel" Text="Start"></Label>
                 <Button Text="Remove" Clicked="Button_OnClicked"></Button>
                 <Button Text="Tint Color Change Button" Clicked="ButtonTintColor_OnClicked"></Button>
