@@ -4,12 +4,12 @@
     <TargetFramework>netstandard1.4</TargetFramework>
     <AssemblyName>Plugin.Segmented</AssemblyName>
     <RootNamespace>Plugin.Segmented</RootNamespace>
-    <AssemblyVersion>1.0.3.0</AssemblyVersion>
-    <FileVersion>1.0.3.0</FileVersion>
+    <AssemblyVersion>1.0.4.0</AssemblyVersion>
+    <FileVersion>1.0.4.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="2.4.0.282" />
+    <PackageReference Include="Xamarin.Forms" Version="2.4.0.280" />
   </ItemGroup>
 
 </Project>
