@@ -49,7 +49,7 @@ namespace Plugin.Segmented.Control.UWP
 
             if (e.PropertyName == "Renderer")
             {
-                //Element?.RaiseSelectionChanged();
+                Element?.RaiseSelectionChanged();
                 return;
             }
 
@@ -57,6 +57,11 @@ namespace Plugin.Segmented.Control.UWP
 
             switch (e.PropertyName)
             {
+                case "SelectedSegment":
+                    //var btn = sender as Button;
+                    //Element.SelectedSegment = int.Parse(btn?.Tag.ToString());
+                    Element?.RaiseSelectionChanged();
+                    break;
                 case "TintColor":
                     _segmentedUserControl.SegmentedControlGrid.BorderBrush = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, "");
 
