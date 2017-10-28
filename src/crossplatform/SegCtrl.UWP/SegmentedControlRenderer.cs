@@ -58,8 +58,20 @@ namespace Plugin.Segmented.Control.UWP
             switch (e.PropertyName)
             {
                 case "SelectedSegment":
-                    //var btn = sender as Button;
-                    //Element.SelectedSegment = int.Parse(btn?.Tag.ToString());
+
+                    if (_segmentedUserControl.SegmentedControlGrid.Children
+                        .Where(x =>
+                        {
+                            var btn = (RadioButton) x;
+
+                            int.TryParse(btn.Tag.ToString(), out var i);
+                            return i == Element.SelectedSegment;
+                        })
+                        .FirstOrDefault() is RadioButton checkedButton)
+                    {
+                        checkedButton.IsChecked = true;
+                    }
+
                     Element?.RaiseSelectionChanged();
                     break;
                 case "TintColor":
