@@ -7,13 +7,12 @@ using Windows.UI.Xaml.Media;
 using Plugin.Segmented.Control;
 using Plugin.Segmented.Control.UWP;
 using Xamarin.Forms.Platform.UWP;
-using Grid = Windows.UI.Xaml.Controls.Grid;
-using SegmentedUserControl = Plugin.Segmented.Control.UWP.SegmentedUserControl;
+//using Grid = Windows.UI.Xaml.Controls.Grid;
 
 [assembly: ExportRenderer(typeof(SegmentedControl), typeof(SegmentedControlRenderer))]
 namespace Plugin.Segmented.Control.UWP
 {
-    public class SegmentedControlRenderer : ViewRenderer<Segmented.Control.SegmentedControl, SegmentedUserControl>
+    public class SegmentedControlRenderer : ViewRenderer<SegmentedControl, SegmentedUserControl>
     {
         private SegmentedUserControl _segmentedUserControl;
 
@@ -21,6 +20,7 @@ namespace Plugin.Segmented.Control.UWP
 
         public SegmentedControlRenderer()
         {
+
         }
 
         protected override void OnElementChanged(ElementChangedEventArgs<Segmented.Control.SegmentedControl> e)
@@ -145,7 +145,7 @@ namespace Plugin.Segmented.Control.UWP
 
             foreach (var child in Element.Children.Select((value, i) => new {i, value}))
             {
-                var segmentButton = new SegmentRadioButton()
+                var segmentButton = new SegmentRadioButton
                 {
                     GroupName = radioButtonGroupName,
                     Style = (Style)_segmentedUserControl.Resources["SegmentedRadioButtonStyle"],
@@ -209,5 +209,6 @@ namespace Plugin.Segmented.Control.UWP
                 }
             }
         }
+
     }
 }
