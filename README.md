@@ -32,7 +32,15 @@ public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 }
 ```
 
-### Android & UWP
+### UWP
+
+You need to add the assembly to App.xaml.cs in you project. For more details see the Xamarin documentation [here](https://developer.xamarin.com/guides/xamarin-forms/platform-features/windows/installation/universal/#Troubleshooting).
+
+```csharp
+var assembliesToInclude = new List<Assembly> {typeof(SegmentedControlRenderer).GetTypeInfo().Assembly};
+
+Xamarin.Forms.Forms.Init(e, assembliesToInclude);
+```
 No special needs.
 
 ### Xamarin Forms
