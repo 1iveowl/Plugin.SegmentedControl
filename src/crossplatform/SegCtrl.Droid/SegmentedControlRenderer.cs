@@ -1,4 +1,5 @@
 ﻿using System;
+using Android.Content;
 using Android.Graphics.Drawables;
 using Android.Views;
 using Android.Widget;
@@ -15,6 +16,7 @@ namespace Plugin.Segmented.Control.Droid
     {
         private RadioGroup _nativeControl;
         private RadioButton _v;
+
 
         protected override void OnElementChanged(ElementChangedEventArgs<SegmentedControl> e)
         {
