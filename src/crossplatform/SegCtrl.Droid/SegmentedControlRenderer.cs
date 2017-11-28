@@ -17,6 +17,12 @@ namespace Plugin.Segmented.Control.Droid
         private RadioGroup _nativeControl;
         private RadioButton _v;
 
+        private readonly Context _context;
+
+        public SegmentedControlRenderer(Context context) : base(context)
+        {
+            _context = context;
+        }
 
         protected override void OnElementChanged(ElementChangedEventArgs<SegmentedControl> e)
         {
@@ -51,7 +57,7 @@ namespace Plugin.Segmented.Control.Droid
         {
             if (Control == null && Element != null)
             {
-                var layoutInflater = LayoutInflater.From(Forms.Context);
+                var layoutInflater = LayoutInflater.From(_context);
 
                 _nativeControl = (RadioGroup)layoutInflater.Inflate(Plugin.Segmented.Control.Droid.Resource.Layout.RadioGroup, null);
 
@@ -104,7 +110,7 @@ namespace Plugin.Segmented.Control.Droid
 
                         if (Element.SelectedSegment < 0)
                         {
-                            var layoutInflater = LayoutInflater.From(Forms.Context);
+                            var layoutInflater = LayoutInflater.From(_context);
 
                             _nativeControl = (RadioGroup)layoutInflater.Inflate(Resource.Layout.RadioGroup, null);
 
