@@ -13,7 +13,8 @@
     <description>
       Segmented control for Xamarin Forms for iOS, Android and UWP</description>
     <releaseNotes>
-[Xamarin Forms] Updated to Xamarin Forms 2.5.</releaseNotes>
+      [UWP] Updated to Microsoft.NETCore.UniversalWindowsPlatform 6.0.2
+      [Xamarin Forms] Updated to Xamarin Forms 2.5.</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>xamarin xamarin.forms segmentedcontrol netstandard</tags>
     <dependencies>
@@ -44,7 +45,7 @@
 
       <group targetFramework="uap10.0">
         <dependency id="Xamarin.Forms" version="2.5.0.91635" />
-        <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="6.0.1" />
+        <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="6.0.2" />
       </group>
 
       <group targetFramework="netstandard1.4">
