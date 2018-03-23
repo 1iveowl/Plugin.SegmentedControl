@@ -16,7 +16,7 @@ There are other Segmented Control libraries out there. This library adds two imp
 |Xamarin.Android|Yes|API 18+|RadioGroup|
 |Xamarin.UWP|Yes|Win10 16299+|User Control/RadioButton|
 
-For previous versions UWP please use version 1.1.5.
+For previous versions of UWP please use version 1.1.5.
 
 ## How to used
 Using this plugin is easy. 
