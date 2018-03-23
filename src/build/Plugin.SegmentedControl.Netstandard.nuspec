@@ -13,8 +13,7 @@
     <description>
       Segmented control for Xamarin Forms for iOS, Android and UWP</description>
     <releaseNotes>
-      [UWP] Updated to Microsoft.NETCore.UniversalWindowsPlatform 6.0.8
-      [Xamarin Forms] Updated to Xamarin Forms 2.5.280555</releaseNotes>
+      [UWP] Moved to .NET Standard 2.0 and thus requires UWP 16299 or later</releaseNotes>
     <copyright>Copyright 2018</copyright>
     <tags>xamarin xamarin.forms segmentedcontrol netstandard</tags>
     <dependencies>
@@ -48,9 +47,8 @@
         <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="6.0.8" />
       </group>
 
-      <group targetFramework="netstandard1.4">
+      <group targetFramework="netstandard2.0">
         <dependency id="Xamarin.Forms" version="2.5.0.280555" />
-        <dependency id="NETStandard.Library" version="1.6.1" />
       </group>
 
     </dependencies>
@@ -58,7 +56,7 @@
   <files>
 
     <!--.NET Standard 1.4--> 
-    <file src="..\main\SegCtlr.Netstandard\bin\Release\netstandard1.4\Plugin.Segmented.*" target="lib\netstandard1.4"/>
+    <file src="..\main\SegCtlr.Netstandard\bin\Release\netstandard2.0\Plugin.Segmented.*" target="lib\netstandard2.0"/>
     
     <!--Xamarin.Android-->
     <file src="..\crossplatform\SegCtrl.Droid\bin\Release\Plugin.Segmented.*" target="lib\MonoAndroid10"/>
