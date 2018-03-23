@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.4</TargetFramework>
+    <TargetFrameworks>netStandard1.4;netstandard2.0</TargetFrameworks>
      <PackageTargetFallback Condition=" '$(TargetFramework)' == 'netstandard1.4' ">$(PackageTargetFallback);dotnet5.6;portable-net45+win8;net45</PackageTargetFallback>
      <Configurations>Debug;Release;DebugNAtive</Configurations>
 
