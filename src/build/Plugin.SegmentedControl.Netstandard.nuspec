@@ -13,7 +13,9 @@
     <description>
       Segmented control for Xamarin Forms for iOS, Android and UWP</description>
     <releaseNotes>
-      [UWP] Moved to .NET Standard 2.0 and thus requires UWP 16299 or later</releaseNotes>
+      [UWP] Moved to .NET Standard 2.0 and thus requires UWP 16299 or later
+      [Xamarin] Updated to Xamarin.Forms version 2.5.1.527436
+    </releaseNotes>
     <copyright>Copyright 2018</copyright>
     <tags>xamarin xamarin.forms segmentedcontrol netstandard</tags>
     <dependencies>
@@ -35,20 +37,20 @@
         <dependency id="Xamarin.Android.Support.v7.Palette" version="27.0.2" />
         <dependency id="Xamarin.Android.Support.v7.RecyclerView" version="27.0.2" />
         <dependency id="Xamarin.Android.Support.Vector.Drawable" version="27.0.2" />
-        <dependency id="Xamarin.Forms" version="2.5.0.280555" />
+        <dependency id="Xamarin.Forms" version="2.5.1.527436" />
       </group>
 
       <group targetFramework="Xamarin.iOS10">
-        <dependency id="Xamarin.Forms" version="2.5.0.280555" />
+        <dependency id="Xamarin.Forms" version="2.5.1.527436" />
       </group>
 
       <group targetFramework="uap10.0">
-        <dependency id="Xamarin.Forms" version="2.5.0.280555" />
+        <dependency id="Xamarin.Forms" version="2.5.1.527436" />
         <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="6.0.8" />
       </group>
 
       <group targetFramework="netstandard2.0">
-        <dependency id="Xamarin.Forms" version="2.5.0.280555" />
+        <dependency id="Xamarin.Forms" version="2.5.1.527436" />
       </group>
 
     </dependencies>
