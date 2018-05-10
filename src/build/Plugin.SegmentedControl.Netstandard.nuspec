@@ -46,7 +46,7 @@
 
       <group targetFramework="uap10.0">
         <dependency id="Xamarin.Forms" version="3.0.0.446417" />
-        <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="6.0.8" />
+        <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="6.1.4" />
       </group>
 
       <group targetFramework="netstandard2.0">

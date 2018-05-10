@@ -5,6 +5,7 @@ using Android.Views;
 using Android.Widget;
 using Plugin.Segmented.Control;
 using Plugin.Segmented.Control.Droid;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
