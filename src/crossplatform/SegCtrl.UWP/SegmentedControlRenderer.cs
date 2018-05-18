@@ -201,11 +201,11 @@ namespace Plugin.Segmented.Control.UWP
 
         private void DisposeEventHandlers()
         {
-            if (_segmentedUserControl != null)
+            if (_segmentedUserControl?.SegmentedControlGrid?.Children != null)
             {
-                foreach (var segment in _segmentedUserControl.SegmentedControlGrid.Children)
+                foreach (var segment in _segmentedUserControl?.SegmentedControlGrid?.Children)
                 {
-                    ((SegmentRadioButton)segment).Checked -= SegmentRadioButtonOnChecked;
+                    ((SegmentRadioButton) segment).Checked -= SegmentRadioButtonOnChecked;
                 }
             }
         }

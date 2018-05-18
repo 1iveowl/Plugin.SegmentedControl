@@ -229,7 +229,7 @@ namespace Plugin.Segmented.Control.Droid
             if (_nativeControl != null)
             {
                 _nativeControl.CheckedChange -= NativeControl_ValueChanged;
-                _nativeControl.Dispose();
+                _nativeControl?.Dispose();
                 _nativeControl = null;
                 _v = null;
             }
