@@ -95,7 +95,7 @@ namespace Plugin.Segmented.Control.iOS
             if (_nativeControl != null)
             {
                 _nativeControl.ValueChanged -= NativeControl_SelectionChanged;
-                _nativeControl.Dispose();
+                _nativeControl?.Dispose();
                 _nativeControl = null;
             }
 
