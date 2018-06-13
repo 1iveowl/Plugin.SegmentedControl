@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Test.SegmentedControl"
@@ -21,13 +21,14 @@
                             DisabledColor="Gray"
                             Margin="8,8,8,8">
                 <control:SegmentedControl.Children>
-                <control:SegmentedControlOption Text="Item 1"/>
+                <control:SegmentedControlOption Text="{Binding ChangeText}"/>
                 <control:SegmentedControlOption Text="Item 2"/>
                 <control:SegmentedControlOption Text="Item 3"/>
                 <control:SegmentedControlOption Text="Item 4"/>
             </control:SegmentedControl.Children>
 </control:SegmentedControl>
                 <Label x:Name="ChoiceLabel" Text="Start"></Label>
+                <Button Text="Change First Item Text" Clicked="ChangeFirstText"/>
                 <Button Text="Remove" Clicked="Button_OnClicked"></Button>
                 <Button Text="Tint Color Change Button" Clicked="ButtonTintColor_OnClicked"></Button>
                 <Button Text="Selected Text Change Button" Clicked="ButtonSelectedTextColor_OnClicked"></Button>

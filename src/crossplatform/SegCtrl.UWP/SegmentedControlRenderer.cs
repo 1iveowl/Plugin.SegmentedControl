@@ -176,9 +176,20 @@ namespace Plugin.Segmented.Control.UWP
                 segmentButton.SetValue(Grid.ColumnProperty, child.i);
 
                 grid.Children.Add(segmentButton);
+
+                child.value.PropertyChanged += Segment_PropertyChanged;
             }
 
             SetNativeControl(_segmentedUserControl);
+        }
+
+        private void Segment_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (_segmentedUserControl != null && Element != null && sender is SegmentedControlOption option && e.PropertyName == nameof(option.Text))
+            {
+                var index = Element.Children.IndexOf(option);
+                _segmentedUserControl.SegmentedControlGrid.Children[index].SetValue(ContentControl.ContentProperty, option.Text);
+            }
         }
 
         private void SegmentRadioButtonOnChecked(object sender, RoutedEventArgs e)
@@ -203,9 +214,19 @@ namespace Plugin.Segmented.Control.UWP
         {
             if (_segmentedUserControl?.SegmentedControlGrid?.Children != null)
             {
-                foreach (var segment in _segmentedUserControl?.SegmentedControlGrid?.Children)
+                foreach (var element in _segmentedUserControl?.SegmentedControlGrid?.Children)
                 {
-                    ((SegmentRadioButton) segment).Checked -= SegmentRadioButtonOnChecked;
+                    if (element is SegmentRadioButton segment)
+                    {
+                        segment.Checked -= SegmentRadioButtonOnChecked;
+                    }
+                }
+            }
+            if (Element != null)
+            {
+                foreach (var child in Element.Children)
+                {
+                    child.PropertyChanged -= Segment_PropertyChanged;
                 }
             }
         }
