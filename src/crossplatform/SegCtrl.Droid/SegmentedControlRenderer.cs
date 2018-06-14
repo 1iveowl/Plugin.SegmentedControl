@@ -5,7 +5,6 @@ using Android.Views;
 using Android.Widget;
 using Plugin.Segmented.Control;
 using Plugin.Segmented.Control.Droid;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
@@ -16,7 +15,7 @@ namespace Plugin.Segmented.Control.Droid
     public class SegmentedControlRenderer : ViewRenderer<SegmentedControl, RadioGroup>
     {
         private RadioGroup _nativeControl;
-        private RadioButton _v;
+        private RadioButton _nativeRadioButtonControl;
 
         private readonly Context _context;
 
@@ -74,7 +73,7 @@ namespace Plugin.Segmented.Control.Droid
             {
                 var layoutInflater = LayoutInflater.From(_context);
 
-                _nativeControl = (RadioGroup)layoutInflater.Inflate(Plugin.Segmented.Control.Droid.Resource.Layout.RadioGroup, null);
+                _nativeControl = (RadioGroup)layoutInflater.Inflate(Resource.Layout.RadioGroup, null);
 
                 for (var i = 0; i < Element.Children.Count; i++)
                 {
@@ -199,7 +198,7 @@ namespace Plugin.Segmented.Control.Droid
             if (i == Element.SelectedSegment)
             {
                 v.SetTextColor(Element.SelectedTextColor.ToAndroid());
-                _v = v;
+                _nativeRadioButtonControl = v;
             }
             else
             {
@@ -241,9 +240,9 @@ namespace Plugin.Segmented.Control.Droid
                 var v = (RadioButton)rg.GetChildAt(radioId);
 
                 var color = Element.IsEnabled ? Element.TintColor.ToAndroid() : Element.DisabledColor.ToAndroid();
-                _v?.SetTextColor(color);
+                _nativeRadioButtonControl?.SetTextColor(color);
                 v.SetTextColor(Element.SelectedTextColor.ToAndroid());
-                _v = v;
+                _nativeRadioButtonControl = v;
 
                 Element.SelectedSegment = radioId;
             }
@@ -256,7 +255,7 @@ namespace Plugin.Segmented.Control.Droid
                 _nativeControl.CheckedChange -= NativeControl_ValueChanged;
                 _nativeControl?.Dispose();
                 _nativeControl = null;
-                _v = null;
+                _nativeRadioButtonControl = null;
             }
 
             RemoveElementHandlers();

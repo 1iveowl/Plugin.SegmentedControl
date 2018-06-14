@@ -212,6 +212,7 @@ namespace Plugin.Segmented.Control.UWP
 
         private void DisposeEventHandlers()
         {
+
             if (_segmentedUserControl?.SegmentedControlGrid?.Children != null)
             {
                 foreach (var element in _segmentedUserControl?.SegmentedControlGrid?.Children)
@@ -222,6 +223,7 @@ namespace Plugin.Segmented.Control.UWP
                     }
                 }
             }
+
             if (Element != null)
             {
                 foreach (var child in Element.Children)
