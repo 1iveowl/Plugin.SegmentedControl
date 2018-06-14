@@ -5,7 +5,6 @@ using Android.Views;
 using Android.Widget;
 using Plugin.Segmented.Control;
 using Plugin.Segmented.Control.Droid;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
@@ -16,7 +15,7 @@ namespace Plugin.Segmented.Control.Droid
     public class SegmentedControlRenderer : ViewRenderer<SegmentedControl, RadioGroup>
     {
         private RadioGroup _nativeControl;
-        private RadioButton _v;
+        private RadioButton _nativeRadioButtonControl;
 
         private readonly Context _context;
 
@@ -41,9 +40,7 @@ namespace Plugin.Segmented.Control.Droid
 
                 if (_nativeControl != null)
                     _nativeControl.CheckedChange -= NativeControl_ValueChanged;
-
-                if (Element != null)
-                    Element.SizeChanged -= Element_SizeChanged;
+                RemoveElementHandlers();
             }
 
             if (e.NewElement != null)
@@ -51,6 +48,22 @@ namespace Plugin.Segmented.Control.Droid
                 // Configure the control and subscribe to event handlers
 
                 if (Element != null) Element.SizeChanged += Element_SizeChanged;
+                foreach (var child in Element.Children)
+                {
+                    child.PropertyChanged += Segment_PropertyChanged;
+                }
+            }
+        }
+
+        private void RemoveElementHandlers()
+        {
+            if (Element != null)
+            {
+                Element.SizeChanged -= Element_SizeChanged;
+                foreach (var child in Element.Children)
+                {
+                    child.PropertyChanged -= Segment_PropertyChanged;
+                }
             }
         }
 
@@ -60,7 +73,7 @@ namespace Plugin.Segmented.Control.Droid
             {
                 var layoutInflater = LayoutInflater.From(_context);
 
-                _nativeControl = (RadioGroup)layoutInflater.Inflate(Plugin.Segmented.Control.Droid.Resource.Layout.RadioGroup, null);
+                _nativeControl = (RadioGroup)layoutInflater.Inflate(Resource.Layout.RadioGroup, null);
 
                 for (var i = 0; i < Element.Children.Count; i++)
                 {
@@ -90,6 +103,17 @@ namespace Plugin.Segmented.Control.Droid
                 SetNativeControl(_nativeControl);
             }
         }
+
+        void Segment_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (_nativeControl != null && Element != null && sender is SegmentedControlOption option && e.PropertyName == nameof(option.Text))
+            {
+                var index = Element.Children.IndexOf(option);
+                if (_nativeControl.GetChildAt(index) is RadioButton segment)
+                    segment.Text = Element.Children[index].Text;
+            }
+        }
+
 
         protected override void OnElementPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
@@ -174,7 +198,7 @@ namespace Plugin.Segmented.Control.Droid
             if (i == Element.SelectedSegment)
             {
                 v.SetTextColor(Element.SelectedTextColor.ToAndroid());
-                _v = v;
+                _nativeRadioButtonControl = v;
             }
             else
             {
@@ -216,9 +240,9 @@ namespace Plugin.Segmented.Control.Droid
                 var v = (RadioButton)rg.GetChildAt(radioId);
 
                 var color = Element.IsEnabled ? Element.TintColor.ToAndroid() : Element.DisabledColor.ToAndroid();
-                _v?.SetTextColor(color);
+                _nativeRadioButtonControl?.SetTextColor(color);
                 v.SetTextColor(Element.SelectedTextColor.ToAndroid());
-                _v = v;
+                _nativeRadioButtonControl = v;
 
                 Element.SelectedSegment = radioId;
             }
@@ -231,11 +255,10 @@ namespace Plugin.Segmented.Control.Droid
                 _nativeControl.CheckedChange -= NativeControl_ValueChanged;
                 _nativeControl?.Dispose();
                 _nativeControl = null;
-                _v = null;
+                _nativeRadioButtonControl = null;
             }
 
-            if (Element != null)
-                Element.SizeChanged -= Element_SizeChanged;
+            RemoveElementHandlers();
 
             try
             {

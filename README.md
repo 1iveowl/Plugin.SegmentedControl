@@ -43,9 +43,9 @@ var assembliesToInclude = new List<Assembly> {typeof(SegmentedControlRenderer).G
 
 Xamarin.Forms.Forms.Init(e, assembliesToInclude);
 ```
-No special needs.
 
-### Xamarin Forms
+### Android
+No special needs.
 
 #### .NET Standard
 The Xamarin Forms must use .NET Standard. I suggest using .NET Standard 1.4. 

@@ -16,6 +16,19 @@ namespace Test.SegmentedControl
             declaringType: typeof(MainPage),
             defaultValue: default(int));
 
+        public static readonly BindableProperty ChangeTextProperty = BindableProperty.Create(nameof(ChangeText), typeof(string), typeof(MainPage), "Item1", propertyChanged: OnTextChanged);
+
+        private static void OnTextChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            
+        }
+
+        public string ChangeText
+        {
+            get => (string)GetValue(ChangeTextProperty);
+            set { SetValue(ChangeTextProperty, value); }
+        }
+
         public int SegmentSelect
         {
             get => (int) GetValue(SegmentSelectProperty);
@@ -71,6 +84,13 @@ namespace Test.SegmentedControl
         private void SelectSegment3(object sender, EventArgs e)
         {
             SegmentSelect = 2;
+        }
+
+        private void ChangeFirstText(object sender, EventArgs e)
+        {
+            var boundText = "Item 1B";
+            ChangeText = ChangeText == boundText ? "Item1" : boundText;
+            //SegmentedControl.Children[0].Text = ChangeText;
         }
     }
 }

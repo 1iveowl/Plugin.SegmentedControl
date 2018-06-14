@@ -73,5 +73,14 @@ namespace Plugin.Segmented.Control
             OnSegmentSelected?.Invoke(this, new SegmentSelectEventArgs { NewValue = this.SelectedSegment });
 
         }
+
+        protected override void OnBindingContextChanged()
+        {
+            base.OnBindingContextChanged();
+            foreach (var segment in Children)
+            {
+                segment.BindingContext = BindingContext;
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using Plugin.Segmented.Control;
 using Plugin.Segmented.Control.iOS;
@@ -21,7 +22,7 @@ namespace Plugin.Segmented.Control.iOS
             {
                 _nativeControl = new UISegmentedControl();
 
-                foreach (var child in Element.Children.Select((value, i) => new {value, i}))
+                foreach (var child in Element.Children.Select((value, i) => new { value, i }))
                 {
                     _nativeControl.InsertSegment(Element.Children[child.i].Text, child.i, false);
                 }
@@ -38,11 +39,39 @@ namespace Plugin.Segmented.Control.iOS
             if (e.OldElement != null)
             {
                 if (_nativeControl != null) _nativeControl.ValueChanged -= NativeControl_SelectionChanged;
+                RemoveElementHandlers();
             }
 
             if (e.NewElement != null)
             {
                 if (_nativeControl != null) _nativeControl.ValueChanged += NativeControl_SelectionChanged;
+                if (Element != null)
+                {
+                    foreach (var child in Element.Children)
+                    {
+                        child.PropertyChanged += SegmentPropertyChanged;
+                    }
+                }
+            }
+        }
+
+        private void RemoveElementHandlers()
+        {
+            if (Element != null)
+            {
+                foreach (var child in Element.Children)
+                {
+                    child.PropertyChanged -= SegmentPropertyChanged;
+                }
+            }
+        }
+
+        private void SegmentPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (_nativeControl != null && Element != null && sender is SegmentedControlOption option && e.PropertyName == nameof(option.Text))
+            {
+                var index = Element.Children.IndexOf(option);
+                _nativeControl.SetTitle(Element.Children[index].Text, index);
             }
         }
 
@@ -98,6 +127,8 @@ namespace Plugin.Segmented.Control.iOS
                 _nativeControl?.Dispose();
                 _nativeControl = null;
             }
+
+            RemoveElementHandlers();
 
             base.Dispose(disposing);
         }
