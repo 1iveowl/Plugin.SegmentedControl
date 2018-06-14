@@ -41,9 +41,7 @@ namespace Plugin.Segmented.Control.Droid
 
                 if (_nativeControl != null)
                     _nativeControl.CheckedChange -= NativeControl_ValueChanged;
-
-                if (Element != null)
-                    Element.SizeChanged -= Element_SizeChanged;
+                RemoveElementHandlers();
             }
 
             if (e.NewElement != null)
@@ -51,6 +49,22 @@ namespace Plugin.Segmented.Control.Droid
                 // Configure the control and subscribe to event handlers
 
                 if (Element != null) Element.SizeChanged += Element_SizeChanged;
+                foreach (var child in Element.Children)
+                {
+                    child.PropertyChanged += Segment_PropertyChanged;
+                }
+            }
+        }
+
+        private void RemoveElementHandlers()
+        {
+            if (Element != null)
+            {
+                Element.SizeChanged -= Element_SizeChanged;
+                foreach (var child in Element.Children)
+                {
+                    child.PropertyChanged -= Segment_PropertyChanged;
+                }
             }
         }
 
@@ -90,6 +104,17 @@ namespace Plugin.Segmented.Control.Droid
                 SetNativeControl(_nativeControl);
             }
         }
+
+        void Segment_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (_nativeControl != null && Element != null && sender is SegmentedControlOption option && e.PropertyName == nameof(option.Text))
+            {
+                var index = Element.Children.IndexOf(option);
+                if (_nativeControl.GetChildAt(index) is RadioButton segment)
+                    segment.Text = Element.Children[index].Text;
+            }
+        }
+
 
         protected override void OnElementPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
@@ -234,8 +259,7 @@ namespace Plugin.Segmented.Control.Droid
                 _v = null;
             }
 
-            if (Element != null)
-                Element.SizeChanged -= Element_SizeChanged;
+            RemoveElementHandlers();
 
             try
             {
