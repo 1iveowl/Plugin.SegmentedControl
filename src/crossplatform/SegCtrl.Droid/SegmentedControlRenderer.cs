@@ -251,10 +251,11 @@ namespace Plugin.Segmented.Control.Droid
         protected override void Dispose(bool disposing)
         {
             if (_nativeControl != null)
-            {
                 _nativeControl.CheckedChange -= NativeControl_ValueChanged;
-                _nativeControl?.Dispose();
-                _nativeControl = null;
+            
+            if (_nativeRadioButtonControl != null)
+            {
+                _nativeRadioButtonControl.Dispose();
                 _nativeRadioButtonControl = null;
             }
 
@@ -263,6 +264,7 @@ namespace Plugin.Segmented.Control.Droid
             try
             {
                 base.Dispose(disposing);
+                _nativeControl = null;
             }
             catch (Exception)
             {
