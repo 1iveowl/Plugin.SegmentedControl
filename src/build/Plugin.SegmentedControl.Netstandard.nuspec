@@ -13,8 +13,7 @@
     <description>
       Segmented control for Xamarin Forms for iOS, Android and UWP</description>
     <releaseNotes>
-      [All] Fixed segment binding issue.
-      [UWP] Fixed UWP package issue
+      [Mac] Adding Mac OS Support
     </releaseNotes>
     <copyright>Copyright 2018</copyright>
     <tags>xamarin xamarin.forms segmentedcontrol netstandard</tags>
