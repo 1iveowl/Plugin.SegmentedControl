@@ -13,8 +13,7 @@
     <description>
       Segmented control for Xamarin Forms for iOS, Android and UWP</description>
     <releaseNotes>
-      [All] Fixed segment binding issue.
-      [UWP] Fixed UWP package issue
+      [Mac] Adding Mac OS Support
     </releaseNotes>
     <copyright>Copyright 2018</copyright>
     <tags>xamarin xamarin.forms segmentedcontrol netstandard</tags>
@@ -37,6 +36,11 @@
         <dependency id="Xamarin.Android.Support.v7.Palette" version="27.0.2.1" />
         <dependency id="Xamarin.Android.Support.v7.RecyclerView" version="27.0.2.1" />
         <dependency id="Xamarin.Android.Support.Vector.Drawable" version="27.0.2.1" />
+        <dependency id="Xamarin.Forms" version="3.0.0.561731" />
+      </group>
+
+      <group targetFramework="Xamarin.Mac20">
+        <dependency id="netstandard" version="2.0.0.0" />
         <dependency id="Xamarin.Forms" version="3.0.0.561731" />
       </group>
 
@@ -65,6 +69,9 @@
 
     <!--Xamarin.iOS Unified-->
     <file src="..\crossplatform\SegCtrl.iOS\bin\Release\Plugin.Segmented.*" target="lib\Xamarin.iOS10"/>
+
+     <!--Xamarin.macOS Unified-->
+    <file src="..\crossplatform\SegCtrl.macOS\bin\Release\Plugin.Segmented.*" target="lib\Xamarin.Mac20"/>
 
     <!--UWP-->
     <file src="..\crossplatform\SegCtrl.UWP\bin\Release\Plugin.Segmented.*" target="lib\uap10.0\" exclude="**\*.xr.xml"/>
