@@ -15,7 +15,7 @@ There are other Segmented Control libraries out there. This library adds two imp
 |Xamarin.iOS Unified|Yes|iOS 8.1+|UISegmentedControl|
 |Xamarin.Android|Yes|API 18+|RadioGroup|
 |Xamarin.UWP|Yes|Win10 16299+|User Control/RadioButton|
-|Xamarin.MacOS|Yes|100|NSSegmentedControl|
+|Xamarin.MacOS|Yes|10.0+|NSSegmentedControl|
 
 For previous versions of UWP please use version 1.1.5.
 
