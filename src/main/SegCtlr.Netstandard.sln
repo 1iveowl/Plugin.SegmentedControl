@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SegCtlr.Netstandard", "SegCtlr.Netstandard\SegCtlr.Netstandard.csproj", "{ABA23BAB-084A-443E-B9CC-37B0A826377E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SegCtlr.Netstandard", "SegCtlr.Netstandard\SegCtlr.Netstandard.csproj", "{ABA23BAB-084A-443E-B9CC-37B0A826377E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Abstraction", "Abstraction", "{D54B9249-B233-42AD-8346-2E59628B9B34}"
 EndProject
@@ -23,7 +23,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.SegCtlr.UWP", "..\test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.SegCtlr.iOS", "..\test\Test.SegCtrl.iOS\Test.SegCtlr.iOS.csproj", "{2C3B781D-170C-44FA-BB73-E454A4AE73BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.SegCtrl.netstandard", "..\test\Test.SegCtrl.netstandard\Test.SegCtrl.netstandard.csproj", "{085D550D-9E27-474F-A79E-4578224F8664}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.SegCtrl.netstandard", "..\test\Test.SegCtrl.netstandard\Test.SegCtrl.netstandard.csproj", "{085D550D-9E27-474F-A79E-4578224F8664}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{33251B03-DF66-4CA2-B24F-BD267184F4C4}"
 	ProjectSection(SolutionItems) = preProject
@@ -316,7 +316,6 @@ Global
 		{2848D7D8-3C18-4DF0-8638-CBCCC36A325B}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{2848D7D8-3C18-4DF0-8638-CBCCC36A325B}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{2848D7D8-3C18-4DF0-8638-CBCCC36A325B}.Release|x64.ActiveCfg = Release|x64
-		{2848D7D8-3C18-4DF0-8638-CBCCC36A325B}.Release|x64.Build.0 = Release|x64
 		{2848D7D8-3C18-4DF0-8638-CBCCC36A325B}.Release|x86.ActiveCfg = Release|x86
 		{2848D7D8-3C18-4DF0-8638-CBCCC36A325B}.Release|x86.Build.0 = Release|x86
 		{D41A679F-F6FD-45B5-B63C-304C720090CC}.Ad-Hoc|Any CPU.ActiveCfg = Release|Any CPU
@@ -518,6 +517,7 @@ Global
 		{2C3B781D-170C-44FA-BB73-E454A4AE73BD}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
 		{2C3B781D-170C-44FA-BB73-E454A4AE73BD}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 		{2C3B781D-170C-44FA-BB73-E454A4AE73BD}.Release|x64.ActiveCfg = Release|iPhone
+		{2C3B781D-170C-44FA-BB73-E454A4AE73BD}.Release|x64.Build.0 = Release|iPhone
 		{2C3B781D-170C-44FA-BB73-E454A4AE73BD}.Release|x86.ActiveCfg = Release|iPhone
 		{085D550D-9E27-474F-A79E-4578224F8664}.Ad-Hoc|Any CPU.ActiveCfg = Debug|Any CPU
 		{085D550D-9E27-474F-A79E-4578224F8664}.Ad-Hoc|Any CPU.Build.0 = Debug|Any CPU
