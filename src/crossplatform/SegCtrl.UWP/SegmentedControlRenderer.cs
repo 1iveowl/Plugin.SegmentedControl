@@ -185,10 +185,18 @@ namespace Plugin.Segmented.Control.UWP
 
         private void Segment_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (_segmentedUserControl != null && Element != null && sender is SegmentedControlOption option && e.PropertyName == nameof(option.Text))
+            if (_segmentedUserControl != null && Element != null && sender is SegmentedControlOption option)
             {
                 var index = Element.Children.IndexOf(option);
-                _segmentedUserControl.SegmentedControlGrid.Children[index].SetValue(ContentControl.ContentProperty, option.Text);
+                switch (e.PropertyName)
+                {
+                    case nameof(SegmentedControlOption.Text):
+                        _segmentedUserControl.SegmentedControlGrid.Children[index].SetValue(ContentControl.ContentProperty, option.Text);
+                        break;
+                    case nameof(SegmentedControlOption.IsEnabled):
+                        _segmentedUserControl.SegmentedControlGrid.Children[index].SetValue(ContentControl.IsEnableProperty, option.IsEnabled);
+                        break;
+                }
             }
         }
 

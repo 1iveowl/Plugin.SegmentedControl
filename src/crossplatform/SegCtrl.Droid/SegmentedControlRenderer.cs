@@ -106,11 +106,23 @@ namespace Plugin.Segmented.Control.Droid
 
         void Segment_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (_nativeControl != null && Element != null && sender is SegmentedControlOption option && e.PropertyName == nameof(option.Text))
+            if (_nativeControl != null && Element != null && sender is SegmentedControlOption option)
             {
                 var index = Element.Children.IndexOf(option);
                 if (_nativeControl.GetChildAt(index) is RadioButton segment)
-                    segment.Text = Element.Children[index].Text;
+                {
+                    switch (e.PropertyName)
+                    {
+                        case nameof(SegmentedControlOption.Text):
+                            segment.Text = option.Text;
+                            break;
+                        case nameof(SegmentedControlOption.IsEnabled):
+                            segment.Enabled = option.IsEnabled;
+                            break;
+                        default:
+                            break;
+                    }
+                }
             }
         }
 

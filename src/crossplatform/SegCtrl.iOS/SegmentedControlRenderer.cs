@@ -68,10 +68,18 @@ namespace Plugin.Segmented.Control.iOS
 
         private void SegmentPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (_nativeControl != null && Element != null && sender is SegmentedControlOption option && e.PropertyName == nameof(option.Text))
+            if (_nativeControl != null && Element != null && sender is SegmentedControlOption option)
             {
                 var index = Element.Children.IndexOf(option);
-                _nativeControl.SetTitle(Element.Children[index].Text, index);
+                switch (e.PropertyName)
+                {
+                    case nameof(SegmentedControlOption.Text):
+                        _nativeControl.SetTitle(option.Text, index);
+                        break;
+                    case nameof(SegmentedControlOption.IsEnabled):
+                        _nativeControl.SetEnabled(option.IsEnabled, index);
+                        break;
+                }
             }
         }
 

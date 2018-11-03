@@ -92,5 +92,15 @@ namespace Test.SegmentedControl
             ChangeText = ChangeText == boundText ? "Item1" : boundText;
             //SegmentedControl.Children[0].Text = ChangeText;
         }
+
+        public void DisableFirstSegment_OnClicked(object sender, EventArgs e)
+        {
+            SegmentedControl.Children[0].IsEnabled = false;
+        }
+
+        public void EnableFirstSegment_OnClicked(object sender, EventArgs e)
+        {
+            SegmentedControl.Children[0].IsEnabled = true;
+        }
     }
 }
