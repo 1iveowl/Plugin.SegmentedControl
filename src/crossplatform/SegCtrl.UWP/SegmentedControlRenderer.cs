@@ -194,7 +194,7 @@ namespace Plugin.Segmented.Control.UWP
                         _segmentedUserControl.SegmentedControlGrid.Children[index].SetValue(ContentControl.ContentProperty, option.Text);
                         break;
                     case nameof(SegmentedControlOption.IsEnabled):
-                        _segmentedUserControl.SegmentedControlGrid.Children[index].SetValue(ContentControl.IsEnableProperty, option.IsEnabled);
+                        _segmentedUserControl.SegmentedControlGrid.Children[index].SetValue(ContentControl.IsEnabledProperty, option.IsEnabled);
                         break;
                 }
             }
