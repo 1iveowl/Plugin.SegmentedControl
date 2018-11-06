@@ -152,6 +152,14 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\crossplatform\SegCtrl.UWP\SegCtrl.UWP.csproj">
+      <Project>{2848d7d8-3c18-4df0-8638-cbccc36a325b}</Project>
+      <Name>SegCtrl.UWP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\main\SegCtlr.Netstandard\SegCtlr.Netstandard.csproj">
+      <Project>{aba23bab-084a-443e-b9cc-37b0a826377e}</Project>
+      <Name>SegCtlr.Netstandard</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Test.SegCtrl.netstandard\Test.SegCtrl.netstandard.csproj">
       <Project>{085d550d-9e27-474f-a79e-4578224f8664}</Project>
       <Name>Test.SegCtrl.netstandard</Name>
@@ -175,8 +183,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugNAtive|x64'">
     <OutputPath>bin\x64\DebugNAtive\</OutputPath>
-    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP;CODE_ANALYSIS</DefineConstants>
-    <Optimize>true</Optimize>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP;CODE_ANALYSIS;CODE_ANALYSIS</DefineConstants>
+    <Optimize>false</Optimize>
     <NoWarn>;2008</NoWarn>
     <NoStdLib>true</NoStdLib>
     <DebugType>pdbonly</DebugType>
@@ -185,10 +193,12 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+    <EnableGatekeeperAnalysis>true</EnableGatekeeperAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugNAtive|x86'">
     <OutputPath>bin\x86\DebugNAtive\</OutputPath>
-    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP;CODE_ANALYSIS</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP;CODE_ANALYSIS;CODE_ANALYSIS</DefineConstants>
     <Optimize>false</Optimize>
     <NoWarn>;2008</NoWarn>
     <NoStdLib>true</NoStdLib>
@@ -199,6 +209,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+    <EnableGatekeeperAnalysis>true</EnableGatekeeperAnalysis>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
 </Project>

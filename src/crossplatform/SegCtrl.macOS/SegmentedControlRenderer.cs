@@ -19,25 +19,24 @@ namespace SegCtrl.macOS
 
             if (Control == null)
             {
-                var titles = Element.Children.Select(s => s.Text );
-                _nativeControl = NSSegmentedControl.FromLabels(titles.ToArray(), NSSegmentSwitchTracking.SelectOne, OnNativeSegmentChanged);
-                _nativeControl.Enabled = Element.IsEnabled;
-                _nativeControl.SetSelected(true, Element.SelectedSegment);
-                _nativeControl.FocusRingType = NSFocusRingType.None;
-
-                SetNativeControl(_nativeControl);
+                CreateNativeSegmentedControl();
             }
 
             if (e.OldElement != null)
                 RemoveElementHandlers();
-            
-            if (e.NewElement != null && Element != null)
-            {
-                foreach (var child in Element.Children)
-                {
-                    child.PropertyChanged += SegmentPropertyChanged;
-                }
-            }
+
+            AddElementHandlers(e.NewElement);
+        }
+
+        private void CreateNativeSegmentedControl()
+        {
+            var titles = Element.Children.Select(s => s.Text);
+            _nativeControl = NSSegmentedControl.FromLabels(titles.ToArray(), NSSegmentSwitchTracking.SelectOne, OnNativeSegmentChanged);
+            _nativeControl.Enabled = Element.IsEnabled;
+            _nativeControl.SetSelected(true, Element.SelectedSegment);
+            _nativeControl.FocusRingType = NSFocusRingType.None;
+
+            SetNativeControl(_nativeControl);
         }
 
         private void OnNativeSegmentChanged()
@@ -48,15 +47,60 @@ namespace SegCtrl.macOS
             }
         }
 
-        private void RemoveElementHandlers()
+        private void ResetNativeControl()
+        {
+            if (_nativeControl != null && Element != null)
+            {
+                if (_nativeControl.SegmentCount > 0)
+                {
+                    _nativeControl.RemoveFromSuperview();
+                    _nativeControl.Dispose();
+                    _nativeControl = null;
+                    CreateNativeSegmentedControl();
+                }
+            }
+        }
+
+        private void AddElementHandlers(SegmentedControl element, bool addChildHandlersOnly = false)
+        {
+            if (element != null)
+            {
+                if (!addChildHandlersOnly)
+                {
+                    element.OnElementChildrenChanging += OnElementChildrenChanging;
+                }
+                if (element.Children != null)
+                {
+                    foreach (var child in element.Children)
+                    {
+                        child.PropertyChanged += SegmentPropertyChanged;
+                    }
+                }
+            }
+
+        }
+
+        private void RemoveElementHandlers(bool removeChildrenHandlersOnly = false)
         {
             if (Element != null)
             {
-                foreach (var child in Element.Children)
+                if (!removeChildrenHandlersOnly)
                 {
-                    child.PropertyChanged -= SegmentPropertyChanged;
+                    Element.OnElementChildrenChanging -= OnElementChildrenChanging;
+                }
+                if (Element.Children != null)
+                {
+                    foreach (var child in Element.Children)
+                    {
+                        child.PropertyChanged -= SegmentPropertyChanged;
+                    }
                 }
             }
+        }
+
+        private void OnElementChildrenChanging(object sender, EventArgs e)
+        {
+            RemoveElementHandlers(true);
         }
 
         private void SegmentPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -73,8 +117,6 @@ namespace SegCtrl.macOS
                         _nativeControl.SetEnabled(option.IsEnabled, index);
                         break;
                 }
-
-
             }
         }
 
@@ -99,7 +141,8 @@ namespace SegCtrl.macOS
                 case nameof(NSSegmentedControl.IsEnabled):
                     _nativeControl.Enabled = Element.IsEnabled;
                     break;
-                default:
+                case nameof(SegmentedControl.Children):
+                    ResetNativeControl();
                     break;
             }
         }

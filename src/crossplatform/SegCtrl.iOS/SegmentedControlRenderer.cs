@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using Plugin.Segmented.Control;
 using Plugin.Segmented.Control.iOS;
 using UIKit;
@@ -10,29 +10,20 @@ using Xamarin.Forms.Platform.iOS;
 [assembly: ExportRenderer(typeof(SegmentedControl), typeof(SegmentedControlRenderer))]
 namespace Plugin.Segmented.Control.iOS
 {
-    public class SegmentedControlRenderer : ViewRenderer<Segmented.Control.SegmentedControl, UISegmentedControl>
+    public class SegmentedControlRenderer : ViewRenderer<SegmentedControl, UISegmentedControl>
     {
         private UISegmentedControl _nativeControl;
 
-        protected override void OnElementChanged(ElementChangedEventArgs<Segmented.Control.SegmentedControl> e)
+        protected override void OnElementChanged(ElementChangedEventArgs<SegmentedControl> e)
         {
             base.OnElementChanged(e);
-
             if (Control == null)
             {
                 _nativeControl = new UISegmentedControl();
-
-                foreach (var child in Element.Children.Select((value, i) => new { value, i }))
-                {
-                    _nativeControl.InsertSegment(Element.Children[child.i].Text, child.i, false);
-                }
-
+                SetNativeControlSegments(Element.Children);
                 _nativeControl.Enabled = Element.IsEnabled;
                 _nativeControl.TintColor = Element.IsEnabled ? Element.TintColor.ToUIColor() : Element.DisabledColor.ToUIColor();
                 SetSelectedTextColor();
-
-                _nativeControl.SelectedSegment = Element.SelectedSegment;
-
                 SetNativeControl(_nativeControl);
             }
 
@@ -45,26 +36,71 @@ namespace Plugin.Segmented.Control.iOS
             if (e.NewElement != null)
             {
                 if (_nativeControl != null) _nativeControl.ValueChanged += NativeControl_SelectionChanged;
+                AddElementHandlers(e.NewElement);
+            }
+        }
+
+        private void SetNativeControlSegments(IList<SegmentedControlOption> children)
+        {
+            if (_nativeControl != null)
+            {
+                if (_nativeControl.NumberOfSegments > 0)
+                {
+                    _nativeControl.RemoveAllSegments();
+                }
+                for (int i = 0; i < children.Count; i++)
+                {
+                    _nativeControl.InsertSegment(children[i].Text, i, false);
+                }
                 if (Element != null)
                 {
-                    foreach (var child in Element.Children)
+                    _nativeControl.SelectedSegment = Element.SelectedSegment;
+                }
+            }
+        }
+
+        private void AddElementHandlers(SegmentedControl element, bool addChildHandlersOnly = false)
+        {
+            if (element != null)
+            {
+                if (!addChildHandlersOnly)
+                {
+                    element.OnElementChildrenChanging += OnElementChildrenChanging;
+                }
+                if (element.Children != null)
+                {
+                    foreach (var child in element.Children)
                     {
                         child.PropertyChanged += SegmentPropertyChanged;
                     }
                 }
             }
+
         }
 
-        private void RemoveElementHandlers()
+        private void RemoveElementHandlers(bool removeChildrenHandlersOnly = false)
         {
             if (Element != null)
             {
-                foreach (var child in Element.Children)
+                if (!removeChildrenHandlersOnly)
                 {
-                    child.PropertyChanged -= SegmentPropertyChanged;
+                    Element.OnElementChildrenChanging -= OnElementChildrenChanging;
+                }
+                if (Element.Children != null)
+                {
+                    foreach (var child in Element.Children)
+                    {
+                        child.PropertyChanged -= SegmentPropertyChanged;
+                    }
                 }
             }
         }
+
+        private void OnElementChildrenChanging(object sender, EventArgs e)
+        {
+            RemoveElementHandlers(true);
+        }
+
 
         private void SegmentPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -97,19 +133,26 @@ namespace Plugin.Segmented.Control.iOS
 
             switch (e.PropertyName)
             {
-                case "SelectedSegment":
+                case nameof(SegmentedControl.SelectedSegment):
                     _nativeControl.SelectedSegment = Element.SelectedSegment;
                     Element.RaiseSelectionChanged();
                     break;
-                case "TintColor":
+                case nameof(SegmentedControl.TintColor):
                     _nativeControl.TintColor = Element.IsEnabled ? Element.TintColor.ToUIColor() : Element.DisabledColor.ToUIColor();
                     break;
-                case "IsEnabled":
+                case nameof(SegmentedControl.IsEnabled):
                     _nativeControl.Enabled = Element.IsEnabled;
                     _nativeControl.TintColor = Element.IsEnabled ? Element.TintColor.ToUIColor() : Element.DisabledColor.ToUIColor();
                     break;
-                case "SelectedTextColor":
+                case nameof(SegmentedControl.SelectedTextColor):
                     SetSelectedTextColor();
+                    break;
+                case nameof(SegmentedControl.Children):
+                    if (Element.Children != null)
+                    {
+                        SetNativeControlSegments(Element.Children);
+                        AddElementHandlers(Element, true);
+                    }
                     break;
                 default:
                     break;
@@ -135,7 +178,6 @@ namespace Plugin.Segmented.Control.iOS
                 _nativeControl?.Dispose();
                 _nativeControl = null;
             }
-
             RemoveElementHandlers();
 
             base.Dispose(disposing);

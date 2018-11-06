@@ -1,8 +1,7 @@
 ﻿{
   "dependencies": {
-    "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5",
-    "Plugin.SegmentedControl.Netstandard": "3.1.6",
-    "Xamarin.Forms": "3.0.0.561731"
+    "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.9",
+    "Xamarin.Forms": "3.3.0.967583"
   },
   "frameworks": {
     "uap10.0.16299": {}

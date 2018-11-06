@@ -9,28 +9,29 @@
     </ContentPage.BindingContext>-->
     
     <ContentPage.Content>
-        <StackLayout BackgroundColor="White">
+        <StackLayout BackgroundColor="White" x:Name="SegmentWithStack">
             <Label 
                 Text="Welcome to Xamarin.Forms!"
                 HorizontalOptions="CenterAndExpand" />
             <control:SegmentedControl 
                 x:Name="SegmentedControl" 
-                SelectedSegment="{Binding SegmentSelect, Mode=TwoWay}" 
+                SelectedSegment="{Binding SelectedSegment, Mode=TwoWay}" 
                 OnSegmentSelected="SegmentedControl_OnValueChanged" 
                 TintColor="BlueViolet"
                 SelectedTextColor="White"
                 DisabledColor="Gray"
-                Margin="8,8,8,8">
-                <control:SegmentedControl.Children>
+                Margin="8,8,8,8"
+                ItemsSource="{Binding SegmentStringSource}">
+                <!--<control:SegmentedControl.Children>
                     <control:SegmentedControlOption Text="{Binding ChangeText}"/>
                     <control:SegmentedControlOption Text="Item 2"/>
                     <control:SegmentedControlOption Text="Item 3"/>
                     <control:SegmentedControlOption Text="Item 4"/>
-                </control:SegmentedControl.Children>
+                </control:SegmentedControl.Children>-->
             </control:SegmentedControl>
             <Label x:Name="ChoiceLabel" Text="Start"></Label>
             <ScrollView>
-                <StackLayout Margin="24, 24, 24, 24" x:Name="SegmentWithStack">
+                <StackLayout Margin="24, 24, 24, 24">
                     <Button Text="Change First Item Text" Clicked="ChangeFirstText"/>
                     <Button Text="Remove" Clicked="Button_OnClicked"></Button>
                     <Button Text="Tint Color Change Button" Clicked="ButtonTintColor_OnClicked"></Button>
@@ -41,6 +42,7 @@
                     <Button Text="Select Segment 3" Clicked="SelectSegment3"></Button>
                     <Button Text="Disable First Segement" Clicked="DisableFirstSegment_OnClicked"></Button>
                     <Button Text="Enable First Segement" Clicked="EnableFirstSegment_OnClicked"></Button>
+                     <Button Text="Change ItemsSource" Command="{Binding ChangeItemsSourceCommand}"></Button>
                 </StackLayout>
             </ScrollView>
         </StackLayout>
