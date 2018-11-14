@@ -49,7 +49,7 @@ Xamarin.Forms.Forms.Init(e, assembliesToInclude);
 No special needs.
 
 #### .NET Standard
-The Xamarin Forms must use .NET Standard. I suggest using .NET Standard 1.4. 
+The Xamarin Forms must use .NET Standard. I suggest using .NET Standard 2.0+. 
 
 Here is a great blog post about how to move your PCL to .NET Standard: [Building Xamarin.Forms Apps with .NET Standard](https://blog.xamarin.com/building-xamarin-forms-apps-net-standard/)
 
