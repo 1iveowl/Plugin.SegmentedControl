@@ -17,13 +17,15 @@ namespace SegCtrl.macOS
         {
             base.OnElementChanged(e);
 
-            if (Control == null)
+            if (Control is null)
             {
                 CreateNativeSegmentedControl();
             }
 
-            if (e.OldElement != null)
+            if (!(e.OldElement is null))
+            {
                 RemoveElementHandlers();
+            }
 
             AddElementHandlers(e.NewElement);
         }
@@ -41,7 +43,7 @@ namespace SegCtrl.macOS
 
         private void OnNativeSegmentChanged()
         {
-            if (_nativeControl != null)
+            if (!(_nativeControl is null))
             {
                 Element.SelectedSegment = (int)_nativeControl.SelectedSegment;
             }
@@ -49,7 +51,7 @@ namespace SegCtrl.macOS
 
         private void ResetNativeControl()
         {
-            if (_nativeControl != null && Element != null)
+            if (!(_nativeControl is null) && !(Element is null))
             {
                 if (_nativeControl.SegmentCount > 0)
                 {
@@ -63,13 +65,13 @@ namespace SegCtrl.macOS
 
         private void AddElementHandlers(SegmentedControl element, bool addChildHandlersOnly = false)
         {
-            if (element != null)
+            if (!(element is null))
             {
                 if (!addChildHandlersOnly)
                 {
                     element.OnElementChildrenChanging += OnElementChildrenChanging;
                 }
-                if (element.Children != null)
+                if (!(element.Children is null))
                 {
                     foreach (var child in element.Children)
                     {
@@ -82,13 +84,14 @@ namespace SegCtrl.macOS
 
         private void RemoveElementHandlers(bool removeChildrenHandlersOnly = false)
         {
-            if (Element != null)
+            if (!(Element is null))
             {
                 if (!removeChildrenHandlersOnly)
                 {
                     Element.OnElementChildrenChanging -= OnElementChildrenChanging;
                 }
-                if (Element.Children != null)
+
+                if (!(Element.Children is null))
                 {
                     foreach (var child in Element.Children)
                     {
@@ -105,9 +108,10 @@ namespace SegCtrl.macOS
 
         private void SegmentPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (_nativeControl != null && Element != null && sender is SegmentedControlOption option)
+            if (!(_nativeControl is null) && !(Element is null) && sender is SegmentedControlOption option)
             {
                 var index = Element.Children.IndexOf(option);
+
                 switch (e.PropertyName)
                 {
                     case nameof(SegmentedControlOption.Text):
@@ -130,7 +134,10 @@ namespace SegCtrl.macOS
                 return;
             }
 
-            if (_nativeControl == null || Element == null) return;
+            if (_nativeControl is null || Element is null)
+            {
+                return;
+            }
 
             switch (e.PropertyName)
             {

@@ -38,7 +38,7 @@ namespace Plugin.Segmented.Control
         public IList<SegmentedControlOption> Children
         {
             get => (IList<SegmentedControlOption>)GetValue(ChildrenProperty);
-            set { SetValue(ChildrenProperty, value); }
+            set => SetValue(ChildrenProperty, value);
         }
         #endregion
 
@@ -100,7 +100,7 @@ namespace Plugin.Segmented.Control
         public ICommand SegmentSelectedCommand
         {
             get => (ICommand)GetValue(SegmentSelectedCommandProperty);
-            set { SetValue(SegmentSelectedCommandProperty, value); }
+            set => SetValue(SegmentSelectedCommandProperty, value);
         }
 
         public static readonly BindableProperty SegmentSelectedCommandParameterProperty = BindableProperty.Create(nameof(SegmentSelectedCommandParameter), typeof(object), typeof(SegmentedControl));
@@ -109,7 +109,7 @@ namespace Plugin.Segmented.Control
         public object SegmentSelectedCommandParameter
         {
             get => GetValue(SegmentSelectedCommandParameterProperty);
-            set { SetValue(SegmentSelectedCommandParameterProperty, value); }
+            set => SetValue(SegmentSelectedCommandParameterProperty, value);
         }
 
         //public static readonly BindableProperty FontSizeProperty = BindableProperty.Create("FontSize", typeof(double), typeof(SegmentedControl), Device.GetNamedSize(NamedSize.Medium, typeof(Label)));
@@ -133,7 +133,7 @@ namespace Plugin.Segmented.Control
         public void RaiseSelectionChanged()
         {
             OnSegmentSelected?.Invoke(this, new SegmentSelectEventArgs { NewValue = this.SelectedSegment });
-            if (SegmentSelectedCommand != null && SegmentSelectedCommand.CanExecute(SegmentSelectedCommandParameter))
+            if (!(SegmentSelectedCommand is null) && SegmentSelectedCommand.CanExecute(SegmentSelectedCommandParameter))
             {
                 SegmentSelectedCommand.Execute(SegmentSelectedCommandParameter);
             }
@@ -143,7 +143,7 @@ namespace Plugin.Segmented.Control
         {
             base.OnBindingContextChanged();
 
-            if (Children != null)
+            if (!(Children is null))
             {
                 foreach (var segment in Children)
                 {

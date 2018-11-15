@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Plugin.Segmented.Event;
 using Test.SegCtrl;
 using Xamarin.Forms;
@@ -27,7 +23,7 @@ namespace Test.SegmentedControl
         public string ChangeText
         {
             get => (string)GetValue(ChangeTextProperty);
-            set { SetValue(ChangeTextProperty, value); }
+            set => SetValue(ChangeTextProperty, value);
         }
 
         public int SegmentSelect
@@ -38,12 +34,13 @@ namespace Test.SegmentedControl
 
         public int SegmentSelection => 2;
 
-        private readonly MainViewModel viewModel;
+        private readonly MainViewModel _viewModel;
+
         public MainPage()
         {
             InitializeComponent();
 
-            BindingContext = viewModel = new MainViewModel();
+            BindingContext = _viewModel = new MainViewModel();
         }
 
         private void SegmentedControl_OnValueChanged(object sender, SegmentSelectEventArgs e)
@@ -83,13 +80,13 @@ namespace Test.SegmentedControl
 
         private void SelectSegment3(object sender, EventArgs e)
         {
-            viewModel.SelectedSegment = 2;
+            _viewModel.SelectedSegment = 2;
         }
 
         private void ChangeFirstText(object sender, EventArgs e)
         {
-            var boundText = "Item 1B";
-            viewModel.ChangeText = viewModel.ChangeText == boundText ? "Item1" : boundText;
+            const string boundText = "Item 1B";
+            _viewModel.ChangeText = _viewModel.ChangeText == boundText ? "Item1" : boundText;
         }
 
         public void DisableFirstSegment_OnClicked(object sender, EventArgs e)
