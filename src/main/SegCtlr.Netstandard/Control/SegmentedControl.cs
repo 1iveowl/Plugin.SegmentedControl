@@ -14,7 +14,7 @@ namespace Plugin.Segmented.Control
             Children = new List<SegmentedControlOption>();
         }
 
-        public event EventHandler<EventArgs> OnElementChildrenChanging;
+        public event EventHandler<ElementChildrenChanging> OnElementChildrenChanging;
 
         public event EventHandler<SegmentSelectEventArgs> OnSegmentSelected;
 
@@ -26,7 +26,7 @@ namespace Plugin.Segmented.Control
                 && newValue is IList<SegmentedControlOption> newItemsList
                 && segmentedControl.Children != null)
             {
-                segmentedControl.OnElementChildrenChanging?.Invoke(segmentedControl, EventArgs.Empty);
+                segmentedControl.OnElementChildrenChanging?.Invoke(segmentedControl, new ElementChildrenChanging((IList<SegmentedControlOption>)oldValue, newItemsList));
                 segmentedControl.Children.Clear();
                 foreach (var newSegment in newItemsList)
                 {
