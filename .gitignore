@@ -8,6 +8,7 @@
 *.user
 *.userosscache
 *.sln.docstates
+*.Designer.cs
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -289,3 +290,4 @@ __pycache__/
 
 # MFractor
 .mfractor/
+

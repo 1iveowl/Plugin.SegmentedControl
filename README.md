@@ -59,13 +59,14 @@ Here is a great blog post about how to move your PCL to .NET Standard: [Building
 `xmlns:control="clr-namespace:Plugin.Segmented.Control;assembly=Plugin.Segmented"`
 
 ```xml
-<control:SegmentedControl x:Name="SegmentedControl" 
-                            SelectedSegment="{Binding SegmentSelection}" 
-                            OnSegmentSelected="SegmentedControl_OnValueChanged" 
-                            TintColor="BlueViolet"
-                            SelectedTextColor="White"
-                            DisabledColor="Gray"
-                            Margin="8,8,8,8">
+<control:SegmentedControl 
+	x:Name="SegmentedControl" 
+	SelectedSegment="{Binding SegmentSelection}" 
+	OnSegmentSelected="SegmentedControl_OnValueChanged" 
+	TintColor="BlueViolet"
+	SelectedTextColor="White"
+	DisabledColor="Gray"
+	Margin="8,8,8,8">
     <control:SegmentedControl.Children>
         <control:SegmentedControlOption Text="Item 1"/>
         <control:SegmentedControlOption Text="Item 2"/>
@@ -76,6 +77,28 @@ Here is a great blog post about how to move your PCL to .NET Standard: [Building
 
 ```
 
+or
+
+```xml
+<control:SegmentedControl 
+	x:Name="SegmentedControl" 
+	SelectedSegment="{Binding SegmentSelection}" 
+	OnSegmentSelected="SegmentedControl_OnValueChanged" 
+	TintColor="BlueViolet"
+	SelectedTextColor="White"
+	DisabledColor="Gray"
+	Margin="8,8,8,8"
+	ItemsSource="{Binding ListOfSegmentTitles}">
+</control:SegmentedControl>
+
+```
+
+You can bind to the SegmentSelectedCommand for notification in your view model when a segment change has occurred.
+```xml
+<control:SegmentedControl
+    SegmentSelectedCommand="{Binding SegmentChangedCommand}"
+</control:SegmentedControl>   
+```
 
 ## Credits
 For inspiration and for the Android and iOS part I'd like to thank Alex Rainman for his great work on [SegmentedControl.FormsPlugin](https://www.nuget.org/packages/SegmentedControl.FormsPlugin/).
