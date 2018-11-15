@@ -93,5 +93,12 @@ or
 
 ```
 
+You can bind to the SegmentSelectedCommand for notification in your view model when a segment change has occurred.
+```xml
+<control:SegmentedControl
+    SegmentSelectedCommand="{Binding SegmentChangedCommand}"
+</control:SegmentedControl>   
+```
+
 ## Credits
 For inspiration and for the Android and iOS part I'd like to thank Alex Rainman for his great work on [SegmentedControl.FormsPlugin](https://www.nuget.org/packages/SegmentedControl.FormsPlugin/).

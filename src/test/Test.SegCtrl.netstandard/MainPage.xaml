@@ -21,6 +21,7 @@
                 SelectedTextColor="White"
                 DisabledColor="Gray"
                 Margin="8,8,8,8"
+                SegmentSelectedCommand="{Binding SegmentChangedCommand}"
                 ItemsSource="{Binding SegmentStringSource}">
                 <!--<control:SegmentedControl.Children>
                     <control:SegmentedControlOption Text="{Binding ChangeText}"/>

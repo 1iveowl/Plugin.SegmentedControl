@@ -25,12 +25,20 @@ namespace Test.SegCtrl
 
         string[] stringSet1 = { "TestZ", "TestY" };
         string[] stringSet2 = { "TestA", "TestB", "TestC", "TestD" };
+
         public MainViewModel()
         {
             ChangeText = "Item 1B";
             SegmentItemsSource = new List<SegmentedControlOption>(list1);
             ChangeItemsSourceCommand = new Command(OnChangeItemsSource);
             SegmentStringSource = new List<string>(stringSet1);
+            SegmentChangedCommand = new Command(OnSegmentChanged);
+        }
+
+        int changedCount;
+        private void OnSegmentChanged(object obj)
+        {
+            changedCount++;
         }
 
         private void OnChangeItemsSource(object obj)
@@ -69,6 +77,8 @@ namespace Test.SegCtrl
         }
 
         public ICommand ChangeItemsSourceCommand { get; }
+
+        public ICommand SegmentChangedCommand { get; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
