@@ -15,7 +15,7 @@ There are other Segmented Control libraries out there. This library adds two imp
 |Xamarin.iOS Unified|Yes|iOS 8.1+|UISegmentedControl|
 |Xamarin.Android|Yes|API 18+|RadioGroup|
 |Xamarin.UWP|Yes|Win10 16299+|User Control/RadioButton|
-|Xamarin.MacOS|Yes|100|NSSegmentedControl|
+|Xamarin.MacOS|Yes|10.0+|NSSegmentedControl|
 
 For previous versions of UWP please use version 1.1.5.
 
@@ -49,7 +49,7 @@ Xamarin.Forms.Forms.Init(e, assembliesToInclude);
 No special needs.
 
 #### .NET Standard
-The Xamarin Forms must use .NET Standard. I suggest using .NET Standard 1.4. 
+The Xamarin Forms must use .NET Standard. I suggest using .NET Standard 2.0+. 
 
 Here is a great blog post about how to move your PCL to .NET Standard: [Building Xamarin.Forms Apps with .NET Standard](https://blog.xamarin.com/building-xamarin-forms-apps-net-standard/)
 
@@ -59,13 +59,14 @@ Here is a great blog post about how to move your PCL to .NET Standard: [Building
 `xmlns:control="clr-namespace:Plugin.Segmented.Control;assembly=Plugin.Segmented"`
 
 ```xml
-<control:SegmentedControl x:Name="SegmentedControl" 
-                            SelectedSegment="{Binding SegmentSelection}" 
-                            OnSegmentSelected="SegmentedControl_OnValueChanged" 
-                            TintColor="BlueViolet"
-                            SelectedTextColor="White"
-                            DisabledColor="Gray"
-                            Margin="8,8,8,8">
+<control:SegmentedControl 
+	x:Name="SegmentedControl" 
+	SelectedSegment="{Binding SegmentSelection}" 
+	OnSegmentSelected="SegmentedControl_OnValueChanged" 
+	TintColor="BlueViolet"
+	SelectedTextColor="White"
+	DisabledColor="Gray"
+	Margin="8,8,8,8">
     <control:SegmentedControl.Children>
         <control:SegmentedControlOption Text="Item 1"/>
         <control:SegmentedControlOption Text="Item 2"/>
@@ -76,6 +77,28 @@ Here is a great blog post about how to move your PCL to .NET Standard: [Building
 
 ```
 
+or
+
+```xml
+<control:SegmentedControl 
+	x:Name="SegmentedControl" 
+	SelectedSegment="{Binding SegmentSelection}" 
+	OnSegmentSelected="SegmentedControl_OnValueChanged" 
+	TintColor="BlueViolet"
+	SelectedTextColor="White"
+	DisabledColor="Gray"
+	Margin="8,8,8,8"
+	ItemsSource="{Binding ListOfSegmentTitles}">
+</control:SegmentedControl>
+
+```
+
+You can bind to the SegmentSelectedCommand for notification in your view model when a segment change has occurred.
+```xml
+<control:SegmentedControl
+    SegmentSelectedCommand="{Binding SegmentChangedCommand}"
+</control:SegmentedControl>   
+```
 
 ## Credits
 For inspiration and for the Android and iOS part I'd like to thank Alex Rainman for his great work on [SegmentedControl.FormsPlugin](https://www.nuget.org/packages/SegmentedControl.FormsPlugin/).

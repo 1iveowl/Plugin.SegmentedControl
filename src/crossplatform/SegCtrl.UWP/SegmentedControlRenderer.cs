@@ -57,7 +57,7 @@ namespace Plugin.Segmented.Control.UWP
 
             switch (e.PropertyName)
             {
-                case "SelectedSegment":
+                case nameof(SegmentedControl.SelectedSegment):
 
                     if (_segmentedUserControl.SegmentedControlGrid.Children
                         .Where(x =>
@@ -74,7 +74,7 @@ namespace Plugin.Segmented.Control.UWP
 
                     Element?.RaiseSelectionChanged();
                     break;
-                case "TintColor":
+                case nameof(SegmentedControl.TintColor):
                     _segmentedUserControl.SegmentedControlGrid.BorderBrush = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, "");
 
                     foreach (var segment in _segmentedUserControl.SegmentedControlGrid.Children)
@@ -82,7 +82,7 @@ namespace Plugin.Segmented.Control.UWP
                         ((SegmentRadioButton)segment).TintColor = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, "");
                     }
                     break;
-                case "IsEnabled":
+                case nameof(SegmentedControl.IsEnabled):
                     if (Element.IsEnabled)
                     {
                         foreach (var uiElement in _segmentedUserControl.SegmentedControlGrid.Children)
@@ -102,7 +102,7 @@ namespace Plugin.Segmented.Control.UWP
                         _segmentedUserControl.SegmentedControlGrid.BorderBrush = (SolidColorBrush)_colorConverter.Convert(Element.DisabledColor, null, null, "");
                     }
                     break;
-                case "DisabledColor":
+                case nameof(SegmentedControl.DisabledColor):
                     foreach (var segment in _segmentedUserControl.SegmentedControlGrid.Children)
                     {
                         ((SegmentRadioButton)segment).DisabledColor = (SolidColorBrush)_colorConverter.Convert(Element.DisabledColor, null, null, "");
@@ -115,10 +115,15 @@ namespace Plugin.Segmented.Control.UWP
 
                     break;
                     
-                case "SelectedTextColor":
+                case nameof(SegmentedControl.SelectedTextColor):
                     SetSelectedTextColor();
                     break;
-                default:
+                case nameof(SegmentedControl.Children):
+                    if (Element.Children != null)
+                    {
+                        DisposeEventHandlers();
+                        CreateSegmentedRadioButtonControl();
+                    }
                     break;
             }
         }
@@ -185,10 +190,18 @@ namespace Plugin.Segmented.Control.UWP
 
         private void Segment_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (_segmentedUserControl != null && Element != null && sender is SegmentedControlOption option && e.PropertyName == nameof(option.Text))
+            if (_segmentedUserControl != null && Element != null && sender is SegmentedControlOption option)
             {
                 var index = Element.Children.IndexOf(option);
-                _segmentedUserControl.SegmentedControlGrid.Children[index].SetValue(ContentControl.ContentProperty, option.Text);
+                switch (e.PropertyName)
+                {
+                    case nameof(SegmentedControlOption.Text):
+                        _segmentedUserControl.SegmentedControlGrid.Children[index].SetValue(ContentControl.ContentProperty, option.Text);
+                        break;
+                    case nameof(SegmentedControlOption.IsEnabled):
+                        _segmentedUserControl.SegmentedControlGrid.Children[index].SetValue(ContentControl.IsEnabledProperty, option.IsEnabled);
+                        break;
+                }
             }
         }
 
@@ -215,7 +228,7 @@ namespace Plugin.Segmented.Control.UWP
 
             if (_segmentedUserControl?.SegmentedControlGrid?.Children != null)
             {
-                foreach (var element in _segmentedUserControl?.SegmentedControlGrid?.Children)
+                foreach (var element in _segmentedUserControl.SegmentedControlGrid.Children)
                 {
                     if (element is SegmentRadioButton segment)
                     {
