@@ -13,7 +13,7 @@ There are other Segmented Control libraries out there. This library adds two imp
 |Platform|Supported|Version|Renderer|
 | ------------------- | :-----------: | :-----------: | :------------------: |
 |Xamarin.iOS Unified|Yes|iOS 8.1+|UISegmentedControl|
-|Xamarin.Android|Yes|API 18+|RadioGroup|
+|Xamarin.Android|Yes|API 26+|RadioGroup|
 |Xamarin.UWP|Yes|Win10 16299+|User Control/RadioButton|
 |Xamarin.MacOS|Yes|10.0+|NSSegmentedControl|
 
