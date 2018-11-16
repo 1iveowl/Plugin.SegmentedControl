@@ -103,4 +103,4 @@ You can bind to the SegmentSelectedCommand for notification in your view model w
 ## Credits
 For inspiration and for the Android and iOS part I'd like to thank Alex Rainman for his great work on [SegmentedControl.FormsPlugin](https://www.nuget.org/packages/SegmentedControl.FormsPlugin/).
 
-Thank you to [rjantz3](https://github.com/rjantz3) for adding much requested features and enhancing the value of this control library.
+Thank you to [rjantz3](https://github.com/rjantz3) for adding much requested features and enhancements to this control library.
