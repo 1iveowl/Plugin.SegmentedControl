@@ -19,6 +19,7 @@
                 TintColor="BlueViolet"
                 SelectedTextColor="White"
                 DisabledColor="Gray"
+                TextFontSize="20"
                 Margin="8,8,8,8"
                 SegmentSelectedCommand="{Binding SegmentChangedCommand}"
                 OnElementChildrenChanging="OnElementChildrenChanging"
@@ -41,9 +42,9 @@
                     <Button Text="Enable Segment Control" Clicked="Enable_OnClicked"></Button>
                     <Button Text="Change Disabled Color" Clicked="ChangeDisabledColor_OnClicked"></Button>
                     <Button Text="Select Segment 3" Clicked="SelectSegment3"></Button>
-                    <Button Text="Disable First Segement" Clicked="DisableFirstSegment_OnClicked"></Button>
-                    <Button Text="Enable First Segement" Clicked="EnableFirstSegment_OnClicked"></Button>
-                     <Button Text="Change ItemsSource" Command="{Binding ChangeItemsSourceCommand}"></Button>
+                    <Button Text="Disable First Segment" Clicked="DisableFirstSegment_OnClicked"></Button>
+                    <Button Text="Enable First Segment" Clicked="EnableFirstSegment_OnClicked"></Button>
+                    <Button Text="Change ItemsSource" Command="{Binding ChangeItemsSourceCommand}"></Button>
                 </StackLayout>
             </ScrollView>
         </StackLayout>

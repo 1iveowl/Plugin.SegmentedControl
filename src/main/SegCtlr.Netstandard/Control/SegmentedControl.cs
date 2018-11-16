@@ -112,13 +112,12 @@ namespace Plugin.Segmented.Control
             set => SetValue(SegmentSelectedCommandParameterProperty, value);
         }
 
-        //public static readonly BindableProperty FontSizeProperty = BindableProperty.Create("FontSize", typeof(double), typeof(SegmentedControl), Device.GetNamedSize(NamedSize.Medium, typeof(Label)));
-
-        //public double FontSize
-        //{
-        //    get => (double)GetValue(FontSizeProperty);
-        //    set => SetValue(FontSizeProperty, value);
-        //}
+        public static readonly BindableProperty FontSizeProperty = BindableProperty.Create("TextFontSize", typeof(double), typeof(SegmentedControl), Device.GetNamedSize(NamedSize.Medium, typeof(Label)));
+        public double TextFontSize
+        {
+            get => (double)GetValue(FontSizeProperty);
+            set => SetValue(FontSizeProperty, value);
+        }
 
         //public static readonly BindableProperty FontWeigthProperty = BindableProperty.Create("FontAttributes", typeof(FontAttributes), typeof(SegmentedControl), default(FontAttributes));
 

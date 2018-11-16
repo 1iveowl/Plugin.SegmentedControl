@@ -9,6 +9,11 @@ namespace Test.SegmentedControl
 {
     public partial class MainPage : ContentPage
     {
+        private const double SmallFont = 12;
+        private const double LargeFont = 20;
+
+        private bool _isLargeFont;
+
         //public static readonly BindableProperty SegmentSelectProperty = BindableProperty.Create(
             //propertyName: "SegmentSelect",
             //returnType: typeof(int),
@@ -112,5 +117,12 @@ namespace Test.SegmentedControl
                 e.NewValues[0].SetBinding(SegmentedControlOption.TextProperty, nameof(_viewModel.ChangeText));
             }
         }
+
+        //private void Button_ChangeFontsize(object sender, EventArgs e)
+        //{
+        //    SegmentedControl.FontSize = _isLargeFont ? SmallFont : LargeFont;
+
+        //    _isLargeFont = !_isLargeFont;
+        //}
     }
 }

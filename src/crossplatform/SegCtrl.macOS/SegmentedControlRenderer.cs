@@ -5,6 +5,8 @@ using AppKit;
 using Xamarin.Forms.Platform.MacOS;
 using Plugin.Segmented.Control;
 using System.ComponentModel;
+using CoreText;
+using Foundation;
 
 [assembly: ExportRenderer(typeof(SegmentedControl), typeof(SegCtrl.macOS.SegmentedControlRenderer))]
 namespace SegCtrl.macOS
@@ -37,6 +39,10 @@ namespace SegCtrl.macOS
             _nativeControl.Enabled = Element.IsEnabled;
             _nativeControl.SetSelected(true, Element.SelectedSegment);
             _nativeControl.FocusRingType = NSFocusRingType.None;
+
+            var font = NSFont.FromFontName(_nativeControl.Font.FontName, (nfloat)Element.TextFontSize);
+
+            _nativeControl.Font = font;
 
             SetNativeControl(_nativeControl);
         }
@@ -117,6 +123,7 @@ namespace SegCtrl.macOS
                     case nameof(SegmentedControlOption.Text):
                         _nativeControl.SetLabel(option.Text, index);
                         break;
+
                     case nameof(SegmentedControlOption.IsEnabled):
                         _nativeControl.SetEnabled(option.IsEnabled, index);
                         break;
@@ -145,9 +152,11 @@ namespace SegCtrl.macOS
                     _nativeControl.SelectedSegment = Element.SelectedSegment;
                     Element.RaiseSelectionChanged();
                     break;
+
                 case nameof(NSSegmentedControl.IsEnabled):
                     _nativeControl.Enabled = Element.IsEnabled;
                     break;
+
                 case nameof(SegmentedControl.Children):
                     ResetNativeControl();
                     break;

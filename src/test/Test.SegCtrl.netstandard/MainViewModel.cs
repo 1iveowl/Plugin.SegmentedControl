@@ -9,13 +9,13 @@ namespace Test.SegCtrl
 {
     public class MainViewModel : INotifyPropertyChanged
     {
-        internal SegmentedControlOption[] list1 = {
+        private readonly SegmentedControlOption[] _list1 = {
             new SegmentedControlOption{Text="Test0"},
             new SegmentedControlOption{Text="Test1"},
             new SegmentedControlOption{Text="Test2"}
         };
 
-        internal SegmentedControlOption[] list2 = {
+        internal SegmentedControlOption[] List2 = {
             new SegmentedControlOption{Text="Item1"},
             new SegmentedControlOption{Text="Item2"},
             new SegmentedControlOption{Text="Item3"},
@@ -23,16 +23,16 @@ namespace Test.SegCtrl
             new SegmentedControlOption{Text="Item5"}
         };
 
-        string[] stringSet1 = { "TestZ", "TestY" };
-        string[] stringSet2 = { "TestA", "TestB", "TestC", "TestD" };
+        readonly string[] _stringSet1 = { "TestZ", "TestY" };
+        readonly string[] _stringSet2 = { "TestA", "TestB", "TestC", "TestD" };
 
         public MainViewModel()
         {
             ChoiceText = "Start";
             ChangeText = "Item 1B";
-            SegmentItemsSource = new List<SegmentedControlOption>(list1);
+            SegmentItemsSource = new List<SegmentedControlOption>(_list1);
             ChangeItemsSourceCommand = new Command(OnChangeItemsSource);
-            SegmentStringSource = new List<string>(stringSet1);
+            SegmentStringSource = new List<string>(_stringSet1);
             SegmentChangedCommand = new Command(OnSegmentChanged);
         }
 
@@ -47,20 +47,28 @@ namespace Test.SegCtrl
             //SegmentItemsSource[0].RemoveBinding(SegmentedControlOption.TextProperty);
             //SegmentItemsSource = SegmentItemsSource.Count == list1.Length ? new List<SegmentedControlOption>(list2) : new List<SegmentedControlOption>(list1);
             //SegmentItemsSource[0].SetBinding(SegmentedControlOption.TextProperty, nameof(ChangeText));
-            SegmentStringSource = SegmentStringSource.Count == stringSet1.Length ? new List<string>(stringSet2) : new List<string>(stringSet1);
+            SegmentStringSource = SegmentStringSource.Count == _stringSet1.Length ? new List<string>(_stringSet2) : new List<string>(_stringSet1);
         }
+
+        //private double _changeFontsize;
+
+        //public double ChangeFontSize
+        //{
+        //    get => _changeFontsize;
+        //    set { _changeFontsize = value; OnPropertyChanged(new PropertyChangedEventArgs(nameof(ChangeFontSize))); }
+        //}
 
         private string _changeText;
         public string ChangeText
         {
-            get { return _changeText; }
+            get => _changeText;
             set { _changeText = value; OnPropertyChanged(new PropertyChangedEventArgs(nameof(ChangeText))); }
         }
-
+        
         private int _selectedSegment;
         public int SelectedSegment
         {
-            get { return _selectedSegment; }
+            get => _selectedSegment;
             set
             { 
                 _selectedSegment = value; 
@@ -71,21 +79,21 @@ namespace Test.SegCtrl
         private IList<SegmentedControlOption> _segmentItemsSource;
         public IList<SegmentedControlOption> SegmentItemsSource
         {
-            get { return _segmentItemsSource; }
+            get => _segmentItemsSource;
             set { _segmentItemsSource = value; OnPropertyChanged(new PropertyChangedEventArgs(nameof(SegmentItemsSource))); }
         }
 
         private IList<string> _segmentStringSource;
         public IList<string> SegmentStringSource
         {
-            get { return _segmentStringSource; }
+            get => _segmentStringSource;
             set { _segmentStringSource = value; OnPropertyChanged(new PropertyChangedEventArgs(nameof(SegmentStringSource))); }
         }
 
         private string _choiceText;
         public string ChoiceText
         {
-            get { return _choiceText; }
+            get => _choiceText;
             set { _choiceText = value; OnPropertyChanged(new PropertyChangedEventArgs(nameof(ChoiceText))); }
         }
 

@@ -11,5 +11,6 @@ namespace Plugin.Segmented.Control
             get => (string)GetValue(TextProperty);
             set => SetValue(TextProperty, value);
         }
+
     }
 }
