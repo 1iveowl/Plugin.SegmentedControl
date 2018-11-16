@@ -17,7 +17,7 @@ namespace Plugin.Segmented.Control.iOS
         protected override void OnElementChanged(ElementChangedEventArgs<SegmentedControl> e)
         {
             base.OnElementChanged(e);
-            if (Control == null)
+            if (Control is null)
             {
                 _nativeControl = new UISegmentedControl();
                 SetNativeControlSegments(Element.Children);
@@ -27,32 +27,42 @@ namespace Plugin.Segmented.Control.iOS
                 SetNativeControl(_nativeControl);
             }
 
-            if (e.OldElement != null)
+            if (!(e.OldElement is null))
             {
-                if (_nativeControl != null) _nativeControl.ValueChanged -= NativeControl_SelectionChanged;
+                if (!(_nativeControl is null))
+                {
+                    _nativeControl.ValueChanged -= NativeControl_SelectionChanged;
+                }
+
                 RemoveElementHandlers();
             }
 
-            if (e.NewElement != null)
+            if (!(e.NewElement is null))
             {
-                if (_nativeControl != null) _nativeControl.ValueChanged += NativeControl_SelectionChanged;
+                if (!(_nativeControl is null))
+                {
+                    _nativeControl.ValueChanged += NativeControl_SelectionChanged;
+                }
+
                 AddElementHandlers(e.NewElement);
             }
         }
 
         private void SetNativeControlSegments(IList<SegmentedControlOption> children)
         {
-            if (_nativeControl != null)
+            if (!(_nativeControl is null))
             {
                 if (_nativeControl.NumberOfSegments > 0)
                 {
                     _nativeControl.RemoveAllSegments();
                 }
+
                 for (int i = 0; i < children.Count; i++)
                 {
                     _nativeControl.InsertSegment(children[i].Text, i, false);
                 }
-                if (Element != null)
+
+                if (!(Element is null))
                 {
                     _nativeControl.SelectedSegment = Element.SelectedSegment;
                 }
@@ -61,13 +71,14 @@ namespace Plugin.Segmented.Control.iOS
 
         private void AddElementHandlers(SegmentedControl element, bool addChildHandlersOnly = false)
         {
-            if (element != null)
+            if (!(element is null))
             {
                 if (!addChildHandlersOnly)
                 {
                     element.OnElementChildrenChanging += OnElementChildrenChanging;
                 }
-                if (element.Children != null)
+
+                if (!(element.Children is null))
                 {
                     foreach (var child in element.Children)
                     {
@@ -80,13 +91,14 @@ namespace Plugin.Segmented.Control.iOS
 
         private void RemoveElementHandlers(bool removeChildrenHandlersOnly = false)
         {
-            if (Element != null)
+            if (!(Element is null))
             {
                 if (!removeChildrenHandlersOnly)
                 {
                     Element.OnElementChildrenChanging -= OnElementChildrenChanging;
                 }
-                if (Element.Children != null)
+
+                if (!(Element.Children is null))
                 {
                     foreach (var child in Element.Children)
                     {
@@ -104,9 +116,10 @@ namespace Plugin.Segmented.Control.iOS
 
         private void SegmentPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (_nativeControl != null && Element != null && sender is SegmentedControlOption option)
+            if (!(_nativeControl is null) && !(Element is null) && sender is SegmentedControlOption option)
             {
                 var index = Element.Children.IndexOf(option);
+
                 switch (e.PropertyName)
                 {
                     case nameof(SegmentedControlOption.Text):
@@ -129,7 +142,10 @@ namespace Plugin.Segmented.Control.iOS
                 return;
             }
 
-            if (_nativeControl == null || Element == null) return;
+            if (_nativeControl is null || Element is null)
+            {
+                return;
+            }
 
             switch (e.PropertyName)
             {
@@ -148,7 +164,7 @@ namespace Plugin.Segmented.Control.iOS
                     SetSelectedTextColor();
                     break;
                 case nameof(SegmentedControl.Children):
-                    if (Element.Children != null)
+                    if (!(Element.Children is null))
                     {
                         SetNativeControlSegments(Element.Children);
                         AddElementHandlers(Element, true);
@@ -172,7 +188,7 @@ namespace Plugin.Segmented.Control.iOS
 
         protected override void Dispose(bool disposing)
         {
-            if (_nativeControl != null)
+            if (!(_nativeControl is null))
             {
                 _nativeControl.ValueChanged -= NativeControl_SelectionChanged;
                 _nativeControl?.Dispose();

@@ -28,13 +28,13 @@ namespace Plugin.Segmented.Control.Droid
         {
             base.OnElementChanged(e);
 
-            if (Control == null)
+            if (Control is null)
             {
                 // Instantiate the native control and assign it to the Control property with
                 // the SetNativeControl method
             }
 
-            if (e.OldElement != null)
+            if (!(e.OldElement is null))
             {
                 // Unsubscribe from event handlers and cleanup any resources
 
@@ -43,7 +43,7 @@ namespace Plugin.Segmented.Control.Droid
                 RemoveElementHandlers();
             }
 
-            if (e.NewElement != null)
+            if (!(e.NewElement is null))
             {
                 // Configure the control and subscribe to event handlers
                 AddElementHandlers();
@@ -52,14 +52,14 @@ namespace Plugin.Segmented.Control.Droid
 
         private void AddElementHandlers(bool addChildrenHandlersOnly = false)
         {
-            if (Element != null)
+            if (!(Element is null))
             {
                 if (!addChildrenHandlersOnly)
                 {
                     Element.SizeChanged += Element_SizeChanged;
                     Element.OnElementChildrenChanging += OnElementChildrenChanging;
                 }
-                if (Element.Children != null)
+                if (!(Element.Children is null))
                 {
                     foreach (var child in Element.Children)
                     {
@@ -72,14 +72,14 @@ namespace Plugin.Segmented.Control.Droid
 
         private void RemoveElementHandlers(bool removeChildrenHandlersOnly = false)
         {
-            if (Element != null)
+            if (!(Element is null))
             {
                 if (!removeChildrenHandlersOnly)
                 {
                     Element.SizeChanged -= Element_SizeChanged;
                     Element.OnElementChildrenChanging -= OnElementChildrenChanging;
                 }
-                if (Element.Children != null)
+                if (!(Element.Children is null))
                 {
                     foreach (var child in Element.Children)
                     {
@@ -91,7 +91,7 @@ namespace Plugin.Segmented.Control.Droid
 
         private void Element_SizeChanged(object sender, EventArgs e)
         {
-            if (Control == null && Element != null)
+            if (Control is null && !(Element is null))
             {
                 var layoutInflater = LayoutInflater.From(_context);
 
@@ -101,8 +101,10 @@ namespace Plugin.Segmented.Control.Droid
 
                 var option = (RadioButton)_nativeControl.GetChildAt(Element.SelectedSegment);
 
-                if (option != null)
+                if (!(option is null))
+                {
                     option.Checked = true;
+                }
 
                 _nativeControl.CheckedChange += NativeControl_ValueChanged;
 
@@ -112,7 +114,7 @@ namespace Plugin.Segmented.Control.Droid
 
         private void Segment_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (_nativeControl != null && Element != null && sender is SegmentedControlOption option)
+            if (!(_nativeControl is null) && !(Element is null) && sender is SegmentedControlOption option)
             {
                 var index = Element.Children.IndexOf(option);
                 if (_nativeControl.GetChildAt(index) is RadioButton segment)
@@ -142,7 +144,7 @@ namespace Plugin.Segmented.Control.Droid
                     Element?.RaiseSelectionChanged();
                     break;
                 case nameof(SegmentedControl.SelectedSegment):
-                    if (_nativeControl != null && Element != null)
+                    if (!(_nativeControl is null) && !(Element is null))
                     {
                         if (Element.SelectedSegment < 0)
                         {
@@ -166,7 +168,7 @@ namespace Plugin.Segmented.Control.Droid
                     OnPropertyChanged();
                     break;
                 case nameof(SegmentedControl.SelectedTextColor):
-                    if (_nativeControl != null && Element != null)
+                    if (!(_nativeControl is null) && !(Element is null))
                     {
                         var v = (RadioButton)_nativeControl.GetChildAt(Element.SelectedSegment);
                         v.SetTextColor(Element.SelectedTextColor.ToAndroid());
@@ -181,11 +183,16 @@ namespace Plugin.Segmented.Control.Droid
 
         private void SetNativeControlSegments(LayoutInflater layoutInflater)
         {
-            if (_nativeControl is null || Element is null || Element.Children is null) return;
+            if (_nativeControl is null || Element?.Children is null)
+            {
+                return;
+            }
+
             if (_nativeControl.ChildCount > 0)
             {
                 _nativeControl.RemoveAllViews();
             }
+
             for (var i = 0; i < Element.Children.Count; i++)
             {
                 var o = Element.Children[i];
@@ -217,7 +224,10 @@ namespace Plugin.Segmented.Control.Droid
 
         private void OnPropertyChanged()
         {
-            if (_nativeControl == null || Element == null) return;
+            if (_nativeControl is null || Element is null)
+            {
+                return;
+            }
 
             for (var i = 0; i < Element.Children.Count; i++)
             {
@@ -289,10 +299,12 @@ namespace Plugin.Segmented.Control.Droid
 
         protected override void Dispose(bool disposing)
         {
-            if (_nativeControl != null)
+            if (!(_nativeControl is null))
+            {
                 _nativeControl.CheckedChange -= NativeControl_ValueChanged;
-            
-            if (_nativeRadioButtonControl != null)
+            }
+                
+            if (!(_nativeRadioButtonControl is null))
             {
                 _nativeRadioButtonControl.Dispose();
                 _nativeRadioButtonControl = null;

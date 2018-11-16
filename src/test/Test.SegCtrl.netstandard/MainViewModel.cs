@@ -9,13 +9,13 @@ namespace Test.SegCtrl
 {
     public class MainViewModel : INotifyPropertyChanged
     {
-        SegmentedControlOption[] list1 = {
+        internal SegmentedControlOption[] list1 = {
             new SegmentedControlOption{Text="Test0"},
             new SegmentedControlOption{Text="Test1"},
             new SegmentedControlOption{Text="Test2"}
         };
 
-        SegmentedControlOption[] list2 = {
+        internal SegmentedControlOption[] list2 = {
             new SegmentedControlOption{Text="Item1"},
             new SegmentedControlOption{Text="Item2"},
             new SegmentedControlOption{Text="Item3"},
@@ -28,6 +28,7 @@ namespace Test.SegCtrl
 
         public MainViewModel()
         {
+            ChoiceText = "Start";
             ChangeText = "Item 1B";
             SegmentItemsSource = new List<SegmentedControlOption>(list1);
             ChangeItemsSourceCommand = new Command(OnChangeItemsSource);
@@ -60,7 +61,12 @@ namespace Test.SegCtrl
         public int SelectedSegment
         {
             get { return _selectedSegment; }
-            set { _selectedSegment = value; OnPropertyChanged(new PropertyChangedEventArgs(nameof(SelectedSegment))); }
+            set
+            { 
+                _selectedSegment = value; 
+                OnPropertyChanged(new PropertyChangedEventArgs(nameof(SelectedSegment)));
+                ChoiceText = value.ToString();
+            }
         }
         private IList<SegmentedControlOption> _segmentItemsSource;
         public IList<SegmentedControlOption> SegmentItemsSource
@@ -74,6 +80,13 @@ namespace Test.SegCtrl
         {
             get { return _segmentStringSource; }
             set { _segmentStringSource = value; OnPropertyChanged(new PropertyChangedEventArgs(nameof(SegmentStringSource))); }
+        }
+
+        private string _choiceText;
+        public string ChoiceText
+        {
+            get { return _choiceText; }
+            set { _choiceText = value; OnPropertyChanged(new PropertyChangedEventArgs(nameof(ChoiceText))); }
         }
 
         public ICommand ChangeItemsSourceCommand { get; }

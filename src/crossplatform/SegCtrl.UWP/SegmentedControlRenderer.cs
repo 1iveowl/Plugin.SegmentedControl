@@ -7,7 +7,6 @@ using Windows.UI.Xaml.Media;
 using Plugin.Segmented.Control;
 using Plugin.Segmented.Control.UWP;
 using Xamarin.Forms.Platform.UWP;
-//using Grid = Windows.UI.Xaml.Controls.Grid;
 
 [assembly: ExportRenderer(typeof(SegmentedControl), typeof(SegmentedControlRenderer))]
 namespace Plugin.Segmented.Control.UWP
@@ -27,17 +26,17 @@ namespace Plugin.Segmented.Control.UWP
         {
             base.OnElementChanged(e);
 
-            if (_segmentedUserControl == null)
+            if (_segmentedUserControl is null)
             {
                 CreateSegmentedRadioButtonControl();
             }
 
-            if (e.OldElement != null)
+            if (!(e.OldElement is null))
             {
                 DisposeEventHandlers();
             }
 
-            if (e.NewElement != null)
+            if (!(e.NewElement is null))
             {
                 CreateSegmentedRadioButtonControl();
             }
@@ -53,7 +52,7 @@ namespace Plugin.Segmented.Control.UWP
                 return;
             }
 
-            if (_segmentedUserControl == null || Element == null) return;
+            if (_segmentedUserControl is null || Element is null) return;
 
             switch (e.PropertyName)
             {
@@ -62,7 +61,7 @@ namespace Plugin.Segmented.Control.UWP
                     if (_segmentedUserControl.SegmentedControlGrid.Children
                         .Where(x =>
                         {
-                            var btn = (RadioButton) x;
+                            var btn = (RadioButton)x;
 
                             int.TryParse(btn.Tag.ToString(), out var i);
                             return i == Element.SelectedSegment;
@@ -87,7 +86,7 @@ namespace Plugin.Segmented.Control.UWP
                     {
                         foreach (var uiElement in _segmentedUserControl.SegmentedControlGrid.Children)
                         {
-                            var segment = (SegmentRadioButton) uiElement;
+                            var segment = (SegmentRadioButton)uiElement;
                             segment.IsEnabled = true;
                         }
                         _segmentedUserControl.SegmentedControlGrid.BorderBrush = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, "");
@@ -114,7 +113,7 @@ namespace Plugin.Segmented.Control.UWP
                     }
 
                     break;
-                    
+
                 case nameof(SegmentedControl.SelectedTextColor):
                     SetSelectedTextColor();
                     break;
@@ -190,7 +189,7 @@ namespace Plugin.Segmented.Control.UWP
 
         private void Segment_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (_segmentedUserControl != null && Element != null && sender is SegmentedControlOption option)
+            if (!(_segmentedUserControl is null) && !(Element is null) && sender is SegmentedControlOption option)
             {
                 var index = Element.Children.IndexOf(option);
                 switch (e.PropertyName)
@@ -199,7 +198,7 @@ namespace Plugin.Segmented.Control.UWP
                         _segmentedUserControl.SegmentedControlGrid.Children[index].SetValue(ContentControl.ContentProperty, option.Text);
                         break;
                     case nameof(SegmentedControlOption.IsEnabled):
-                        _segmentedUserControl.SegmentedControlGrid.Children[index].SetValue(ContentControl.IsEnabledProperty, option.IsEnabled);
+                        _segmentedUserControl.SegmentedControlGrid.Children[index].SetValue(Windows.UI.Xaml.Controls.Control.IsEnabledProperty, option.IsEnabled);
                         break;
                 }
             }
@@ -209,7 +208,7 @@ namespace Plugin.Segmented.Control.UWP
         {
             var button = (SegmentRadioButton) sender;
 
-            if (button != null)
+            if (!(button is null))
             {
                 Element.SelectedSegment = int.Parse(button.Tag.ToString());
                 Element?.RaiseSelectionChanged();
@@ -237,7 +236,7 @@ namespace Plugin.Segmented.Control.UWP
                 }
             }
 
-            if (Element != null)
+            if (!(Element is null))
             {
                 foreach (var child in Element.Children)
                 {
