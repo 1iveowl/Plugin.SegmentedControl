@@ -119,6 +119,13 @@ namespace Plugin.Segmented.Control
             set => SetValue(FontSizeProperty, value);
         }
 
+        public static readonly BindableProperty FontFamilyProperty = BindableProperty.Create("TextFontFamily", typeof(string), typeof(SegmentedControl));
+        public string TextFontFamily
+        {
+            get => (string) GetValue(FontFamilyProperty);
+            set => SetValue(FontFamilyProperty, value);
+        }
+
         //public static readonly BindableProperty FontWeigthProperty = BindableProperty.Create("FontAttributes", typeof(FontAttributes), typeof(SegmentedControl), default(FontAttributes));
 
         //public FontAttributes FontAttributes

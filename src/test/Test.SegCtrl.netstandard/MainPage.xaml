@@ -4,9 +4,14 @@
              xmlns:local="clr-namespace:Test.SegmentedControl"
              xmlns:control="clr-namespace:Plugin.Segmented.Control;assembly=Plugin.Segmented"
              x:Class="Test.SegmentedControl.MainPage">
-    <!--<ContentPage.BindingContext>
-        <x:Reference Name="this" />
-    </ContentPage.BindingContext>-->
+
+    <ContentPage.Resources>
+        <OnPlatform x:Key="PlatformFontName" x:TypeArguments="x:String">
+            <On Platform="UWP" Value="Courier New"></On>
+            <On Platform="Android" Value="as"></On>
+            <On Platform="iOS" Value="trs"></On>
+        </OnPlatform>
+    </ContentPage.Resources>
     
     <ContentPage.Content>
         <StackLayout BackgroundColor="White" x:Name="SegmentWithStack">
@@ -20,6 +25,7 @@
                 SelectedTextColor="White"
                 DisabledColor="Gray"
                 TextFontSize="12"
+                TextFontFamily="{StaticResource PlatformFontName}"
                 Margin="8,8,8,8"
                 SegmentSelectedCommand="{Binding SegmentChangedCommand}"
                 OnElementChildrenChanging="OnElementChildrenChanging"
