@@ -19,7 +19,7 @@
                 TintColor="BlueViolet"
                 SelectedTextColor="White"
                 DisabledColor="Gray"
-                TextFontSize="20"
+                TextFontSize="12"
                 Margin="8,8,8,8"
                 SegmentSelectedCommand="{Binding SegmentChangedCommand}"
                 OnElementChildrenChanging="OnElementChildrenChanging"

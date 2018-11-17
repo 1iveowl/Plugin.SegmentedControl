@@ -275,6 +275,7 @@ namespace Plugin.Segmented.Control.Droid
         private void NativeControl_ValueChanged(object sender, RadioGroup.CheckedChangeEventArgs e)
         {
             var rg = (RadioGroup)sender;
+
             if (rg.CheckedRadioButtonId != -1)
             {
                 var id = rg.CheckedRadioButtonId;

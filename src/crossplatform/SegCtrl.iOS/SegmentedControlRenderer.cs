@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Foundation;
 using Plugin.Segmented.Control;
 using Plugin.Segmented.Control.iOS;
 using UIKit;
@@ -17,12 +18,16 @@ namespace Plugin.Segmented.Control.iOS
         protected override void OnElementChanged(ElementChangedEventArgs<SegmentedControl> e)
         {
             base.OnElementChanged(e);
+
             if (Control is null)
             {
                 _nativeControl = new UISegmentedControl();
                 SetNativeControlSegments(Element.Children);
                 _nativeControl.Enabled = Element.IsEnabled;
                 _nativeControl.TintColor = Element.IsEnabled ? Element.TintColor.ToUIColor() : Element.DisabledColor.ToUIColor();
+
+                SetFont();
+
                 SetSelectedTextColor();
                 SetNativeControl(_nativeControl);
             }
@@ -153,16 +158,20 @@ namespace Plugin.Segmented.Control.iOS
                     _nativeControl.SelectedSegment = Element.SelectedSegment;
                     Element.RaiseSelectionChanged();
                     break;
+
                 case nameof(SegmentedControl.TintColor):
                     _nativeControl.TintColor = Element.IsEnabled ? Element.TintColor.ToUIColor() : Element.DisabledColor.ToUIColor();
                     break;
+
                 case nameof(SegmentedControl.IsEnabled):
                     _nativeControl.Enabled = Element.IsEnabled;
                     _nativeControl.TintColor = Element.IsEnabled ? Element.TintColor.ToUIColor() : Element.DisabledColor.ToUIColor();
                     break;
+
                 case nameof(SegmentedControl.SelectedTextColor):
                     SetSelectedTextColor();
                     break;
+
                 case nameof(SegmentedControl.Children):
                     if (!(Element.Children is null))
                     {
@@ -170,9 +179,14 @@ namespace Plugin.Segmented.Control.iOS
                         AddElementHandlers(Element, true);
                     }
                     break;
-                default:
-                    break;
             }
+        }
+
+        private void SetFont()
+        {
+            var font = UIFont.SystemFontOfSize((nfloat) Element.TextFontSize);
+
+           _nativeControl.SetTitleTextAttributes(new UITextAttributes { Font = font }, UIControlState.Normal);
         }
 
         private void SetSelectedTextColor()
