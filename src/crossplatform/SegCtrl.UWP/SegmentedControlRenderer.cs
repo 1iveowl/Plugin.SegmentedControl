@@ -185,8 +185,6 @@ namespace Plugin.Segmented.Control.UWP
                     SelectedTextColor = (SolidColorBrush)_colorConverter.Convert(Element.SelectedTextColor, null, null, ""),
                     TintColor = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, ""),
                     DisabledColor = (SolidColorBrush)_colorConverter.Convert(Element.DisabledColor, null, null, ""),
-                    FontSize = Element.TextFontSize,
-                    FontFamily = new FontFamily(Element.TextFontFamily),
                     BorderThickness = child.i > 0 ? new Thickness(1, 0, 0, 0) : new Thickness(0, 0, 0, 0),
                     IsEnabled = Element.IsEnabled
                 };
@@ -196,6 +194,16 @@ namespace Plugin.Segmented.Control.UWP
                 if (child.i == Element.SelectedSegment)
                 {
                     segmentButton.IsChecked = true;
+                }
+
+                if (Element.TextFontSize > 0)
+                {
+                    segmentButton.FontSize = Element.TextFontSize;
+                }
+
+                if (!string.IsNullOrEmpty(Element.TextFontFamily))
+                {
+                    segmentButton.FontFamily = new FontFamily(Element.TextFontFamily);
                 }
                 
                 grid.ColumnDefinitions.Add(new ColumnDefinition

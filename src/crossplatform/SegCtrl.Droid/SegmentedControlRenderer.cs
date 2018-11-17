@@ -1,6 +1,8 @@
 ﻿using System;
 using Android.Content;
+using Android.Graphics;
 using Android.Graphics.Drawables;
+using Android.Support.V4.Content.Res;
 using Android.Views;
 using Android.Widget;
 using Plugin.Segmented.Control;
@@ -275,6 +277,9 @@ namespace Plugin.Segmented.Control.Droid
             }
 
             radioButton.TextSize = Convert.ToSingle(Element.TextFontSize);
+
+            var font = Typeface.Create(Element.TextFontFamily, TypefaceStyle.Normal);
+            radioButton.SetTypeface(font, TypefaceStyle.Normal);
 
             var gradientDrawable = (StateListDrawable)radioButton.Background;
 

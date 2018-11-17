@@ -8,8 +8,9 @@
     <ContentPage.Resources>
         <OnPlatform x:Key="PlatformFontName" x:TypeArguments="x:String">
             <On Platform="UWP" Value="Courier New"></On>
-            <On Platform="Android" Value="as"></On>
-            <On Platform="iOS" Value="trs"></On>
+            <On Platform="Android" Value="ComicSaaaans.ttf#ComicSansMS"></On>
+            <On Platform="iOS" Value="Baskerville"></On>
+            <On Platform="macOS" Value="Baskerville"></On>
         </OnPlatform>
     </ContentPage.Resources>
     

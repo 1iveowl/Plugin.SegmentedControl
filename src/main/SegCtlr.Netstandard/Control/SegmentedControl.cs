@@ -28,6 +28,7 @@ namespace Plugin.Segmented.Control
             {
                 segmentedControl.OnElementChildrenChanging?.Invoke(segmentedControl, new ElementChildrenChanging((IList<SegmentedControlOption>)oldValue, newItemsList));
                 segmentedControl.Children.Clear();
+
                 foreach (var newSegment in newItemsList)
                 {
                     newSegment.BindingContext = segmentedControl.BindingContext;

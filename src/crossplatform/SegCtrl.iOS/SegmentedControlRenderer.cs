@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using Foundation;
 using Plugin.Segmented.Control;
 using Plugin.Segmented.Control.iOS;
 using UIKit;
@@ -184,7 +183,9 @@ namespace Plugin.Segmented.Control.iOS
 
         private void SetFont()
         {
-            var font = UIFont.SystemFontOfSize((nfloat) Element.TextFontSize);
+            var font = string.IsNullOrEmpty(Element.TextFontFamily) 
+                ? UIFont.SystemFontOfSize((nfloat)Element.TextFontSize) 
+                : UIFont.FromName(Element.TextFontFamily, (nfloat)Element.TextFontSize);
 
            _nativeControl.SetTitleTextAttributes(new UITextAttributes { Font = font }, UIControlState.Normal);
         }

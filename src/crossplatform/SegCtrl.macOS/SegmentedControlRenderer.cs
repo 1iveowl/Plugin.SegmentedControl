@@ -40,7 +40,7 @@ namespace SegCtrl.macOS
             _nativeControl.SetSelected(true, Element.SelectedSegment);
             _nativeControl.FocusRingType = NSFocusRingType.None;
 
-            SetFontSize();
+            SetFont();
             SetNativeControl(_nativeControl);
         }
 
@@ -160,9 +160,11 @@ namespace SegCtrl.macOS
             }
         }
 
-        private void SetFontSize()
+        private void SetFont()
         {
-            var font = NSFont.FromFontName(_nativeControl.Font.FontName, (nfloat)Element.TextFontSize);
+            var font = NSFont.FromFontName(string.IsNullOrEmpty(Element.TextFontFamily) 
+                ? _nativeControl.Font.FontName 
+                : Element.TextFontFamily, (nfloat)Element.TextFontSize);
 
             _nativeControl.Font = font;
         }

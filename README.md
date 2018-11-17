@@ -48,6 +48,8 @@ Xamarin.Forms.Forms.Init(e, assembliesToInclude);
 ### Android
 No special needs.
 
+For using custom fonts with Android see this blog post: [https://blog.verslu.is/xamarin/xamarin-forms-xamarin/custom-fonts-with-xamarin-forms-revisited/](https://blog.verslu.is/xamarin/xamarin-forms-xamarin/custom-fonts-with-xamarin-forms-revisited/)
+
 #### .NET Standard
 The Xamarin Forms must use .NET Standard. I suggest using .NET Standard 2.0+. 
 
@@ -56,24 +58,65 @@ Here is a great blog post about how to move your PCL to .NET Standard: [Building
 #### XAML
 ![Plugin Segmented Control Picture](https://github.com/1iveowl/Plugin.SegmentedControl/blob/master/src/asset/SegmentedRadioButtonControl-1.png "Plugin Segmented Control")
 
-`xmlns:control="clr-namespace:Plugin.Segmented.Control;assembly=Plugin.Segmented"`
 
 ```xml
-<control:SegmentedControl 
-	x:Name="SegmentedControl" 
-	SelectedSegment="{Binding SegmentSelection}" 
-	OnSegmentSelected="SegmentedControl_OnValueChanged" 
-	TintColor="BlueViolet"
-	SelectedTextColor="White"
-	DisabledColor="Gray"
-	Margin="8,8,8,8">
-    <control:SegmentedControl.Children>
-        <control:SegmentedControlOption Text="Item 1"/>
-        <control:SegmentedControlOption Text="Item 2"/>
-        <control:SegmentedControlOption Text="Item 3"/>
-        <control:SegmentedControlOption Text="Item 4"/>
-    </control:SegmentedControl.Children>
-</control:SegmentedControl>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Test.SegmentedControl"
+             xmlns:control="clr-namespace:Plugin.Segmented.Control;assembly=Plugin.Segmented"
+             x:Class="Test.SegmentedControl.MainPage">
+
+    <ContentPage.Resources>
+        <OnPlatform x:Key="PlatformFontName" x:TypeArguments="x:String">
+            <On Platform="UWP" Value="Courier New"></On>
+            <On Platform="Android" Value="as"></On>
+            <On Platform="iOS" Value="trs"></On>
+        </OnPlatform>
+    </ContentPage.Resources>
+    
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="White" x:Name="SegmentWithStack">
+            <Label 
+                Text="Welcome to Xamarin.Forms!"
+                HorizontalOptions="CenterAndExpand" />
+            <control:SegmentedControl 
+                x:Name="SegmentedControl" 
+                SelectedSegment="{Binding SelectedSegment, Mode=TwoWay}"
+                TintColor="BlueViolet"
+                SelectedTextColor="White"
+                DisabledColor="Gray"
+                TextFontSize="12"
+                TextFontFamily="{StaticResource PlatformFontName}"
+                Margin="8,8,8,8"
+                SegmentSelectedCommand="{Binding SegmentChangedCommand}"
+                OnElementChildrenChanging="OnElementChildrenChanging"
+                ItemsSource="{Binding SegmentStringSource}">
+                <!--<control:SegmentedControl.Children>
+                    <control:SegmentedControlOption Text="{Binding ChangeText}"/>
+                    <control:SegmentedControlOption Text="Item 2"/>
+                    <control:SegmentedControlOption Text="Item 3"/>
+                    <control:SegmentedControlOption Text="Item 4"/>
+                </control:SegmentedControl.Children>-->
+            </control:SegmentedControl>
+            <Label x:Name="ChoiceLabel" Text="{Binding ChoiceText}"></Label>
+            <ScrollView>
+                <StackLayout Margin="24, 24, 24, 24">
+                    <Button Text="Change First Item Text" Clicked="ChangeFirstText"/>
+                    <Button Text="Remove" Clicked="Button_OnClicked"></Button>
+                    <Button Text="Tint Color Change Button" Clicked="ButtonTintColor_OnClicked"></Button>
+                    <Button Text="Selected Text Change Button" Clicked="ButtonSelectedTextColor_OnClicked"></Button>
+                    <Button Text="Disable Segment Control" Clicked="Disable_OnClicked"></Button>
+                    <Button Text="Enable Segment Control" Clicked="Enable_OnClicked"></Button>
+                    <Button Text="Change Disabled Color" Clicked="ChangeDisabledColor_OnClicked"></Button>
+                    <Button Text="Select Segment 3" Clicked="SelectSegment3"></Button>
+                    <Button Text="Disable First Segment" Clicked="DisableFirstSegment_OnClicked"></Button>
+                    <Button Text="Enable First Segment" Clicked="EnableFirstSegment_OnClicked"></Button>
+                    <Button Text="Change ItemsSource" Command="{Binding ChangeItemsSourceCommand}"></Button>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
 
 ```
 
