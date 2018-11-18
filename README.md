@@ -69,8 +69,9 @@ Here is a great blog post about how to move your PCL to .NET Standard: [Building
     <ContentPage.Resources>
         <OnPlatform x:Key="PlatformFontName" x:TypeArguments="x:String">
             <On Platform="UWP" Value="Courier New"></On>
-            <On Platform="Android" Value="as"></On>
-            <On Platform="iOS" Value="trs"></On>
+            <On Platform="Android" Value="Serif"></On>
+            <On Platform="iOS" Value="Helvetica"></On>
+            <On Platform="macOS" Value="Baskerville"></On>
         </OnPlatform>
     </ContentPage.Resources>
     
@@ -85,8 +86,8 @@ Here is a great blog post about how to move your PCL to .NET Standard: [Building
                 TintColor="BlueViolet"
                 SelectedTextColor="White"
                 DisabledColor="Gray"
-                TextFontSize="12"
-                TextFontFamily="{StaticResource PlatformFontName}"
+                FontSize="Small"
+                FontFamily="{StaticResource PlatformFontName}"
                 Margin="8,8,8,8"
                 SegmentSelectedCommand="{Binding SegmentChangedCommand}"
                 OnElementChildrenChanging="OnElementChildrenChanging"
@@ -98,44 +99,11 @@ Here is a great blog post about how to move your PCL to .NET Standard: [Building
                     <control:SegmentedControlOption Text="Item 4"/>
                 </control:SegmentedControl.Children>-->
             </control:SegmentedControl>
-            <Label x:Name="ChoiceLabel" Text="{Binding ChoiceText}"></Label>
-            <ScrollView>
-                <StackLayout Margin="24, 24, 24, 24">
-                    <Button Text="Change First Item Text" Clicked="ChangeFirstText"/>
-                    <Button Text="Remove" Clicked="Button_OnClicked"></Button>
-                    <Button Text="Tint Color Change Button" Clicked="ButtonTintColor_OnClicked"></Button>
-                    <Button Text="Selected Text Change Button" Clicked="ButtonSelectedTextColor_OnClicked"></Button>
-                    <Button Text="Disable Segment Control" Clicked="Disable_OnClicked"></Button>
-                    <Button Text="Enable Segment Control" Clicked="Enable_OnClicked"></Button>
-                    <Button Text="Change Disabled Color" Clicked="ChangeDisabledColor_OnClicked"></Button>
-                    <Button Text="Select Segment 3" Clicked="SelectSegment3"></Button>
-                    <Button Text="Disable First Segment" Clicked="DisableFirstSegment_OnClicked"></Button>
-                    <Button Text="Enable First Segment" Clicked="EnableFirstSegment_OnClicked"></Button>
-                    <Button Text="Change ItemsSource" Command="{Binding ChangeItemsSourceCommand}"></Button>
-                </StackLayout>
-            </ScrollView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
 
 ```
-
-or
-
-```xml
-<control:SegmentedControl 
-	x:Name="SegmentedControl" 
-	SelectedSegment="{Binding SegmentSelection}" 
-	OnSegmentSelected="SegmentedControl_OnValueChanged" 
-	TintColor="BlueViolet"
-	SelectedTextColor="White"
-	DisabledColor="Gray"
-	Margin="8,8,8,8"
-	ItemsSource="{Binding ListOfSegmentTitles}">
-</control:SegmentedControl>
-
-```
-
 You can bind to the SegmentSelectedCommand for notification in your view model when a segment change has occurred.
 ```xml
 <control:SegmentedControl

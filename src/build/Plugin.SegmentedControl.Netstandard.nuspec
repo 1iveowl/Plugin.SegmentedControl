@@ -11,16 +11,16 @@
     <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
-      Segmented control for Xamarin Forms for iOS, Android and UWP</description>
+      Segmented control for Xamarin Forms for iOS, MacOS, Android and UWP</description>
     <releaseNotes>
       [All] User interaction with Commands
       [All] Implement the IsEnabled property on individual segments
+      [All] Font size
+      [All] Font Family
       [All] Fixes and improvements
-      [Mac] Adding Mac OS Support
-
     </releaseNotes>
     <copyright>Copyright 2018</copyright>
-    <tags>xamarin xamarin.forms segmentedcontrol netstandard</tags>
+    <tags>xamarin xamarin.forms segmentedcontrol netstandard ios uwp android macos</tags>
     <dependencies>
 
       <group targetFramework="MonoAndroid10">

@@ -125,7 +125,7 @@ namespace Plugin.Segmented.Control
         public string FontFamily
         {
             get => (string)GetValue(FontFamilyProperty);
-            set { SetValue(FontFamilyProperty, value); }
+            set => SetValue(FontFamilyProperty, value);
         }
 
         //public static readonly BindableProperty FontWeightProperty = BindableProperty.Create(nameof(FontAttributes), typeof(FontAttributes), typeof(SegmentedControl), default(FontAttributes));
@@ -140,6 +140,7 @@ namespace Plugin.Segmented.Control
         public void RaiseSelectionChanged()
         {
             OnSegmentSelected?.Invoke(this, new SegmentSelectEventArgs { NewValue = this.SelectedSegment });
+
             if (!(SegmentSelectedCommand is null) && SegmentSelectedCommand.CanExecute(SegmentSelectedCommandParameter))
             {
                 SegmentSelectedCommand.Execute(SegmentSelectedCommandParameter);
