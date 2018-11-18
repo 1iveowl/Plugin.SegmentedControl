@@ -178,14 +178,19 @@ namespace Plugin.Segmented.Control.iOS
                         AddElementHandlers(Element, true);
                     }
                     break;
+
+                case nameof(SegmentedControl.FontSize):
+                case nameof(SegmentedControl.FontFamily):
+                    SetFont();
+                    break;
             }
         }
 
         private void SetFont()
         {
-            var font = string.IsNullOrEmpty(Element.TextFontFamily) 
-                ? UIFont.SystemFontOfSize((nfloat)Element.TextFontSize) 
-                : UIFont.FromName(Element.TextFontFamily, (nfloat)Element.TextFontSize);
+            var font = string.IsNullOrEmpty(Element.FontFamily) 
+                ? UIFont.SystemFontOfSize((nfloat)Element.FontSize) 
+                : UIFont.FromName(Element.FontFamily, (nfloat)Element.FontSize);
 
            _nativeControl.SetTitleTextAttributes(new UITextAttributes { Font = font }, UIControlState.Normal);
         }

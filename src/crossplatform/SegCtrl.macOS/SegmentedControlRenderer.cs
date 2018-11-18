@@ -5,8 +5,6 @@ using AppKit;
 using Xamarin.Forms.Platform.MacOS;
 using Plugin.Segmented.Control;
 using System.ComponentModel;
-using CoreText;
-using Foundation;
 
 [assembly: ExportRenderer(typeof(SegmentedControl), typeof(SegCtrl.macOS.SegmentedControlRenderer))]
 namespace SegCtrl.macOS
@@ -157,15 +155,19 @@ namespace SegCtrl.macOS
                 case nameof(SegmentedControl.Children):
                     ResetNativeControl();
                     break;
+
+                case nameof(SegmentedControl.FontSize):
+                case nameof(SegmentedControl.FontFamily):
+                    SetFont();
+                    break;
             }
         }
 
         private void SetFont()
         {
-            var font = NSFont.FromFontName(string.IsNullOrEmpty(Element.TextFontFamily) 
+            var font = NSFont.FromFontName(string.IsNullOrEmpty(Element.FontFamily) 
                 ? _nativeControl.Font.FontName 
-                : Element.TextFontFamily, (nfloat)Element.TextFontSize);
-
+                : Element.FontFamily, (nfloat)Element.FontSize);
             _nativeControl.Font = font;
         }
 

@@ -113,26 +113,26 @@ namespace Plugin.Segmented.Control
             set => SetValue(SegmentSelectedCommandParameterProperty, value);
         }
 
-        public static readonly BindableProperty FontSizeProperty = BindableProperty.Create("TextFontSize", typeof(double), typeof(SegmentedControl), Device.GetNamedSize(NamedSize.Medium, typeof(Label)));
-        public double TextFontSize
+        public static readonly BindableProperty FontSizeProperty = BindableProperty.Create(nameof(FontSize), typeof(double), typeof(SegmentedControl), Device.GetNamedSize(NamedSize.Medium, typeof(Label)));
+        [Xamarin.Forms.TypeConverter(typeof(FontSizeConverter))]
+        public double FontSize
         {
             get => (double)GetValue(FontSizeProperty);
             set => SetValue(FontSizeProperty, value);
         }
 
-        public static readonly BindableProperty FontFamilyProperty = BindableProperty.Create("TextFontFamily", typeof(string), typeof(SegmentedControl));
-        public string TextFontFamily
+        public static readonly BindableProperty FontFamilyProperty = BindableProperty.Create(nameof(FontFamily), typeof(string), typeof(SegmentedControl));
+        public string FontFamily
         {
-            get => (string) GetValue(FontFamilyProperty);
-            set => SetValue(FontFamilyProperty, value);
+            get => (string)GetValue(FontFamilyProperty);
+            set { SetValue(FontFamilyProperty, value); }
         }
 
-        //public static readonly BindableProperty FontWeigthProperty = BindableProperty.Create("FontAttributes", typeof(FontAttributes), typeof(SegmentedControl), default(FontAttributes));
-
+        //public static readonly BindableProperty FontWeightProperty = BindableProperty.Create(nameof(FontAttributes), typeof(FontAttributes), typeof(SegmentedControl), default(FontAttributes));
         //public FontAttributes FontAttributes
         //{
-        //    get => (FontAttributes)GetValue(FontWeigthProperty);
-        //    set => SetValue(FontWeigthProperty, value);
+        //    get => (FontAttributes)GetValue(FontWeightProperty);
+        //    set => SetValue(FontWeightProperty, value);
         //}
 
 

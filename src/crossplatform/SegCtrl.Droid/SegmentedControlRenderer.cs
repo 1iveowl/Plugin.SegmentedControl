@@ -2,7 +2,6 @@
 using Android.Content;
 using Android.Graphics;
 using Android.Graphics.Drawables;
-using Android.Support.V4.Content.Res;
 using Android.Views;
 using Android.Widget;
 using Plugin.Segmented.Control;
@@ -176,10 +175,9 @@ namespace Plugin.Segmented.Control.Droid
                     break;
 
                 case nameof(SegmentedControl.TintColor):
-                    OnPropertyChanged();
-                    break;
-
                 case nameof(SegmentedControl.IsEnabled):
+                case nameof(SegmentedControl.FontSize):
+                case nameof(SegmentedControl.FontFamily):
                     OnPropertyChanged();
                     break;
 
@@ -276,9 +274,9 @@ namespace Plugin.Segmented.Control.Droid
                 radioButton.SetTextColor(textColor);
             }
 
-            radioButton.TextSize = Convert.ToSingle(Element.TextFontSize);
+            radioButton.TextSize = Convert.ToSingle(Element.FontSize);
 
-            var font = Typeface.Create(Element.TextFontFamily, TypefaceStyle.Normal);
+            var font = Typeface.Create(Element.FontFamily, TypefaceStyle.Normal);
             radioButton.SetTypeface(font, TypefaceStyle.Normal);
 
             var gradientDrawable = (StateListDrawable)radioButton.Background;
