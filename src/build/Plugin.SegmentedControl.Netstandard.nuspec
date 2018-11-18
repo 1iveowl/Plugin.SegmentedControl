@@ -13,11 +13,12 @@
     <description>
       Segmented control for Xamarin Forms for iOS, MacOS, Android and UWP</description>
     <releaseNotes>
-      [All] User interaction with Commands
-      [All] Implement the IsEnabled property on individual segments
-      [All] Font size
-      [All] Font Family
-      [All] Fixes and improvements
+[All] User interaction with Commands
+[All] Implement the IsEnabled property on individual segments
+[All] ICommand 
+[All] Font size
+[All] Font Family
+[All] Fixes and improvements
     </releaseNotes>
     <copyright>Copyright 2018</copyright>
     <tags>xamarin xamarin.forms segmentedcontrol netstandard ios uwp android macos</tags>
