@@ -17,10 +17,7 @@ namespace Plugin.Segmented.Control.UWP
 
         private readonly ColorConverter _colorConverter = new ColorConverter();
 
-        public SegmentedControlRenderer()
-        {
-
-        }
+        public SegmentedControlRenderer() {}
 
         protected override void OnElementChanged(ElementChangedEventArgs<Segmented.Control.SegmentedControl> e)
         {
@@ -57,73 +54,121 @@ namespace Plugin.Segmented.Control.UWP
             switch (e.PropertyName)
             {
                 case nameof(SegmentedControl.SelectedSegment):
-
-                    if (_segmentedUserControl.SegmentedControlGrid.Children
-                        .Where(x =>
-                        {
-                            var btn = (RadioButton)x;
-
-                            int.TryParse(btn.Tag.ToString(), out var i);
-                            return i == Element.SelectedSegment;
-                        })
-                        .FirstOrDefault() is RadioButton checkedButton)
-                    {
-                        checkedButton.IsChecked = true;
-                    }
-
-                    Element?.RaiseSelectionChanged();
+                    SetSelectedSegment();
                     break;
+
                 case nameof(SegmentedControl.TintColor):
-                    _segmentedUserControl.SegmentedControlGrid.BorderBrush = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, "");
-
-                    foreach (var segment in _segmentedUserControl.SegmentedControlGrid.Children)
-                    {
-                        ((SegmentRadioButton)segment).TintColor = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, "");
-                    }
+                    SetTintColor();
                     break;
+
                 case nameof(SegmentedControl.IsEnabled):
-                    if (Element.IsEnabled)
-                    {
-                        foreach (var uiElement in _segmentedUserControl.SegmentedControlGrid.Children)
-                        {
-                            var segment = (SegmentRadioButton)uiElement;
-                            segment.IsEnabled = true;
-                        }
-                        _segmentedUserControl.SegmentedControlGrid.BorderBrush = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, "");
-                    }
-                    else
-                    {
-                        foreach (var uiElement in _segmentedUserControl.SegmentedControlGrid.Children)
-                        {
-                            var segment = (SegmentRadioButton)uiElement;
-                            segment.IsEnabled = false;
-                        }
-                        _segmentedUserControl.SegmentedControlGrid.BorderBrush = (SolidColorBrush)_colorConverter.Convert(Element.DisabledColor, null, null, "");
-                    }
+                    SetIsEnabled();
                     break;
-                case nameof(SegmentedControl.DisabledColor):
-                    foreach (var segment in _segmentedUserControl.SegmentedControlGrid.Children)
-                    {
-                        ((SegmentRadioButton)segment).DisabledColor = (SolidColorBrush)_colorConverter.Convert(Element.DisabledColor, null, null, "");
-                    }
 
-                    if (!Element.IsEnabled)
-                    {
-                        _segmentedUserControl.SegmentedControlGrid.BorderBrush = (SolidColorBrush)_colorConverter.Convert(Element.DisabledColor, null, null, "");
-                    }
+                case nameof(SegmentedControl.DisabledColor):
+                    SetDisabledColor();
 
                     break;
 
                 case nameof(SegmentedControl.SelectedTextColor):
                     SetSelectedTextColor();
                     break;
+
                 case nameof(SegmentedControl.Children):
-                    if (Element.Children != null)
-                    {
-                        DisposeEventHandlers();
-                        CreateSegmentedRadioButtonControl();
-                    }
+                    SetChildren();
                     break;
+
+                case nameof(SegmentedControl.FontSize):
+                    SetFontSize();
+                    break;
+
+                case nameof(SegmentedControl.FontFamily):
+                    SetFontFamily();
+                    break;
+            }
+        }
+
+        private void SetFontSize()
+        {
+            if (Element.FontSize > 0)
+            {
+                foreach (SegmentRadioButton segment in _segmentedUserControl.SegmentedControlGrid.Children)
+                {
+                    segment.FontSize = Element.FontSize;
+                };
+            }
+        }
+
+        private void SetFontFamily()
+        {
+            if (!string.IsNullOrWhiteSpace(Element.FontFamily))
+            {
+                foreach (SegmentRadioButton segment in _segmentedUserControl.SegmentedControlGrid.Children)
+                {
+                    segment.FontFamily = new FontFamily(Element.FontFamily);
+                };
+            }
+        }
+
+        private void SetSelectedSegment()
+        {
+            if (_segmentedUserControl.SegmentedControlGrid.Children
+                .Where(x =>
+                {
+                    var btn = (RadioButton)x;
+
+                    int.TryParse(btn.Tag.ToString(), out var i);
+                    return i == Element.SelectedSegment;
+                })
+                .FirstOrDefault() is RadioButton checkedButton)
+            {
+                checkedButton.IsChecked = true;
+            }
+
+        }
+
+        private void SetTintColor()
+        {
+            _segmentedUserControl.SegmentedControlGrid.BorderBrush = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, "");
+
+            foreach (var segment in _segmentedUserControl.SegmentedControlGrid.Children)
+            {
+                ((SegmentRadioButton)segment).TintColor = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, "");
+            }
+        }
+
+        private void SetIsEnabled()
+        {
+            if (Element.IsEnabled)
+            {
+                foreach (var uiElement in _segmentedUserControl.SegmentedControlGrid.Children)
+                {
+                    var segment = (SegmentRadioButton)uiElement;
+                    segment.IsEnabled = true;
+                }
+                _segmentedUserControl.SegmentedControlGrid.BorderBrush = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, "");
+            }
+            else
+            {
+                foreach (var uiElement in _segmentedUserControl.SegmentedControlGrid.Children)
+                {
+                    var segment = (SegmentRadioButton)uiElement;
+                    segment.IsEnabled = false;
+                }
+                _segmentedUserControl.SegmentedControlGrid.BorderBrush = (SolidColorBrush)_colorConverter.Convert(Element.DisabledColor, null, null, "");
+            }
+        }
+
+        private void SetDisabledColor()
+        {
+            foreach (var segment in _segmentedUserControl.SegmentedControlGrid.Children)
+            {
+                ((SegmentRadioButton)segment).DisabledColor = (SolidColorBrush)_colorConverter.Convert(Element.DisabledColor, null, null, "");
+            }
+
+            if (!Element.IsEnabled)
+            {
+                _segmentedUserControl.SegmentedControlGrid.BorderBrush = (SolidColorBrush)_colorConverter.Convert(Element.DisabledColor, null, null, "");
             }
         }
 
@@ -135,6 +180,15 @@ namespace Plugin.Segmented.Control.UWP
             }
         }
 
+        private void SetChildren()
+        {
+            if (Element.Children != null)
+            {
+                DisposeEventHandlers();
+                CreateSegmentedRadioButtonControl();
+            }
+        }
+        
         private void CreateSegmentedRadioButtonControl()
         {
             _segmentedUserControl = new SegmentedUserControl();
@@ -170,6 +224,16 @@ namespace Plugin.Segmented.Control.UWP
                 if (child.i == Element.SelectedSegment)
                 {
                     segmentButton.IsChecked = true;
+                }
+
+                if (Element.FontSize > 0)
+                {
+                    segmentButton.FontSize = Element.FontSize;
+                }
+
+                if (!string.IsNullOrEmpty(Element.FontFamily))
+                {
+                    segmentButton.FontFamily = new FontFamily(Element.FontFamily);
                 }
                 
                 grid.ColumnDefinitions.Add(new ColumnDefinition
@@ -218,7 +282,6 @@ namespace Plugin.Segmented.Control.UWP
         protected override void Dispose(bool disposing)
         {
             DisposeEventHandlers();
-
             base.Dispose(disposing);
         }
 

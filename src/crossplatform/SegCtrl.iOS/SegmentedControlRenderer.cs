@@ -17,12 +17,16 @@ namespace Plugin.Segmented.Control.iOS
         protected override void OnElementChanged(ElementChangedEventArgs<SegmentedControl> e)
         {
             base.OnElementChanged(e);
+
             if (Control is null)
             {
                 _nativeControl = new UISegmentedControl();
                 SetNativeControlSegments(Element.Children);
                 _nativeControl.Enabled = Element.IsEnabled;
                 _nativeControl.TintColor = Element.IsEnabled ? Element.TintColor.ToUIColor() : Element.DisabledColor.ToUIColor();
+
+                SetFont();
+
                 SetSelectedTextColor();
                 SetNativeControl(_nativeControl);
             }
@@ -153,16 +157,20 @@ namespace Plugin.Segmented.Control.iOS
                     _nativeControl.SelectedSegment = Element.SelectedSegment;
                     Element.RaiseSelectionChanged();
                     break;
+
                 case nameof(SegmentedControl.TintColor):
                     _nativeControl.TintColor = Element.IsEnabled ? Element.TintColor.ToUIColor() : Element.DisabledColor.ToUIColor();
                     break;
+
                 case nameof(SegmentedControl.IsEnabled):
                     _nativeControl.Enabled = Element.IsEnabled;
                     _nativeControl.TintColor = Element.IsEnabled ? Element.TintColor.ToUIColor() : Element.DisabledColor.ToUIColor();
                     break;
+
                 case nameof(SegmentedControl.SelectedTextColor):
                     SetSelectedTextColor();
                     break;
+
                 case nameof(SegmentedControl.Children):
                     if (!(Element.Children is null))
                     {
@@ -170,9 +178,21 @@ namespace Plugin.Segmented.Control.iOS
                         AddElementHandlers(Element, true);
                     }
                     break;
-                default:
+
+                case nameof(SegmentedControl.FontSize):
+                case nameof(SegmentedControl.FontFamily):
+                    SetFont();
                     break;
             }
+        }
+
+        private void SetFont()
+        {
+            var font = string.IsNullOrEmpty(Element.FontFamily) 
+                ? UIFont.SystemFontOfSize((nfloat)Element.FontSize) 
+                : UIFont.FromName(Element.FontFamily, (nfloat)Element.FontSize);
+
+           _nativeControl.SetTitleTextAttributes(new UITextAttributes { Font = font }, UIControlState.Normal);
         }
 
         private void SetSelectedTextColor()

@@ -4,9 +4,15 @@
              xmlns:local="clr-namespace:Test.SegmentedControl"
              xmlns:control="clr-namespace:Plugin.Segmented.Control;assembly=Plugin.Segmented"
              x:Class="Test.SegmentedControl.MainPage">
-    <!--<ContentPage.BindingContext>
-        <x:Reference Name="this" />
-    </ContentPage.BindingContext>-->
+
+    <ContentPage.Resources>
+        <OnPlatform x:Key="PlatformFontName" x:TypeArguments="x:String">
+            <On Platform="UWP" Value="Courier New"></On>
+            <On Platform="Android" Value="Serif"></On>
+            <On Platform="iOS" Value="Helvetica"></On>
+            <On Platform="macOS" Value="Baskerville"></On>
+        </OnPlatform>
+    </ContentPage.Resources>
     
     <ContentPage.Content>
         <StackLayout BackgroundColor="White" x:Name="SegmentWithStack">
@@ -19,6 +25,8 @@
                 TintColor="BlueViolet"
                 SelectedTextColor="White"
                 DisabledColor="Gray"
+                FontSize="Small"
+                FontFamily="{StaticResource PlatformFontName}"
                 Margin="8,8,8,8"
                 SegmentSelectedCommand="{Binding SegmentChangedCommand}"
                 OnElementChildrenChanging="OnElementChildrenChanging"
@@ -41,9 +49,11 @@
                     <Button Text="Enable Segment Control" Clicked="Enable_OnClicked"></Button>
                     <Button Text="Change Disabled Color" Clicked="ChangeDisabledColor_OnClicked"></Button>
                     <Button Text="Select Segment 3" Clicked="SelectSegment3"></Button>
-                    <Button Text="Disable First Segement" Clicked="DisableFirstSegment_OnClicked"></Button>
-                    <Button Text="Enable First Segement" Clicked="EnableFirstSegment_OnClicked"></Button>
-                     <Button Text="Change ItemsSource" Command="{Binding ChangeItemsSourceCommand}"></Button>
+                    <Button Text="Disable First Segment" Clicked="DisableFirstSegment_OnClicked"></Button>
+                    <Button Text="Enable First Segment" Clicked="EnableFirstSegment_OnClicked"></Button>
+                    <Button Text="Change ItemsSource" Command="{Binding ChangeItemsSourceCommand}"></Button>
+                    <Button Text="Change Text Size" Clicked="ChangeTextSize_OnClicked"></Button>
+                    <Button Text="Change Font Family" Clicked="ChangeFontFamily_OnClicked"></Button>
                 </StackLayout>
             </ScrollView>
         </StackLayout>

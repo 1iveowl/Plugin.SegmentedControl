@@ -38,6 +38,7 @@ namespace SegCtrl.macOS
             _nativeControl.SetSelected(true, Element.SelectedSegment);
             _nativeControl.FocusRingType = NSFocusRingType.None;
 
+            SetFont();
             SetNativeControl(_nativeControl);
         }
 
@@ -117,6 +118,7 @@ namespace SegCtrl.macOS
                     case nameof(SegmentedControlOption.Text):
                         _nativeControl.SetLabel(option.Text, index);
                         break;
+
                     case nameof(SegmentedControlOption.IsEnabled):
                         _nativeControl.SetEnabled(option.IsEnabled, index);
                         break;
@@ -145,13 +147,28 @@ namespace SegCtrl.macOS
                     _nativeControl.SelectedSegment = Element.SelectedSegment;
                     Element.RaiseSelectionChanged();
                     break;
+
                 case nameof(NSSegmentedControl.IsEnabled):
                     _nativeControl.Enabled = Element.IsEnabled;
                     break;
+
                 case nameof(SegmentedControl.Children):
                     ResetNativeControl();
                     break;
+
+                case nameof(SegmentedControl.FontSize):
+                case nameof(SegmentedControl.FontFamily):
+                    SetFont();
+                    break;
             }
+        }
+
+        private void SetFont()
+        {
+            var font = NSFont.FromFontName(string.IsNullOrEmpty(Element.FontFamily) 
+                ? _nativeControl.Font.FontName 
+                : Element.FontFamily, (nfloat)Element.FontSize);
+            _nativeControl.Font = font;
         }
 
         protected override void Dispose(bool disposing)

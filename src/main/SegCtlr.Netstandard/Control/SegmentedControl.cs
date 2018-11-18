@@ -28,6 +28,7 @@ namespace Plugin.Segmented.Control
             {
                 segmentedControl.OnElementChildrenChanging?.Invoke(segmentedControl, new ElementChildrenChanging((IList<SegmentedControlOption>)oldValue, newItemsList));
                 segmentedControl.Children.Clear();
+
                 foreach (var newSegment in newItemsList)
                 {
                     newSegment.BindingContext = segmentedControl.BindingContext;
@@ -112,20 +113,26 @@ namespace Plugin.Segmented.Control
             set => SetValue(SegmentSelectedCommandParameterProperty, value);
         }
 
-        //public static readonly BindableProperty FontSizeProperty = BindableProperty.Create("FontSize", typeof(double), typeof(SegmentedControl), Device.GetNamedSize(NamedSize.Medium, typeof(Label)));
+        public static readonly BindableProperty FontSizeProperty = BindableProperty.Create(nameof(FontSize), typeof(double), typeof(SegmentedControl), Device.GetNamedSize(NamedSize.Medium, typeof(Label)));
+        [Xamarin.Forms.TypeConverter(typeof(FontSizeConverter))]
+        public double FontSize
+        {
+            get => (double)GetValue(FontSizeProperty);
+            set => SetValue(FontSizeProperty, value);
+        }
 
-        //public double FontSize
-        //{
-        //    get => (double)GetValue(FontSizeProperty);
-        //    set => SetValue(FontSizeProperty, value);
-        //}
+        public static readonly BindableProperty FontFamilyProperty = BindableProperty.Create(nameof(FontFamily), typeof(string), typeof(SegmentedControl));
+        public string FontFamily
+        {
+            get => (string)GetValue(FontFamilyProperty);
+            set => SetValue(FontFamilyProperty, value);
+        }
 
-        //public static readonly BindableProperty FontWeigthProperty = BindableProperty.Create("FontAttributes", typeof(FontAttributes), typeof(SegmentedControl), default(FontAttributes));
-
+        //public static readonly BindableProperty FontWeightProperty = BindableProperty.Create(nameof(FontAttributes), typeof(FontAttributes), typeof(SegmentedControl), default(FontAttributes));
         //public FontAttributes FontAttributes
         //{
-        //    get => (FontAttributes)GetValue(FontWeigthProperty);
-        //    set => SetValue(FontWeigthProperty, value);
+        //    get => (FontAttributes)GetValue(FontWeightProperty);
+        //    set => SetValue(FontWeightProperty, value);
         //}
 
 
@@ -133,6 +140,7 @@ namespace Plugin.Segmented.Control
         public void RaiseSelectionChanged()
         {
             OnSegmentSelected?.Invoke(this, new SegmentSelectEventArgs { NewValue = this.SelectedSegment });
+
             if (!(SegmentSelectedCommand is null) && SegmentSelectedCommand.CanExecute(SegmentSelectedCommandParameter))
             {
                 SegmentSelectedCommand.Execute(SegmentSelectedCommandParameter);

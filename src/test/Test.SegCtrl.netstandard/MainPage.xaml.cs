@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Plugin.Segmented.Control;
 using Plugin.Segmented.Event;
 using Test.SegCtrl;
@@ -9,33 +8,6 @@ namespace Test.SegmentedControl
 {
     public partial class MainPage : ContentPage
     {
-        //public static readonly BindableProperty SegmentSelectProperty = BindableProperty.Create(
-            //propertyName: "SegmentSelect",
-            //returnType: typeof(int),
-            //declaringType: typeof(MainPage),
-            //defaultValue: default(int));
-
-        //public static readonly BindableProperty ChangeTextProperty = BindableProperty.Create(nameof(ChangeText), typeof(string), typeof(MainPage), "Item1", propertyChanged: OnTextChanged);
-
-        //private static void OnTextChanged(BindableObject bindable, object oldValue, object newValue)
-        //{
-            
-        //}
-
-        //public string ChangeText
-        //{
-        //    get => (string)GetValue(ChangeTextProperty);
-        //    set => SetValue(ChangeTextProperty, value);
-        //}
-
-        //public int SegmentSelect
-        //{
-        //    get => (int) GetValue(SegmentSelectProperty);
-        //    set => SetValue(SegmentSelectProperty, value);
-        //}
-
-        //public int SegmentSelection => 2;
-
         private readonly MainViewModel _viewModel;
 
         public MainPage()
@@ -44,11 +16,6 @@ namespace Test.SegmentedControl
 
             BindingContext = _viewModel = new MainViewModel();
         }
-
-        //private void SegmentedControl_OnValueChanged(object sender, SegmentSelectEventArgs e)
-        //{
-        //    ChoiceLabel.Text = SegmentedControl.SelectedSegment.ToString();
-        //}
 
         private void Button_OnClicked(object sender, EventArgs e)
         {
@@ -110,6 +77,31 @@ namespace Test.SegmentedControl
             if (e.NewValues != null && e.NewValues.Count > 0)
             {
                 e.NewValues[0].SetBinding(SegmentedControlOption.TextProperty, nameof(_viewModel.ChangeText));
+            }
+        }
+
+        public void ChangeTextSize_OnClicked(object sender, EventArgs e)
+        {
+            SegmentedControl.FontSize = SegmentedControl.FontSize < 20 ? 20 : 12;
+        }
+
+        public void ChangeFontFamily_OnClicked(object sender, EventArgs e)
+        {
+            switch (Device.RuntimePlatform)
+            {
+                case Device.Android:
+                    SegmentedControl.FontFamily = SegmentedControl.FontFamily == "monospace" ? "serif" : "monospace";
+                    break;
+
+                case Device.iOS:
+                case Device.macOS:
+                    SegmentedControl.FontFamily = SegmentedControl.FontFamily == "Baskerville" ? "HelveticaNeue" : "Baskerville";
+                    break;
+
+                case Device.UWP:
+                    SegmentedControl.FontFamily = SegmentedControl.FontFamily == "Courier New" ? "Microsoft Sans Serif" : "Courier New";
+                    break;
+
             }
         }
     }
