@@ -4,10 +4,14 @@
 
 *Please star this project if you find it useful. Thank you!*
 
-## Why
+## Why this library?
 There are other Segmented Control libraries out there. This library adds two important capabilities:
-- It works across all three key platforms: iOS, Android and UWP - all other libraries I've encounted lack UWP.
-- It's based on .NET Standard
+- It works across all four key platforms: iOS, Android and UWP - all other libraries I've encounted lack UWP and/or MacOS.
+- It's based on .NET Standard 2.0
+
+Furthermore, this library is has more flexibility and features than other libraries that I'm aware of. 
+
+Enjoy! And please don't forget to star this project if you find it useful and/or provide feedback if you run into issues or shortcomings.
 
 ## Supported platforms
 |Platform|Supported|Version|Renderer|
@@ -17,7 +21,20 @@ There are other Segmented Control libraries out there. This library adds two imp
 |Xamarin.UWP|Yes|Win10 16299+|User Control/RadioButton|
 |Xamarin.MacOS|Yes|10.0+|NSSegmentedControl|
 
-For previous versions of UWP please use version 1.1.5.
+## Features
+
+- Bindable Tint color
+- Bindable Select color
+- Bindable Disabled color
+- Bindable Font size
+- Bindable Font Family
+- Bindable Item Text
+- Bindable Selected Item
+- Bindable ICommand
+- Bindable IsEnabled Item
+- Bindable ItemsSource
+
+For more details please see below or for even more details see: [Test/Demo App](https://github.com/1iveowl/Plugin.SegmentedControl/tree/master/src/test/Test.SegCtrl.netstandard)
 
 ## How to used
 Using this plugin is easy. 
