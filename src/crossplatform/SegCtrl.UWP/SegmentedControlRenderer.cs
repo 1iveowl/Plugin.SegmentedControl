@@ -77,9 +77,39 @@ namespace Plugin.Segmented.Control.UWP
                 case nameof(SegmentedControl.Children):
                     SetChildren();
                     break;
+
+                case nameof(SegmentedControl.FontSize):
+                    SetFontSize();
+                    break;
+
+                case nameof(SegmentedControl.FontFamily):
+                    SetFontFamily();
+                    break;
             }
         }
-        
+
+        private void SetFontSize()
+        {
+            if (Element.FontSize > 0)
+            {
+                foreach (SegmentRadioButton segment in _segmentedUserControl.SegmentedControlGrid.Children)
+                {
+                    segment.FontSize = Element.FontSize;
+                };
+            }
+        }
+
+        private void SetFontFamily()
+        {
+            if (!string.IsNullOrWhiteSpace(Element.FontFamily))
+            {
+                foreach (SegmentRadioButton segment in _segmentedUserControl.SegmentedControlGrid.Children)
+                {
+                    segment.FontFamily = new FontFamily(Element.FontFamily);
+                };
+            }
+        }
+
         private void SetSelectedSegment()
         {
             if (_segmentedUserControl.SegmentedControlGrid.Children
@@ -196,14 +226,14 @@ namespace Plugin.Segmented.Control.UWP
                     segmentButton.IsChecked = true;
                 }
 
-                if (Element.TextFontSize > 0)
+                if (Element.FontSize > 0)
                 {
-                    segmentButton.FontSize = Element.TextFontSize;
+                    segmentButton.FontSize = Element.FontSize;
                 }
 
-                if (!string.IsNullOrEmpty(Element.TextFontFamily))
+                if (!string.IsNullOrEmpty(Element.FontFamily))
                 {
-                    segmentButton.FontFamily = new FontFamily(Element.TextFontFamily);
+                    segmentButton.FontFamily = new FontFamily(Element.FontFamily);
                 }
                 
                 grid.ColumnDefinitions.Add(new ColumnDefinition
@@ -252,7 +282,6 @@ namespace Plugin.Segmented.Control.UWP
         protected override void Dispose(bool disposing)
         {
             DisposeEventHandlers();
-
             base.Dispose(disposing);
         }
 

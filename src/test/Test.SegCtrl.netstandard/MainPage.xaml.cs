@@ -98,10 +98,11 @@ namespace Test.SegmentedControl
                     SegmentedControl.FontFamily = SegmentedControl.FontFamily == "Baskerville" ? "HelveticaNeue" : "Baskerville";
                     break;
 
-            }
-                
-            
+                case Device.UWP:
+                    SegmentedControl.FontFamily = SegmentedControl.FontFamily == "Courier New" ? "Microsoft Sans Serif" : "Courier New";
+                    break;
 
+            }
         }
     }
 }
