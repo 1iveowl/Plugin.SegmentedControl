@@ -36,7 +36,7 @@ Enjoy! And please don't forget to star this project if you find it useful and/or
 
 For more details please see below or for even more details see: [Test/Demo App](https://github.com/1iveowl/Plugin.SegmentedControl/tree/master/src/test/Test.SegCtrl.netstandard)
 
-## How to used
+## How to use
 Using this plugin is easy. 
 
 ### iOS
@@ -47,7 +47,7 @@ public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 {
     global::Xamarin.Forms.Forms.Init();
 
-    SegmentedControlRenderer.Initialize();
+    Plugin.Segmented.Control.iOS.SegmentedControlRenderer.Initialize();
     ...
 }
 ```
@@ -57,7 +57,7 @@ public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 You need to add the assembly to App.xaml.cs in you project. For more details see the Xamarin documentation [here](https://developer.xamarin.com/guides/xamarin-forms/platform-features/windows/installation/universal/#Troubleshooting).
 
 ```csharp
-var assembliesToInclude = new List<Assembly> {typeof(SegmentedControlRenderer).GetTypeInfo().Assembly};
+var assembliesToInclude = new List<Assembly> {typeof(Plugin.Segmented.Control.UWP.SegmentedControlRenderer).GetTypeInfo().Assembly};
 
 Xamarin.Forms.Forms.Init(e, assembliesToInclude);
 ```
