@@ -89,7 +89,16 @@ namespace Plugin.Segmented.Control
         }
 
 
-        public static readonly BindableProperty SelectedSegmentProperty = BindableProperty.Create(nameof(SelectedSegment), typeof(int), typeof(SegmentedControl), 0);
+	    public static readonly BindableProperty SelectedSegmentProperty = BindableProperty.Create(nameof(SelectedSegment), typeof(int), typeof(SegmentedControl), 0, propertyChanged:OnSelectedSegmentChanged);
+
+	    private static void OnSelectedSegmentChanged(BindableObject bindable, object oldValue, object newValue)
+	    {
+            if (bindable is SegmentedControl segmentedControl)
+            {
+                segmentedControl.RaiseSelectionChanged();
+            }
+	    }
+
 
         public int SelectedSegment
         {
