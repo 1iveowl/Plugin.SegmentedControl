@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="Test.SegCtrl.netstandard.SecondPage"
+             Visual="Material"
+             Title="Second Page"
+             xmlns:seg="clr-namespace:Plugin.Segmented.Control;assembly=Plugin.Segmented">
+    <ContentPage.Content>
+         <StackLayout>
+            <seg:SegmentedControl IsVisible="True" x:Name="seg" OnSegmentSelected="Seg_OnSegmentSelected">
+                <seg:SegmentedControl.Children>
+                    <seg:SegmentedControlOption Text="Staff"/>
+                    <seg:SegmentedControlOption Text="Parent"/>
+                    <seg:SegmentedControlOption Text="Student"/>
+                </seg:SegmentedControl.Children>
+            </seg:SegmentedControl>
+            <Label x:Name="selectedItem" />
+            <Button Text="Click me!" Clicked="Button_Clicked"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

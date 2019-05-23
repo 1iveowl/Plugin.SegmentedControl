@@ -104,5 +104,11 @@ namespace Test.SegmentedControl
 
             }
         }
+
+        public void SecondPage_OnClicked(object sender, EventArgs e)
+        {
+            var newPage = new NavigationPage(new SegCtrl.netstandard.SecondPage());
+            Application.Current.MainPage = newPage;
+        }
     }
 }
