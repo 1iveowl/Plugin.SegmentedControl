@@ -18,7 +18,7 @@ namespace Plugin.Segmented.Control.iOS
         {
             base.OnElementChanged(e);
 
-            if (Control is null)
+            if (Control is null && Element != null)
             {
                 _nativeControl = new UISegmentedControl();
                 SetNativeControlSegments(Element.Children);
