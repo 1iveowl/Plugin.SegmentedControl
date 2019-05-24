@@ -54,6 +54,7 @@
                     <Button Text="Change ItemsSource" Command="{Binding ChangeItemsSourceCommand}"></Button>
                     <Button Text="Change Text Size" Clicked="ChangeTextSize_OnClicked"></Button>
                     <Button Text="Change Font Family" Clicked="ChangeFontFamily_OnClicked"></Button>
+                    <Button Text="Go to Second Page" Clicked="SecondPage_OnClicked"/>
                 </StackLayout>
             </ScrollView>
         </StackLayout>

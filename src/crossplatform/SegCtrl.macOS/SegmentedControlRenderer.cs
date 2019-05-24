@@ -17,7 +17,7 @@ namespace SegCtrl.macOS
         {
             base.OnElementChanged(e);
 
-            if (Control is null)
+            if (Control is null && Element != null)
             {
                 CreateNativeSegmentedControl();
             }

@@ -23,17 +23,12 @@ namespace Plugin.Segmented.Control.UWP
         {
             base.OnElementChanged(e);
 
-            if (_segmentedUserControl is null)
-            {
-                CreateSegmentedRadioButtonControl();
-            }
-
-            if (!(e.OldElement is null))
+            if (e.OldElement != null)
             {
                 DisposeEventHandlers();
             }
 
-            if (!(e.NewElement is null))
+            if (_segmentedUserControl is null || e.NewElement != null)
             {
                 CreateSegmentedRadioButtonControl();
             }
