@@ -15,4 +15,16 @@
     <ProjectReference Include="..\..\main\SegCtlr.Netstandard\SegCtlr.Netstandard.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="SecondPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+  </ItemGroup>
+
 </Project>
