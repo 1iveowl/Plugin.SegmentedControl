@@ -21,7 +21,7 @@
       [All] Font Family
       [All] Fixes and improvements
     </releaseNotes>
-    <copyright>Copyright 2018</copyright>
+    <copyright>Copyright 2019</copyright>
     <tags>xamarin xamarin.forms segmentedcontrol netstandard ios uwp android macos</tags>
     <dependencies>
 
