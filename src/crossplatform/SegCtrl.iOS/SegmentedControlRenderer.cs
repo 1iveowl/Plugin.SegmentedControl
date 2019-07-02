@@ -64,6 +64,7 @@ namespace Plugin.Segmented.Control.iOS
                 for (int i = 0; i < children.Count; i++)
                 {
                     _nativeControl.InsertSegment(children[i].Text, i, false);
+                    _nativeControl.SetEnabled( children[i].IsEnabled, i );
                 }
 
                 if (!(Element is null))
