@@ -60,10 +60,11 @@ namespace Plugin.Segmented.Control.iOS
                 {
                     _nativeControl.RemoveAllSegments();
                 }
-
-                for (int i = 0; i < children.Count; i++)
+                
+                for (var i = 0; i < children.Count; i++)
                 {
                     _nativeControl.InsertSegment(children[i].Text, i, false);
+                    _nativeControl.SetEnabled(children[i].IsEnabled, i);
                 }
 
                 if (!(Element is null))
@@ -90,7 +91,6 @@ namespace Plugin.Segmented.Control.iOS
                     }
                 }
             }
-
         }
 
         private void RemoveElementHandlers(bool removeChildrenHandlersOnly = false)
