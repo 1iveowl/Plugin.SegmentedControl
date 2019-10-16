@@ -23,7 +23,7 @@ namespace Plugin.Segmented.Control.iOS
                 _nativeControl = new UISegmentedControl();
                 SetNativeControlSegments(Element.Children);
                 _nativeControl.Enabled = Element.IsEnabled;
-                _nativeControl.TintColor = Element.IsEnabled ? Element.TintColor.ToUIColor() : Element.DisabledColor.ToUIColor();
+                SetColor();
 
                 SetFont();
 
@@ -159,12 +159,12 @@ namespace Plugin.Segmented.Control.iOS
                     break;
 
                 case nameof(SegmentedControl.TintColor):
-                    _nativeControl.TintColor = Element.IsEnabled ? Element.TintColor.ToUIColor() : Element.DisabledColor.ToUIColor();
+                    SetColor();
                     break;
 
                 case nameof(SegmentedControl.IsEnabled):
                     _nativeControl.Enabled = Element.IsEnabled;
-                    _nativeControl.TintColor = Element.IsEnabled ? Element.TintColor.ToUIColor() : Element.DisabledColor.ToUIColor();
+                    SetColor();
                     break;
 
                 case nameof(SegmentedControl.SelectedTextColor):
@@ -183,6 +183,18 @@ namespace Plugin.Segmented.Control.iOS
                 case nameof(SegmentedControl.FontFamily):
                     SetFont();
                     break;
+            }
+        }
+
+        private void SetColor()
+        {
+            if (UIDevice.CurrentDevice.CheckSystemVersion(13, 0))
+            {
+                _nativeControl.SelectedSegmentTintColor = Element.IsEnabled ? Element.TintColor.ToUIColor() : Element.DisabledColor.ToUIColor();
+            }
+            else
+            {
+                _nativeControl.TintColor = Element.IsEnabled ? Element.TintColor.ToUIColor() : Element.DisabledColor.ToUIColor();
             }
         }
 
