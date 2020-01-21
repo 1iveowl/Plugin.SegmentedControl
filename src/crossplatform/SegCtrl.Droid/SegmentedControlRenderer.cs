@@ -276,7 +276,7 @@ namespace Plugin.Segmented.Control.Droid
 
             radioButton.TextSize = Convert.ToSingle(Element.FontSize);
 
-            var font = Typeface.Create(Element.FontFamily, TypefaceStyle.Normal);
+            var font = Font.OfSize(Element.FontFamily, Element.FontSize).ToTypeface();
             radioButton.SetTypeface(font, TypefaceStyle.Normal);
 
             var gradientDrawable = (StateListDrawable)radioButton.Background;
