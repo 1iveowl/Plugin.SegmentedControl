@@ -19,12 +19,13 @@ Enjoy! And please don't forget to star this project if you find it useful and/or
 |Xamarin.iOS Unified|Yes|iOS 8.1+|UISegmentedControl|
 |Xamarin.Android|Yes|API 26+|RadioGroup|
 |Xamarin.UWP|Yes|Win10 16299+|User Control/RadioButton|
-|Xamarin.MacOS|Yes|10.0+|NSSegmentedControl|
+|Xamarin.MacOS|Partial|10.0+|NSSegmentedControl|
 
 ## Features
 
 - Bindable Tint color
 - Bindable Select color
+- Bindable Text color
 - Bindable Disabled color
 - Bindable Font size
 - Bindable Font Family
