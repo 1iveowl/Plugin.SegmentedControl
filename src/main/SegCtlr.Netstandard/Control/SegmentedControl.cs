@@ -81,6 +81,14 @@ namespace Plugin.Segmented.Control
             set => SetValue(SelectedTextColorProperty, value);
         }
 
+        public static readonly BindableProperty UnselectedTextColorProperty = BindableProperty.Create(nameof(UnselectedTextColorProperty), typeof(Color), typeof(SegmentedControl), Color.Black);
+
+        public Color UnselectedTextColor
+        {
+            get => (Color)GetValue(UnselectedTextColorProperty);
+            set => SetValue(UnselectedTextColorProperty, value);
+        }
+
         public static readonly BindableProperty DisabledColorProperty = BindableProperty.Create(nameof(DisabledColor), typeof(Color), typeof(SegmentedControl), Color.Gray);
 
         public Color DisabledColor

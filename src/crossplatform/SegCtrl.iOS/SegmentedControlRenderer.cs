@@ -204,7 +204,8 @@ namespace Plugin.Segmented.Control.iOS
                 ? UIFont.SystemFontOfSize((nfloat)Element.FontSize) 
                 : UIFont.FromName(Element.FontFamily, (nfloat)Element.FontSize);
 
-           _nativeControl.SetTitleTextAttributes(new UITextAttributes { Font = font }, UIControlState.Normal);
+            var attr = new UITextAttributes {TextColor = Element.UnselectedTextColor.ToUIColor(), Font = font };
+            _nativeControl.SetTitleTextAttributes(attr, UIControlState.Normal);
         }
 
         private void SetSelectedTextColor()
