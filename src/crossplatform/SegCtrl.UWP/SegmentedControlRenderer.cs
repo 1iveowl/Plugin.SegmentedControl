@@ -62,7 +62,10 @@ namespace Plugin.Segmented.Control.UWP
 
                 case nameof(SegmentedControl.DisabledColor):
                     SetDisabledColor();
+                    break;
 
+                case nameof(SegmentedControl.TextColor):
+                    SetTextColor();
                     break;
 
                 case nameof(SegmentedControl.SelectedTextColor):
@@ -164,6 +167,15 @@ namespace Plugin.Segmented.Control.UWP
             if (!Element.IsEnabled)
             {
                 _segmentedUserControl.SegmentedControlGrid.BorderBrush = (SolidColorBrush)_colorConverter.Convert(Element.DisabledColor, null, null, "");
+            }
+        }
+
+        private void SetTextColor()
+        {
+            foreach (var segment in _segmentedUserControl.SegmentedControlGrid.Children)
+            {
+                ((SegmentRadioButton)segment).Foreground = (SolidColorBrush)_colorConverter.Convert(
+                    Element.TextColor, null, null, "");
             }
         }
 

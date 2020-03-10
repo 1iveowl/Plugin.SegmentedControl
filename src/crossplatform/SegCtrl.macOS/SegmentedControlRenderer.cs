@@ -80,7 +80,6 @@ namespace SegCtrl.macOS
                     }
                 }
             }
-
         }
 
         private void RemoveElementHandlers(bool removeChildrenHandlersOnly = false)

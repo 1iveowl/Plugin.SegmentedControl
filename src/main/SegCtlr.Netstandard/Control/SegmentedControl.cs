@@ -65,6 +65,18 @@ namespace Plugin.Segmented.Control
         }
         #endregion
 
+        public static readonly BindableProperty TextColorProperty = BindableProperty.Create(
+            propertyName: "TextColor",
+            returnType: typeof(Color),
+            declaringType: typeof(SegmentedControl),
+            defaultValue: default(Color));
+
+        public Color TextColor
+        {
+            get => (Color) GetValue(TextColorProperty);
+            set => SetValue(TextColorProperty, value);
+        }
+
         public static readonly BindableProperty TintColorProperty = BindableProperty.Create(nameof(TintColor), typeof(Color), typeof(SegmentedControl), Color.Blue);
 
         public Color TintColor
@@ -88,8 +100,7 @@ namespace Plugin.Segmented.Control
             get => (Color)GetValue(DisabledColorProperty);
             set => SetValue(DisabledColorProperty, value);
         }
-
-
+        
         public static readonly BindableProperty SelectedSegmentProperty = BindableProperty.Create(nameof(SelectedSegment), typeof(int), typeof(SegmentedControl), 0);
 
 
@@ -129,13 +140,6 @@ namespace Plugin.Segmented.Control
             get => (string)GetValue(FontFamilyProperty);
             set => SetValue(FontFamilyProperty, value);
         }
-
-        //public static readonly BindableProperty FontWeightProperty = BindableProperty.Create(nameof(FontAttributes), typeof(FontAttributes), typeof(SegmentedControl), default(FontAttributes));
-        //public FontAttributes FontAttributes
-        //{
-        //    get => (FontAttributes)GetValue(FontWeightProperty);
-        //    set => SetValue(FontWeightProperty, value);
-        //}
 
 
         [EditorBrowsable(EditorBrowsableState.Never)]

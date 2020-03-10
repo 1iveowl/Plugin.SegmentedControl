@@ -23,7 +23,7 @@ namespace Plugin.Segmented.Control.iOS
                 _nativeControl = new UISegmentedControl();
                 SetNativeControlSegments(Element.Children);
                 _nativeControl.Enabled = Element.IsEnabled;
-                SetColor();
+                SetEnabledStateColor();
 
                 SetFont();
 
@@ -159,18 +159,22 @@ namespace Plugin.Segmented.Control.iOS
                     break;
 
                 case nameof(SegmentedControl.TintColor):
-                    SetColor();
+                    SetEnabledStateColor();
                     break;
 
                 case nameof(SegmentedControl.IsEnabled):
                     _nativeControl.Enabled = Element.IsEnabled;
-                    SetColor();
+                    SetEnabledStateColor();
                     break;
 
                 case nameof(SegmentedControl.SelectedTextColor):
                     SetSelectedTextColor();
                     break;
 
+                case nameof(SegmentedControl.TextColor):
+                    SetTextColor();
+                    break;
+                    
                 case nameof(SegmentedControl.Children):
                     if (!(Element.Children is null))
                     {
@@ -186,7 +190,7 @@ namespace Plugin.Segmented.Control.iOS
             }
         }
 
-        private void SetColor()
+        private void SetEnabledStateColor()
         {
             if (UIDevice.CurrentDevice.CheckSystemVersion(13, 0))
             {
@@ -200,17 +204,33 @@ namespace Plugin.Segmented.Control.iOS
 
         private void SetFont()
         {
+            var uiTextAttribute = _nativeControl.GetTitleTextAttributes(UIControlState.Normal);
+
             var font = string.IsNullOrEmpty(Element.FontFamily) 
                 ? UIFont.SystemFontOfSize((nfloat)Element.FontSize) 
                 : UIFont.FromName(Element.FontFamily, (nfloat)Element.FontSize);
 
-           _nativeControl.SetTitleTextAttributes(new UITextAttributes { Font = font }, UIControlState.Normal);
+            uiTextAttribute.Font = font;
+
+           _nativeControl.SetTitleTextAttributes(uiTextAttribute, UIControlState.Normal);
+        }
+
+        private void SetTextColor()
+        {
+            var uiTextAttribute = _nativeControl.GetTitleTextAttributes(UIControlState.Normal);
+
+            uiTextAttribute.TextColor = Element.TextColor.ToUIColor();
+
+            _nativeControl.SetTitleTextAttributes(uiTextAttribute, UIControlState.Normal);
         }
 
         private void SetSelectedTextColor()
         {
-            var attr = new UITextAttributes {TextColor = Element.SelectedTextColor.ToUIColor()};
-            _nativeControl.SetTitleTextAttributes(attr, UIControlState.Selected);
+            var uiTextAttribute = _nativeControl.GetTitleTextAttributes(UIControlState.Normal);
+
+            uiTextAttribute.TextColor = Element.SelectedTextColor.ToUIColor();
+
+            _nativeControl.SetTitleTextAttributes(uiTextAttribute, UIControlState.Selected);
         }
 
         private void NativeControl_SelectionChanged(object sender, EventArgs e)
