@@ -20,12 +20,12 @@
                 Text="Welcome to Xamarin.Forms!"
                 HorizontalOptions="CenterAndExpand" />
             <control:SegmentedControl 
-                x:Name="SegmentedControl" 
+                x:Name="SegmentedControl"
                 SelectedSegment="{Binding SelectedSegment, Mode=TwoWay}"
                 TintColor="BlueViolet"
+                TextColor="Black"
                 SelectedTextColor="White"
                 DisabledColor="Gray"
-                FontSize="Small"
                 FontFamily="{StaticResource PlatformFontName}"
                 Margin="8,8,8,8"
                 SegmentSelectedCommand="{Binding SegmentChangedCommand}"
@@ -55,6 +55,7 @@
                     <Button Text="Change Text Size" Clicked="ChangeTextSize_OnClicked"></Button>
                     <Button Text="Change Font Family" Clicked="ChangeFontFamily_OnClicked"></Button>
                     <Button Text="Go to Second Page" Clicked="SecondPage_OnClicked"/>
+                    <Button Text="Text Color" Clicked="Button_TextColor"/>
                 </StackLayout>
             </ScrollView>
         </StackLayout>

@@ -178,6 +178,7 @@ namespace Plugin.Segmented.Control.Droid
                 case nameof(SegmentedControl.IsEnabled):
                 case nameof(SegmentedControl.FontSize):
                 case nameof(SegmentedControl.FontFamily):
+                case nameof(SegmentedControl.TextColor):
                     OnPropertyChanged();
                     break;
 
@@ -269,14 +270,17 @@ namespace Plugin.Segmented.Control.Droid
             }
             else
             {
-                var textColor = Element.IsEnabled ? Element.TintColor.ToAndroid() : Element.DisabledColor.ToAndroid();
+                var textColor = Element.IsEnabled 
+                    ? Element.TextColor.ToAndroid() 
+                    : Element.DisabledColor.ToAndroid();
 
                 radioButton.SetTextColor(textColor);
             }
 
             radioButton.TextSize = Convert.ToSingle(Element.FontSize);
 
-            var font = Typeface.Create(Element.FontFamily, TypefaceStyle.Normal);
+            var font = Font.OfSize(Element.FontFamily, Element.FontSize).ToTypeface();
+
             radioButton.SetTypeface(font, TypefaceStyle.Normal);
 
             var gradientDrawable = (StateListDrawable)radioButton.Background;

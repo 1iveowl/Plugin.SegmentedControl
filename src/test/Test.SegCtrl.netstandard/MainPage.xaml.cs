@@ -110,5 +110,23 @@ namespace Test.SegmentedControl
             var newPage = new NavigationPage(new SegCtrl.netstandard.SecondPage());
             Application.Current.MainPage = newPage;
         }
+
+        private bool _isTextColorChanged;
+        private Color _defaultTextColor;
+
+        private void Button_TextColor(object sender, EventArgs e)
+        {
+            if (!_isTextColorChanged)
+            {
+                _defaultTextColor = SegmentedControl.TextColor;
+                SegmentedControl.TextColor = Color.Chocolate;
+                _isTextColorChanged = true;
+            }
+            else
+            {
+                _isTextColorChanged = false;
+                SegmentedControl.TextColor = _defaultTextColor;
+            }
+        }
     }
 }
