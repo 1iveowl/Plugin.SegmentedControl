@@ -11,6 +11,7 @@ using Xamarin.Forms.Platform.UWP;
 [assembly: ExportRenderer(typeof(SegmentedControl), typeof(SegmentedControlRenderer))]
 namespace Plugin.Segmented.Control.UWP
 {
+    [Preserve(AllMembers = true)]
     public class SegmentedControlRenderer : ViewRenderer<SegmentedControl, SegmentedUserControl>
     {
         private SegmentedUserControl _segmentedUserControl;
@@ -219,6 +220,7 @@ namespace Plugin.Segmented.Control.UWP
                     HorizontalAlignment = HorizontalAlignment.Stretch,
                     VerticalAlignment = VerticalAlignment.Stretch,
                     BorderBrush = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, ""),
+                    Foreground = (SolidColorBrush)_colorConverter.Convert(Element.TextColor, null, null, ""),
                     SelectedTextColor = (SolidColorBrush)_colorConverter.Convert(Element.SelectedTextColor, null, null, ""),
                     TintColor = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, ""),
                     DisabledColor = (SolidColorBrush)_colorConverter.Convert(Element.DisabledColor, null, null, ""),
