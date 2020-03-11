@@ -23,7 +23,7 @@
                 x:Name="SegmentedControl"
                 SelectedSegment="{Binding SelectedSegment, Mode=TwoWay}"
                 TintColor="BlueViolet"
-                TextColor="Black"
+                TextColor="Blue"
                 SelectedTextColor="White"
                 DisabledColor="Gray"
                 FontFamily="{StaticResource PlatformFontName}"

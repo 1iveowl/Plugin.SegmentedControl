@@ -5,10 +5,12 @@ using AppKit;
 using Xamarin.Forms.Platform.MacOS;
 using Plugin.Segmented.Control;
 using System.ComponentModel;
+using Plugin.Segmented;
 
 [assembly: ExportRenderer(typeof(SegmentedControl), typeof(SegCtrl.macOS.SegmentedControlRenderer))]
 namespace SegCtrl.macOS
 {
+    [Preserve(AllMembers = true)]
     public class SegmentedControlRenderer : ViewRenderer<SegmentedControl, NSSegmentedControl>
     {
         private NSSegmentedControl _nativeControl;

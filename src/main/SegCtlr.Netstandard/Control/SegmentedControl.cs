@@ -8,6 +8,7 @@ using Xamarin.Forms;
 namespace Plugin.Segmented.Control
 {
     [DesignTimeVisible(true)]
+    [Preserve(AllMembers = true)]
     public class SegmentedControl : View, IViewContainer<SegmentedControlOption>
     {
         public SegmentedControl()

@@ -10,6 +10,7 @@ using Xamarin.Forms.Platform.iOS;
 [assembly: ExportRenderer(typeof(SegmentedControl), typeof(SegmentedControlRenderer))]
 namespace Plugin.Segmented.Control.iOS
 {
+    [Preserve(AllMembers = true)]
     public class SegmentedControlRenderer : ViewRenderer<SegmentedControl, UISegmentedControl>
     {
         private UISegmentedControl _nativeControl;
@@ -194,11 +195,15 @@ namespace Plugin.Segmented.Control.iOS
         {
             if (UIDevice.CurrentDevice.CheckSystemVersion(13, 0))
             {
-                _nativeControl.SelectedSegmentTintColor = Element.IsEnabled ? Element.TintColor.ToUIColor() : Element.DisabledColor.ToUIColor();
+                _nativeControl.SelectedSegmentTintColor = Element.IsEnabled 
+                    ? Element.TintColor.ToUIColor() 
+                    : Element.DisabledColor.ToUIColor();
             }
             else
             {
-                _nativeControl.TintColor = Element.IsEnabled ? Element.TintColor.ToUIColor() : Element.DisabledColor.ToUIColor();
+                _nativeControl.TintColor = Element.IsEnabled 
+                    ? Element.TintColor.ToUIColor() 
+                    : Element.DisabledColor.ToUIColor();
             }
         }
 

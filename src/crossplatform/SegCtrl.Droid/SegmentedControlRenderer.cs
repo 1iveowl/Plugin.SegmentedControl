@@ -13,6 +13,7 @@ using Xamarin.Forms.Platform.Android;
 
 namespace Plugin.Segmented.Control.Droid
 {
+    [Preserve(AllMembers = true)]
     public class SegmentedControlRenderer : ViewRenderer<SegmentedControl, RadioGroup>
     {
         private RadioGroup _nativeControl;

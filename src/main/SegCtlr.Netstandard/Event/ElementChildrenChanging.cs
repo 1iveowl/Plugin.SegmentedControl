@@ -4,6 +4,8 @@ using Plugin.Segmented.Control;
 
 namespace Plugin.Segmented.Event
 {
+
+    [Preserve(AllMembers = true)]
     public class ElementChildrenChanging : EventArgs
     {
         public ElementChildrenChanging(IList<SegmentedControlOption> oldValues, IList<SegmentedControlOption> newValues)
