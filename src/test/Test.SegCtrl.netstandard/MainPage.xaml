@@ -24,7 +24,7 @@
                 SelectedSegment="{Binding SelectedSegment, Mode=TwoWay}"
                 TintColor="BlueViolet"
                 TextColor="Blue"
-                SelectedTextColor="White"
+                SelectedTextColor="Yellow"
                 DisabledColor="Gray"
                 FontFamily="{StaticResource PlatformFontName}"
                 Margin="8,8,8,8"
