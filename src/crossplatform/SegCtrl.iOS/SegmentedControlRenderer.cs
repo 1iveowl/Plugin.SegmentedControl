@@ -24,11 +24,11 @@ namespace Plugin.Segmented.Control.iOS
                 _nativeControl = new UISegmentedControl();
                 SetNativeControlSegments(Element.Children);
                 _nativeControl.Enabled = Element.IsEnabled;
+
                 SetEnabledStateColor();
-
                 SetFont();
-
                 SetSelectedTextColor();
+                SetTextColor();
                 SetNativeControl(_nativeControl);
             }
 
