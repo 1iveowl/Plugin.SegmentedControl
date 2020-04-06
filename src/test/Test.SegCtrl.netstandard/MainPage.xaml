@@ -20,6 +20,7 @@
                 Text="Welcome to Xamarin.Forms!"
                 HorizontalOptions="CenterAndExpand" />
             <control:SegmentedControl 
+                BackgroundColor="BurlyWood"
                 x:Name="SegmentedControl"
                 SelectedSegment="{Binding SelectedSegment, Mode=TwoWay}"
                 TintColor="BlueViolet"

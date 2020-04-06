@@ -6,10 +6,11 @@
              Title="Second Page"
              xmlns:seg="clr-namespace:Plugin.Segmented.Control;assembly=Plugin.Segmented">
     <ContentPage.Content>
-         <StackLayout>
+         <StackLayout Margin="8" BackgroundColor="AliceBlue">
             <seg:SegmentedControl 
                 IsVisible="True" 
                 x:Name="seg" 
+                BackgroundColor="Aquamarine"
                 OnSegmentSelected="Seg_OnSegmentSelected"
                 TextColor="Black">
                 <seg:SegmentedControl.Children>
