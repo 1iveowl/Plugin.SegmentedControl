@@ -7,7 +7,11 @@
              xmlns:seg="clr-namespace:Plugin.Segmented.Control;assembly=Plugin.Segmented">
     <ContentPage.Content>
          <StackLayout>
-            <seg:SegmentedControl IsVisible="True" x:Name="seg" OnSegmentSelected="Seg_OnSegmentSelected">
+            <seg:SegmentedControl 
+                IsVisible="True" 
+                x:Name="seg" 
+                OnSegmentSelected="Seg_OnSegmentSelected"
+                TextColor="Black">
                 <seg:SegmentedControl.Children>
                     <seg:SegmentedControlOption Text="Staff"/>
                     <seg:SegmentedControlOption Text="Parent"/>
