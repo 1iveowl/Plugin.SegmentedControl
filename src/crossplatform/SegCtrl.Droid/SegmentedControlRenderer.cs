@@ -319,7 +319,7 @@ namespace Plugin.Segmented.Control.Droid
                 var radioButton = rg.FindViewById(id);
                 var radioId = rg.IndexOfChild(radioButton);
                 var v = (RadioButton)rg.GetChildAt(radioId);
-                var color = Element.IsEnabled ? Element.TintColor.ToAndroid() : Element.DisabledColor.ToAndroid();
+                var color = Element.IsEnabled ? Element.TextColor.ToAndroid() : Element.DisabledColor.ToAndroid();
 
                 _nativeRadioButtonControl?.SetTextColor(color);
 
