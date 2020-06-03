@@ -101,7 +101,15 @@ namespace Plugin.Segmented.Control
             get => (Color)GetValue(DisabledColorProperty);
             set => SetValue(DisabledColorProperty, value);
         }
-        
+
+        public static readonly BindableProperty BorderColorProperty = BindableProperty.Create(nameof(BorderColor), typeof(Color?), typeof(SegmentedControl));
+
+        public Color? BorderColor
+        {
+            get => (Color?)GetValue(BorderColorProperty);
+            set => SetValue(BorderColorProperty, value);
+        }
+
         public static readonly BindableProperty SelectedSegmentProperty = BindableProperty.Create(nameof(SelectedSegment), typeof(int), typeof(SegmentedControl), 0);
 
 

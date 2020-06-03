@@ -180,6 +180,7 @@ namespace Plugin.Segmented.Control.Droid
                 case nameof(SegmentedControl.FontSize):
                 case nameof(SegmentedControl.FontFamily):
                 case nameof(SegmentedControl.TextColor):
+                case nameof(SegmentedControl.BorderColor):
                     OnPropertyChanged();
                     break;
 
@@ -298,13 +299,15 @@ namespace Plugin.Segmented.Control.Droid
                 ? drawable1 
                 : (GradientDrawable)((InsetDrawable)children[1]).Drawable;
 
-            var color = Element.IsEnabled ? Element.TintColor.ToAndroid() : Element.DisabledColor.ToAndroid();
+            var backgroundColor = Element.IsEnabled ? Element.TintColor.ToAndroid() : Element.DisabledColor.ToAndroid();
 
-            selectedShape.SetStroke(3, color);
+            var borderColor = Element.BorderColor.HasValue && Element.IsEnabled ? Element.BorderColor.Value.ToAndroid() : backgroundColor;
 
-            selectedShape.SetColor(color);
+            selectedShape.SetStroke(3, borderColor);
 
-            unselectedShape.SetStroke(3, color);
+            selectedShape.SetColor(backgroundColor);
+
+            unselectedShape.SetStroke(3, borderColor);
 
             radioButton.Enabled = Element.IsEnabled;
         }
