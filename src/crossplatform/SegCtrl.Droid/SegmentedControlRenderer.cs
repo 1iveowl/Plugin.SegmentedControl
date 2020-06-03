@@ -307,7 +307,7 @@ namespace Plugin.Segmented.Control.Droid
 
             unselectedShape.SetStroke(3, color);
 
-            unselectedShape.SetColor(this._unselectedItemBackgroundColor);
+            unselectedShape.SetColor(_unselectedItemBackgroundColor);
 
             radioButton.Enabled = Element.IsEnabled;
         }
@@ -341,8 +341,8 @@ namespace Plugin.Segmented.Control.Droid
 
         public override void SetBackgroundColor(Android.Graphics.Color color)
         {
-            this._unselectedItemBackgroundColor = color;
-            this.OnPropertyChanged();
+            _unselectedItemBackgroundColor = color;
+            OnPropertyChanged();
 
             base.SetBackgroundColor(Android.Graphics.Color.Transparent);
         }
