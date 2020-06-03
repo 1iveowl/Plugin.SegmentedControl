@@ -18,6 +18,7 @@ namespace Plugin.Segmented.Control.Droid
     {
         private RadioGroup _nativeControl;
         private RadioButton _nativeRadioButtonControl;
+        private Android.Graphics.Color _unselectedItemBackgroundColor = Android.Graphics.Color.Transparent;
 
         private readonly Context _context;
 
@@ -306,6 +307,8 @@ namespace Plugin.Segmented.Control.Droid
 
             unselectedShape.SetStroke(3, color);
 
+            unselectedShape.SetColor(this._unselectedItemBackgroundColor);
+
             radioButton.Enabled = Element.IsEnabled;
         }
 
@@ -334,6 +337,14 @@ namespace Plugin.Segmented.Control.Droid
         private void OnElementChildrenChanging(object sender, EventArgs e)
         {
             RemoveElementHandlers(true);
+        }
+
+        public override void SetBackgroundColor(Android.Graphics.Color color)
+        {
+            this._unselectedItemBackgroundColor = color;
+            this.OnPropertyChanged();
+
+            base.SetBackgroundColor(Android.Graphics.Color.Transparent);
         }
 
         protected override void Dispose(bool disposing)
