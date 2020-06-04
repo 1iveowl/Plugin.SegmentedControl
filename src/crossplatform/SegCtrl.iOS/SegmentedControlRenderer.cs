@@ -31,6 +31,7 @@ namespace Plugin.Segmented.Control.iOS
                 SetFont();
                 SetSelectedTextColor();
                 SetTextColor();
+                SetBorder();
             }
 
             if (!(e.OldElement is null))
@@ -189,6 +190,11 @@ namespace Plugin.Segmented.Control.iOS
                 case nameof(SegmentedControl.FontFamily):
                     SetFont();
                     break;
+
+                case nameof(SegmentedControl.BorderWidth):
+                case nameof(SegmentedControl.BorderColor):
+                    SetBorder();
+                    break;
             }
         }
 
@@ -237,6 +243,15 @@ namespace Plugin.Segmented.Control.iOS
             uiTextAttribute.TextColor = Element.SelectedTextColor.ToUIColor();
 
             _nativeControl.SetTitleTextAttributes(uiTextAttribute, UIControlState.Selected);
+        }
+
+        private void SetBorder()
+        {
+            _nativeControl.Layer.BorderWidth = (nfloat)Element.BorderWidth;
+
+            _nativeControl.Layer.BorderColor = Element.IsEnabled ?
+                Element.BorderColor.ToCGColor() :
+                Element.DisabledColor.ToCGColor();
         }
 
         private void NativeControl_SelectionChanged(object sender, EventArgs e)

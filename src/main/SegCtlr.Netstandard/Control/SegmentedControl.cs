@@ -110,7 +110,7 @@ namespace Plugin.Segmented.Control
             set => SetValue(BorderColorProperty, value);
         }
 
-        public static readonly BindableProperty BorderWidthProperty = BindableProperty.Create(nameof(BorderWidth), typeof(double), typeof(SegmentedControl), 1.0);
+        public static readonly BindableProperty BorderWidthProperty = BindableProperty.Create(nameof(BorderWidth), typeof(double), typeof(SegmentedControl), defaultValueCreator: _ => Device.RuntimePlatform == Device.Android ? 1.0 : 0.0);
 
         public double BorderWidth
         {
