@@ -27,8 +27,8 @@ Enjoy! And please don't forget to star this project if you find it useful and/or
 - Bindable Select color
 - Bindable Text color
 - Bindable Disabled color
-- Bindable Border color (Android only)
-- Bindable Border width (Android only)
+- Bindable Border color (Android & iOS only)
+- Bindable Border width (Android & iOS only)
 - Bindable Font size
 - Bindable Font Family
 - Bindable Item Text
