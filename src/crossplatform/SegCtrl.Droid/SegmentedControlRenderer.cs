@@ -301,7 +301,7 @@ namespace Plugin.Segmented.Control.Droid
 
             var backgroundColor = Element.IsEnabled ? Element.TintColor.ToAndroid() : Element.DisabledColor.ToAndroid();
 
-            var borderColor = Element.BorderColor.HasValue && Element.IsEnabled ? Element.BorderColor.Value.ToAndroid() : backgroundColor;
+            var borderColor = Element.IsEnabled ? Element.BorderColor.ToAndroid() : Element.DisabledColor.ToAndroid();
 
             selectedShape.SetStroke(3, borderColor);
 
@@ -364,6 +364,7 @@ namespace Plugin.Segmented.Control.Droid
                 return;
             }
         }
+
         /// <summary>
         /// Used for registration with dependency service
         /// </summary>
