@@ -37,6 +37,11 @@ namespace Test.SegmentedControl
             SegmentedControl.BorderColor = Color.Crimson;
         }
 
+        private void ButtonBorderWidth_OnClicked(object sender, EventArgs e)
+        {
+            SegmentedControl.BorderWidth = (SegmentedControl.BorderWidth + 1) % 3;
+        }
+
         private void Disable_OnClicked(object sender, EventArgs e)
         {
             SegmentedControl.IsEnabled = false;

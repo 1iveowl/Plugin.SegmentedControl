@@ -28,6 +28,7 @@ Enjoy! And please don't forget to star this project if you find it useful and/or
 - Bindable Text color
 - Bindable Disabled color
 - Bindable Border color (Android only)
+- Bindable Border width (Android only)
 - Bindable Font size
 - Bindable Font Family
 - Bindable Item Text
@@ -104,8 +105,9 @@ Here is a great blog post about how to move your PCL to .NET Standard: [Building
                 SelectedSegment="{Binding SelectedSegment, Mode=TwoWay}"
                 TintColor="BlueViolet"
                 SelectedTextColor="White"
-                BorderColor="Black"
                 DisabledColor="Gray"
+                BorderColor="Black"
+                BorderWidth="2.0"
                 FontSize="Small"
                 FontFamily="{StaticResource PlatformFontName}"
                 Margin="8,8,8,8"

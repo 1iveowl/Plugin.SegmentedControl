@@ -181,6 +181,7 @@ namespace Plugin.Segmented.Control.Droid
                 case nameof(SegmentedControl.FontFamily):
                 case nameof(SegmentedControl.TextColor):
                 case nameof(SegmentedControl.BorderColor):
+                case nameof(SegmentedControl.BorderWidth):
                     OnPropertyChanged();
                     break;
 
@@ -303,11 +304,13 @@ namespace Plugin.Segmented.Control.Droid
 
             var borderColor = Element.IsEnabled ? Element.BorderColor.ToAndroid() : Element.DisabledColor.ToAndroid();
 
-            selectedShape.SetStroke(3, borderColor);
+            var borderWidthInPixel = ConvertDipToPixel(Element.BorderWidth);
+
+            selectedShape.SetStroke(borderWidthInPixel, borderColor);
 
             selectedShape.SetColor(backgroundColor);
 
-            unselectedShape.SetStroke(3, borderColor);
+            unselectedShape.SetStroke(borderWidthInPixel, borderColor);
 
             radioButton.Enabled = Element.IsEnabled;
         }
@@ -337,6 +340,11 @@ namespace Plugin.Segmented.Control.Droid
         private void OnElementChildrenChanging(object sender, EventArgs e)
         {
             RemoveElementHandlers(true);
+        }
+
+        private int ConvertDipToPixel(double dip)
+        {
+            return (int)Android.Util.TypedValue.ApplyDimension(Android.Util.ComplexUnitType.Dip, (float)dip, _context.Resources.DisplayMetrics);
         }
 
         protected override void Dispose(bool disposing)
