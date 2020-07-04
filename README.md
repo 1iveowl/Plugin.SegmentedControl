@@ -4,6 +4,9 @@
 
 *Please star this project if you find it useful. Thank you!*
 
+## Update
+version 5.2 and forward is based on AndroidX.
+
 ## Why this library?
 There are other Segmented Control libraries out there. This library adds two important capabilities:
 - It works across all four key platforms: iOS, Android and UWP - all other libraries I've encounted lack UWP and/or MacOS.
@@ -17,8 +20,8 @@ Enjoy! And please don't forget to star this project if you find it useful and/or
 |Platform|Supported|Version|Renderer|
 | ------------------- | :-----------: | :-----------: | :------------------: |
 |Xamarin.iOS Unified|Yes|iOS 8.1+|UISegmentedControl|
-|Xamarin.Android|Yes|API 26+|RadioGroup|
-|Xamarin.UWP|Yes|Win10 16299+|User Control/RadioButton|
+|Xamarin.Android|Yes|API 28+|RadioGroup|
+|Xamarin.UWP|Yes|Win10 18362+|User Control/RadioButton|
 |Xamarin.MacOS|Partial|10.0+|NSSegmentedControl|
 
 ## Features
@@ -34,6 +37,8 @@ Enjoy! And please don't forget to star this project if you find it useful and/or
 - Bindable ICommand
 - Bindable IsEnabled Item
 - Bindable ItemsSource
+- Bindable Border color (Android & iOS only)
+- Bindable Border width (Android & iOS only)
 
 For more details please see below or for even more details see: [Test/Demo App](https://github.com/1iveowl/Plugin.SegmentedControl/tree/master/src/test/Test.SegCtrl.netstandard)
 
@@ -104,6 +109,8 @@ Here is a great blog post about how to move your PCL to .NET Standard: [Building
                 TintColor="BlueViolet"
                 SelectedTextColor="White"
                 DisabledColor="Gray"
+                BorderColor="Black"
+                BorderWidth="2.0"
                 FontSize="Small"
                 FontFamily="{StaticResource PlatformFontName}"
                 Margin="8,8,8,8"
@@ -133,3 +140,4 @@ You can bind to the SegmentSelectedCommand for notification in your view model w
 For inspiration and for the Android and iOS part I'd like to thank Alex Rainman for his great work on [SegmentedControl.FormsPlugin](https://www.nuget.org/packages/SegmentedControl.FormsPlugin/).
 
 Thank you to [rjantz3](https://github.com/rjantz3) for adding much requested features and enhancements to this control library.
+Thank you to [Thomas Kälin](https://github.com/thomaskaelin) for critical Android and iOS fixes and improvements.

@@ -1,8 +1,3 @@
-#################################################
-## IMPORTANT: Using MS Build Tool for VS 2019.\! ##
-## This project include C# 7.0 features        ##
-#################################################
-
 param([string]$version)
 
 if ([string]::IsNullOrEmpty($version)) {$version = "0.0.1"}
@@ -18,3 +13,4 @@ $msbuild = "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBui
 Remove-Item .\NuGet -Force -Recurse
 New-Item -ItemType Directory -Force -Path .\NuGet
 NuGet.exe pack Plugin.SegmentedControl.Netstandard.nuspec -Verbosity detailed -Symbols -OutputDir "NuGet" -Version $version
+#NuGet.exe pack Plugin.SegmentedControl.Netstandard.nuspec -Verbosity detailed -Symbols -SymbolPackageFormat snupkg -OutputDir "NuGet" -Version $version

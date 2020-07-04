@@ -8,6 +8,7 @@ using Plugin.Segmented.Control;
 using Plugin.Segmented.Control.Droid;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using RadioButton = Android.Widget.RadioButton;
 
 [assembly: ExportRenderer(typeof(SegmentedControl), typeof(SegmentedControlRenderer))]
 
@@ -18,6 +19,7 @@ namespace Plugin.Segmented.Control.Droid
     {
         private RadioGroup _nativeControl;
         private RadioButton _nativeRadioButtonControl;
+        private Android.Graphics.Color _unselectedItemBackgroundColor = Android.Graphics.Color.Transparent;
 
         private readonly Context _context;
 
@@ -180,6 +182,8 @@ namespace Plugin.Segmented.Control.Droid
                 case nameof(SegmentedControl.FontSize):
                 case nameof(SegmentedControl.FontFamily):
                 case nameof(SegmentedControl.TextColor):
+                case nameof(SegmentedControl.BorderColor):
+                case nameof(SegmentedControl.BorderWidth):
                     OnPropertyChanged();
                     break;
 
@@ -298,14 +302,18 @@ namespace Plugin.Segmented.Control.Droid
                 ? drawable1 
                 : (GradientDrawable)((InsetDrawable)children[1]).Drawable;
 
-            var color = Element.IsEnabled ? Element.TintColor.ToAndroid() : Element.DisabledColor.ToAndroid();
+            var backgroundColor = Element.IsEnabled ? Element.TintColor.ToAndroid() : Element.DisabledColor.ToAndroid();
 
-            selectedShape.SetStroke(3, color);
+            var borderColor = Element.IsEnabled ? Element.BorderColor.ToAndroid() : Element.DisabledColor.ToAndroid();
+            var borderWidthInPixel = ConvertDipToPixel(Element.BorderWidth);
 
-            selectedShape.SetColor(color);
+            selectedShape.SetStroke(borderWidthInPixel, borderColor);
 
-            unselectedShape.SetStroke(3, color);
+            selectedShape.SetColor(backgroundColor);
 
+            unselectedShape.SetStroke(borderWidthInPixel, borderColor);
+            unselectedShape.SetColor(_unselectedItemBackgroundColor);
+            
             radioButton.Enabled = Element.IsEnabled;
         }
 
@@ -319,7 +327,7 @@ namespace Plugin.Segmented.Control.Droid
                 var radioButton = rg.FindViewById(id);
                 var radioId = rg.IndexOfChild(radioButton);
                 var v = (RadioButton)rg.GetChildAt(radioId);
-                var color = Element.IsEnabled ? Element.TintColor.ToAndroid() : Element.DisabledColor.ToAndroid();
+                var color = Element.IsEnabled ? Element.TextColor.ToAndroid() : Element.DisabledColor.ToAndroid();
 
                 _nativeRadioButtonControl?.SetTextColor(color);
 
@@ -334,6 +342,19 @@ namespace Plugin.Segmented.Control.Droid
         private void OnElementChildrenChanging(object sender, EventArgs e)
         {
             RemoveElementHandlers(true);
+        }
+
+        private int ConvertDipToPixel(double dip)
+        {
+            return (int)Android.Util.TypedValue.ApplyDimension(Android.Util.ComplexUnitType.Dip, (float)dip, _context.Resources.DisplayMetrics);
+        }
+
+        public override void SetBackgroundColor(Android.Graphics.Color color)
+        {
+            _unselectedItemBackgroundColor = color;
+            OnPropertyChanged();
+
+            base.SetBackgroundColor(Android.Graphics.Color.Transparent);
         }
 
         protected override void Dispose(bool disposing)
@@ -361,6 +382,7 @@ namespace Plugin.Segmented.Control.Droid
                 return;
             }
         }
+
         /// <summary>
         /// Used for registration with dependency service
         /// </summary>
