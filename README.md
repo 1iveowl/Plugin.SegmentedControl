@@ -5,7 +5,7 @@
 *Please star this project if you find it useful. Thank you!*
 
 ## Update
-version 5.2 and forward is based on AndroidX.
+Version 5.2 and forward is based on AndroidX.
 
 ## Why this library?
 There are other Segmented Control libraries out there. This library adds two important capabilities:
@@ -140,4 +140,4 @@ You can bind to the SegmentSelectedCommand for notification in your view model w
 For inspiration and for the Android and iOS part I'd like to thank Alex Rainman for his great work on [SegmentedControl.FormsPlugin](https://www.nuget.org/packages/SegmentedControl.FormsPlugin/).
 
 Thank you to [rjantz3](https://github.com/rjantz3) for adding much requested features and enhancements to this control library.
-Thank you to [Thomas Kälin](https://github.com/thomaskaelin) for critical Android and iOS fixes and improvements.
+Thank you to [Thomas KÃ¤lin](https://github.com/thomaskaelin) for critical Android and iOS fixes and improvements.
