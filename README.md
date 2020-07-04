@@ -4,6 +4,9 @@
 
 *Please star this project if you find it useful. Thank you!*
 
+## Update
+version 5.2 and forward is based on AndroidX.
+
 ## Why this library?
 There are other Segmented Control libraries out there. This library adds two important capabilities:
 - It works across all four key platforms: iOS, Android and UWP - all other libraries I've encounted lack UWP and/or MacOS.
@@ -17,8 +20,8 @@ Enjoy! And please don't forget to star this project if you find it useful and/or
 |Platform|Supported|Version|Renderer|
 | ------------------- | :-----------: | :-----------: | :------------------: |
 |Xamarin.iOS Unified|Yes|iOS 8.1+|UISegmentedControl|
-|Xamarin.Android|Yes|API 26+|RadioGroup|
-|Xamarin.UWP|Yes|Win10 16299+|User Control/RadioButton|
+|Xamarin.Android|Yes|API 28+|RadioGroup|
+|Xamarin.UWP|Yes|Win10 18362+|User Control/RadioButton|
 |Xamarin.MacOS|Partial|10.0+|NSSegmentedControl|
 
 ## Features

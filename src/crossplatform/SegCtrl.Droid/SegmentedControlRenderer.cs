@@ -8,6 +8,7 @@ using Plugin.Segmented.Control;
 using Plugin.Segmented.Control.Droid;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using RadioButton = Android.Widget.RadioButton;
 
 [assembly: ExportRenderer(typeof(SegmentedControl), typeof(SegmentedControlRenderer))]
 
