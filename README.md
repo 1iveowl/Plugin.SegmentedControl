@@ -5,7 +5,7 @@
 *Please star this project if you find it useful. Thank you!*
 
 ## Update
-Version 5.2 and forward is based on AndroidX.
+Version 5.2 and forward migrated to AndroidX for Android.
 
 ## Why this library?
 There are other Segmented Control libraries out there. This library adds two important capabilities:
