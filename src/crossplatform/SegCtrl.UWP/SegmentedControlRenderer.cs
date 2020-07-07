@@ -20,7 +20,7 @@ namespace Plugin.Segmented.Control.UWP
 
         public SegmentedControlRenderer() {}
 
-        protected override void OnElementChanged(ElementChangedEventArgs<Segmented.Control.SegmentedControl> e)
+        protected override void OnElementChanged(ElementChangedEventArgs<SegmentedControl> e)
         {
             base.OnElementChanged(e);
 
@@ -175,7 +175,7 @@ namespace Plugin.Segmented.Control.UWP
         {
             foreach (var segment in _segmentedUserControl.SegmentedControlGrid.Children)
             {
-                ((SegmentRadioButton)segment).Foreground = (SolidColorBrush)_colorConverter.Convert(
+                ((SegmentRadioButton)segment).TextColor = (SolidColorBrush)_colorConverter.Convert(
                     Element.TextColor, null, null, "");
             }
         }
@@ -220,7 +220,8 @@ namespace Plugin.Segmented.Control.UWP
                     HorizontalAlignment = HorizontalAlignment.Stretch,
                     VerticalAlignment = VerticalAlignment.Stretch,
                     BorderBrush = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, ""),
-                    Foreground = (SolidColorBrush)_colorConverter.Convert(Element.TextColor, null, null, ""),
+                    TextColor = (SolidColorBrush)_colorConverter.Convert(Element.TextColor, null, null, ""),
+                    //Foreground = (SolidColorBrush)_colorConverter.Convert(Element.TextColor, null, null, ""),
                     SelectedTextColor = (SolidColorBrush)_colorConverter.Convert(Element.SelectedTextColor, null, null, ""),
                     TintColor = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, ""),
                     DisabledColor = (SolidColorBrush)_colorConverter.Convert(Element.DisabledColor, null, null, ""),

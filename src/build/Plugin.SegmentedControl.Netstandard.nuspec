@@ -13,6 +13,7 @@
     <description>
 Segmented control for Xamarin Forms for iOS, Android, UWP. Mac OS also supported albeit currently with fewer features.</description>
     <releaseNotes>
+      [UWP] Fixed TextColor not initially set bug.
       [Android] Moved to AndroidX
       [Android] Fixes
       [iOS and Android only] Added BorderColor and BorderWidth

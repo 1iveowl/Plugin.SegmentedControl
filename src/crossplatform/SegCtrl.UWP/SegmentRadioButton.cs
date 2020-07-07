@@ -17,8 +17,23 @@ namespace Plugin.Segmented.Control.UWP
             set => SetValue(SelectedTextColorProperty, value);
         }
 
+        public static readonly DependencyProperty TextColorProperty = DependencyProperty.Register(
+            "TextColor",
+            typeof(SolidColorBrush),
+            typeof(SegmentRadioButton),
+            new PropertyMetadata(default(SolidColorBrush), new PropertyChangedCallback(OnTextColorChanged)));
+
+
+        public SolidColorBrush TextColor
+        {
+            get => (SolidColorBrush)GetValue(TextColorProperty);
+            set => SetValue(TextColorProperty, value);
+        }
+
         public static readonly DependencyProperty TintColorProperty = DependencyProperty.Register(
-            "TintColor", typeof(SolidColorBrush), typeof(SegmentRadioButton), new PropertyMetadata(default(SolidColorBrush), new PropertyChangedCallback(OnTintChanged)));
+            "TintColor", 
+            typeof(SolidColorBrush), 
+            typeof(SegmentRadioButton), new PropertyMetadata(default(SolidColorBrush), new PropertyChangedCallback(OnTintChanged)));
 
         public SolidColorBrush TintColor
         {
@@ -72,6 +87,17 @@ namespace Plugin.Segmented.Control.UWP
         {
             if (d is SegmentRadioButton segment)
             {
+                segment.SelectedTextColor = (SolidColorBrush)e.NewValue;
+                Refresh(segment);
+            }
+        }
+
+        private static void OnTextColorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+
+            if (d is SegmentRadioButton segment)
+            {
+                segment.TextColor = (SolidColorBrush)e.NewValue;
                 Refresh(segment);
             }
         }
