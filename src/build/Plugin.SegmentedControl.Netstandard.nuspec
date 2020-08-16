@@ -13,23 +13,25 @@
     <description>
 Segmented control for Xamarin Forms for iOS, Android, UWP. Mac OS also supported albeit currently with fewer features.</description>
     <releaseNotes>
-      [UWP] Fixed TextColor not initially set bug.
-      [Android] Moved to AndroidX
-      [Android] Fixes
-      [iOS and Android only] Added BorderColor and BorderWidth
-      [All] Moved back to .NET Standard 2.0
-      [UWP] Re-enabled UWP
-      [All] TextColor added - i.e. Unselected text color.
-      [Android] Custom font fixed.
-      [iOS] iOS 13+ tint color issue fixed.
-      [All] Allow selected segment to be changed from view model binding.
-      [All] User interaction with Commands.
-      [All] Implement the IsEnabled property on individual segments.
-      [All] ICommand.
-      [All] Font size.
-      [All] Font Family.
-      [All] Fixes and improvements.
-      [iOS] IsEnabled binding bug fixed.
+[Android] SegmentedControlOption.IsEnabled fixed.
+[UWP, Android] Lower the required SDK: UWP supports UWP 16299+; Android supports 28+
+[UWP] Fixed TextColor not initially set bug.
+[Android] Moved to AndroidX
+[Android] Fixes
+[iOS and Android only] Added BorderColor and BorderWidth
+[All] Moved back to .NET Standard 2.0
+[UWP] Re-enabled UWP
+[All] TextColor added - i.e. Unselected text color.
+[Android] Custom font fixed.
+[iOS] iOS 13+ tint color issue fixed.
+[All] Allow selected segment to be changed from view model binding.
+[All] User interaction with Commands.
+[All] Implement the IsEnabled property on individual segments.
+[All] ICommand.
+[All] Font size.
+[All] Font Family.
+[All] Fixes and improvements.
+[iOS] IsEnabled binding bug fixed.
     </releaseNotes>
     <copyright>Copyright 2020</copyright>
     <tags>xamarin xamarin.forms segmentedControl netstandard iOS UWP Android macOS</tags>
@@ -58,24 +60,24 @@ Segmented control for Xamarin Forms for iOS, Android, UWP. Mac OS also supported
         <dependency id="Xamarin.AndroidX.Migration" version="1.0.6.1" />
         <dependency id="Xamarin.AndroidX.Browser" version="1.2.0.1" />
         <dependency id="Xamarin.AndroidX.Lifecycle.LiveData" version="2.2.0.1" />
-        <dependency id="Xamarin.Forms" version="4.7.0.1080" />
+        <dependency id="Xamarin.Forms" version="4.8.0.1269" />
       </group>
 
       <group targetFramework="Xamarin.Mac20">
-        <dependency id="Xamarin.Forms" version="4.7.0.1080" />
+        <dependency id="Xamarin.Forms" version="4.8.0.1269" />
       </group>
 
       <group targetFramework="Xamarin.iOS10">
-        <dependency id="Xamarin.Forms" version="4.7.0.1080" />
+        <dependency id="Xamarin.Forms" version="4.8.0.1269" />
       </group>
 
       <group targetFramework="uap10.0">
-        <dependency id="Xamarin.Forms" version="4.7.0.1080" />
+        <dependency id="Xamarin.Forms" version="4.8.0.1269" />
         <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="6.2.10" />
       </group>
 
       <group targetFramework="netstandard2.0">
-        <dependency id="Xamarin.Forms" version="4.7.0.1080" />
+        <dependency id="Xamarin.Forms" version="4.8.0.1269" />
 
       </group>
 

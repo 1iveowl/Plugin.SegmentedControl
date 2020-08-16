@@ -15,7 +15,7 @@
                 TextColor="Black">
                 <seg:SegmentedControl.Children>
                     <seg:SegmentedControlOption Text="Staff"/>
-                    <seg:SegmentedControlOption Text="Parent"/>
+                    <seg:SegmentedControlOption Text="Parent" IsEnabled="False"/>
                     <seg:SegmentedControlOption Text="Student"/>
                 </seg:SegmentedControl.Children>
             </seg:SegmentedControl>

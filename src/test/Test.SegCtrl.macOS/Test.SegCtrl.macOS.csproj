@@ -99,7 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms">
-      <Version>4.7.0.1080</Version>
+      <Version>4.8.0.1269</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.CSharp.targets" />

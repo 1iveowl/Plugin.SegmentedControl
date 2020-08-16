@@ -226,7 +226,7 @@ namespace Plugin.Segmented.Control.UWP
                     TintColor = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, ""),
                     DisabledColor = (SolidColorBrush)_colorConverter.Convert(Element.DisabledColor, null, null, ""),
                     BorderThickness = child.i > 0 ? new Thickness(1, 0, 0, 0) : new Thickness(0, 0, 0, 0),
-                    IsEnabled = Element.IsEnabled
+                    IsEnabled = Element.Children[child.i].IsEnabled
                 };
 
                 segmentButton.Checked += SegmentRadioButtonOnChecked;

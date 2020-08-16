@@ -168,7 +168,7 @@
       <Version>1.1.0.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>4.7.0.1080</Version>
+      <Version>4.8.0.1269</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.Migration" Version="1.0.6.1" />
   </ItemGroup>

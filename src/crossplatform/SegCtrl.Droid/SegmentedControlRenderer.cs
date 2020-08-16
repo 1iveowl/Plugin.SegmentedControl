@@ -219,24 +219,29 @@ namespace Plugin.Segmented.Control.Droid
             for (var i = 0; i < Element.Children.Count; i++)
             {
                 var o = Element.Children[i];
-                var v = (RadioButton)layoutInflater.Inflate(Resource.Layout.RadioButton, null);
+                var radioButton = (RadioButton)layoutInflater.Inflate(Resource.Layout.RadioButton, null);
 
-                v.LayoutParameters = new RadioGroup.LayoutParams(0, LayoutParams.WrapContent, 1f);
+                if (radioButton is null)
+                {
+                    return;
+                }
 
-                v.Text = o.Text;
+                radioButton.LayoutParameters = new RadioGroup.LayoutParams(0, LayoutParams.WrapContent, 1f);
+
+                radioButton.Text = o.Text;
 
                 if (i == 0)
                 {
-                    v.SetBackgroundResource(Resource.Drawable.segmented_control_first_background);
+                    radioButton.SetBackgroundResource(Resource.Drawable.segmented_control_first_background);
                 }
                 else if (i == Element.Children.Count - 1)
                 {
-                    v.SetBackgroundResource(Resource.Drawable.segmented_control_last_background);
+                    radioButton.SetBackgroundResource(Resource.Drawable.segmented_control_last_background);
                 }
 
-                ConfigureRadioButton(i, v);
+                ConfigureRadioButton(i, radioButton);
 
-                _nativeControl.AddView(v);
+                _nativeControl.AddView(radioButton);
             }
 
             SetSelectedRadioButton(Element.SelectedSegment);
@@ -250,6 +255,7 @@ namespace Plugin.Segmented.Control.Droid
             }
         }
 
+
         private void OnPropertyChanged()
         {
             if (_nativeControl is null || Element is null)
@@ -259,9 +265,9 @@ namespace Plugin.Segmented.Control.Droid
 
             for (var i = 0; i < Element.Children.Count; i++)
             {
-                var v = (RadioButton)_nativeControl.GetChildAt(i);
+                var radioButton = (RadioButton)_nativeControl.GetChildAt(i);
 
-                ConfigureRadioButton(i, v);
+                ConfigureRadioButton(i, radioButton);
             }
         }
 
@@ -290,31 +296,41 @@ namespace Plugin.Segmented.Control.Droid
 
             var gradientDrawable = (StateListDrawable)radioButton.Background;
 
-            var drawableContainerState = (DrawableContainer.DrawableContainerState)gradientDrawable.GetConstantState();
+            var drawableContainerState = (DrawableContainer.DrawableContainerState)gradientDrawable?.GetConstantState();
 
-            var children = drawableContainerState.GetChildren();
+            var children = drawableContainerState?.GetChildren();
 
-            var selectedShape = children[0] is GradientDrawable drawable 
-                ? drawable 
-                : (GradientDrawable)((InsetDrawable)children[0]).Drawable;
+            if (!(children is null))
+            {
+                var selectedShape = children[0] is GradientDrawable drawable
+                    ? drawable
+                    : (GradientDrawable)((InsetDrawable)children[0]).Drawable;
 
-            var unselectedShape = children[1] is GradientDrawable drawable1 
-                ? drawable1 
-                : (GradientDrawable)((InsetDrawable)children[1]).Drawable;
+                var unselectedShape = children[1] is GradientDrawable drawable1
+                    ? drawable1
+                    : (GradientDrawable)((InsetDrawable)children[1]).Drawable;
 
-            var backgroundColor = Element.IsEnabled ? Element.TintColor.ToAndroid() : Element.DisabledColor.ToAndroid();
+                var backgroundColor = Element.IsEnabled ? Element.TintColor.ToAndroid() : Element.DisabledColor.ToAndroid();
 
-            var borderColor = Element.IsEnabled ? Element.BorderColor.ToAndroid() : Element.DisabledColor.ToAndroid();
-            var borderWidthInPixel = ConvertDipToPixel(Element.BorderWidth);
+                var borderColor = Element.IsEnabled ? Element.BorderColor.ToAndroid() : Element.DisabledColor.ToAndroid();
+                var borderWidthInPixel = ConvertDipToPixel(Element.BorderWidth);
 
-            selectedShape.SetStroke(borderWidthInPixel, borderColor);
+                if (!(selectedShape is null))
+                {
+                    selectedShape.SetStroke(borderWidthInPixel, borderColor);
 
-            selectedShape.SetColor(backgroundColor);
+                    selectedShape.SetColor(backgroundColor);
+                }
 
-            unselectedShape.SetStroke(borderWidthInPixel, borderColor);
-            unselectedShape.SetColor(_unselectedItemBackgroundColor);
+                if (!(unselectedShape is null))
+                {
+
+                    unselectedShape.SetStroke(borderWidthInPixel, borderColor);
+                    unselectedShape.SetColor(_unselectedItemBackgroundColor);
+                }
+            }
             
-            radioButton.Enabled = Element.IsEnabled;
+            radioButton.Enabled = Element.Children[index].IsEnabled;
         }
 
         private void NativeControl_ValueChanged(object sender, RadioGroup.CheckedChangeEventArgs e)

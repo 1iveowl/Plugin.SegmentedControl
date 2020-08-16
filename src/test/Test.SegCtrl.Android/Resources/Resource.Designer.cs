@@ -1799,6 +1799,7 @@ namespace Test.SegmentedControl.Droid
 			global::Plugin.Segmented.Control.Droid.Resource.String.mr_system_route_name = global::Test.SegmentedControl.Droid.Resource.String.mr_system_route_name;
 			global::Plugin.Segmented.Control.Droid.Resource.String.mr_user_route_category_name = global::Test.SegmentedControl.Droid.Resource.String.mr_user_route_category_name;
 			global::Plugin.Segmented.Control.Droid.Resource.String.mtrl_chip_close_icon_content_description = global::Test.SegmentedControl.Droid.Resource.String.mtrl_chip_close_icon_content_description;
+			global::Plugin.Segmented.Control.Droid.Resource.String.overflow_tab_title = global::Test.SegmentedControl.Droid.Resource.String.overflow_tab_title;
 			global::Plugin.Segmented.Control.Droid.Resource.String.password_toggle_content_description = global::Test.SegmentedControl.Droid.Resource.String.password_toggle_content_description;
 			global::Plugin.Segmented.Control.Droid.Resource.String.path_password_eye = global::Test.SegmentedControl.Droid.Resource.String.path_password_eye;
 			global::Plugin.Segmented.Control.Droid.Resource.String.path_password_eye_mask_strike_through = global::Test.SegmentedControl.Droid.Resource.String.path_password_eye_mask_strike_through;
@@ -4408,6 +4409,7 @@ namespace Test.SegmentedControl.Droid
 			global::Xamarin.Forms.Platform.Android.Resource.String.fab_transformation_sheet_behavior = global::Test.SegmentedControl.Droid.Resource.String.fab_transformation_sheet_behavior;
 			global::Xamarin.Forms.Platform.Android.Resource.String.hide_bottom_view_on_scroll_behavior = global::Test.SegmentedControl.Droid.Resource.String.hide_bottom_view_on_scroll_behavior;
 			global::Xamarin.Forms.Platform.Android.Resource.String.mtrl_chip_close_icon_content_description = global::Test.SegmentedControl.Droid.Resource.String.mtrl_chip_close_icon_content_description;
+			global::Xamarin.Forms.Platform.Android.Resource.String.overflow_tab_title = global::Test.SegmentedControl.Droid.Resource.String.overflow_tab_title;
 			global::Xamarin.Forms.Platform.Android.Resource.String.password_toggle_content_description = global::Test.SegmentedControl.Droid.Resource.String.password_toggle_content_description;
 			global::Xamarin.Forms.Platform.Android.Resource.String.path_password_eye = global::Test.SegmentedControl.Droid.Resource.String.path_password_eye;
 			global::Xamarin.Forms.Platform.Android.Resource.String.path_password_eye_mask_strike_through = global::Test.SegmentedControl.Droid.Resource.String.path_password_eye_mask_strike_through;
@@ -6963,6 +6965,7 @@ namespace Test.SegmentedControl.Droid
 			global::Xamarin.Forms.Platform.Resource.String.fab_transformation_sheet_behavior = global::Test.SegmentedControl.Droid.Resource.String.fab_transformation_sheet_behavior;
 			global::Xamarin.Forms.Platform.Resource.String.hide_bottom_view_on_scroll_behavior = global::Test.SegmentedControl.Droid.Resource.String.hide_bottom_view_on_scroll_behavior;
 			global::Xamarin.Forms.Platform.Resource.String.mtrl_chip_close_icon_content_description = global::Test.SegmentedControl.Droid.Resource.String.mtrl_chip_close_icon_content_description;
+			global::Xamarin.Forms.Platform.Resource.String.overflow_tab_title = global::Test.SegmentedControl.Droid.Resource.String.overflow_tab_title;
 			global::Xamarin.Forms.Platform.Resource.String.password_toggle_content_description = global::Test.SegmentedControl.Droid.Resource.String.password_toggle_content_description;
 			global::Xamarin.Forms.Platform.Resource.String.path_password_eye = global::Test.SegmentedControl.Droid.Resource.String.path_password_eye;
 			global::Xamarin.Forms.Platform.Resource.String.path_password_eye_mask_strike_through = global::Test.SegmentedControl.Droid.Resource.String.path_password_eye_mask_strike_through;
@@ -13726,25 +13729,28 @@ namespace Test.SegmentedControl.Droid
 			public const int mtrl_chip_close_icon_content_description = 2131492926;
 			
 			// aapt resource value: 0x7F0C003F
-			public const int password_toggle_content_description = 2131492927;
+			public const int overflow_tab_title = 2131492927;
 			
 			// aapt resource value: 0x7F0C0040
-			public const int path_password_eye = 2131492928;
+			public const int password_toggle_content_description = 2131492928;
 			
 			// aapt resource value: 0x7F0C0041
-			public const int path_password_eye_mask_strike_through = 2131492929;
+			public const int path_password_eye = 2131492929;
 			
 			// aapt resource value: 0x7F0C0042
-			public const int path_password_eye_mask_visible = 2131492930;
+			public const int path_password_eye_mask_strike_through = 2131492930;
 			
 			// aapt resource value: 0x7F0C0043
-			public const int path_password_strike_through = 2131492931;
+			public const int path_password_eye_mask_visible = 2131492931;
 			
 			// aapt resource value: 0x7F0C0044
-			public const int search_menu_title = 2131492932;
+			public const int path_password_strike_through = 2131492932;
 			
 			// aapt resource value: 0x7F0C0045
-			public const int status_bar_notification_info_overflow = 2131492933;
+			public const int search_menu_title = 2131492933;
+			
+			// aapt resource value: 0x7F0C0046
+			public const int status_bar_notification_info_overflow = 2131492934;
 			
 			static String()
 			{
