@@ -9,7 +9,7 @@ Version 5.2 and forward migrated to AndroidX for Android.
 
 ## Why this library?
 There are other Segmented Control libraries out there. This library adds two important capabilities:
-- It works across all four key platforms: iOS, Android and UWP - all other libraries I've encounted lack UWP and/or MacOS.
+- It works across all four key platforms: iOS, Android, macOS, and UWP - all other libraries I've encounted lack UWP and/or macOS.
 - It's based on .NET Standard 2.0
 
 Furthermore, this library is has more flexibility and features than other libraries that I'm aware of. 
