@@ -20,7 +20,7 @@ Enjoy! And please don't forget to star this project if you find it useful and/or
 |Platform|Supported|Version|Renderer|
 | ------------------- | :-----------: | :-----------: | :------------------: |
 |Xamarin.iOS Unified|Yes|iOS 8.1+|UISegmentedControl|
-|Xamarin.Android|Yes|API 28+|RadioGroup|
+|Xamarin.Android|Yes|API 21+|RadioGroup|
 |Xamarin.UWP|Yes|Win10 16299+|User Control/RadioButton|
 |Xamarin.MacOS|Partial|10.0+|NSSegmentedControl|
 

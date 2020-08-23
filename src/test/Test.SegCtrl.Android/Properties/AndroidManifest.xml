@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.companyname.Test.SegmentedControl" android:installLocation="auto">
-	<uses-sdk android:minSdkVersion="28" android:targetSdkVersion="30" />
-
-  <!--Mono Debugger broke with VS 16.7. The work-around is described here: https://developercommunity.visualstudio.com/solutions/1142331/view.html-->
-  <application 
-    android:label="Test.SegmentedControl.Android" 
-    android:extractNativeLibs="true"></application>
+  <uses-sdk android:minSdkVersion="25" android:targetSdkVersion="28" />
+	<!--Mono Debugger broke with VS 16.7. The work-around is described here: https://developercommunity.visualstudio.com/solutions/1142331/view.html-->
+	<application android:label="Test.SegmentedControl.Android" android:extractNativeLibs="true"></application>
 </manifest>
