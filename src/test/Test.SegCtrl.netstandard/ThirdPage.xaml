@@ -7,12 +7,14 @@
              xmlns:seg="clr-namespace:Plugin.Segmented.Control;assembly=Plugin.Segmented">
     
     <StackLayout Margin="8" BackgroundColor="AliceBlue" Spacing="20">
-        <seg:SegmentedControl 
-            x:Name="TheSegmentedControl" BackgroundColor="Aquamarine" TextColor="Black"
-            ItemsSource="{Binding Items}"
-            TextPropertyName="TheValue"
-            SelectedItem="{Binding TheSelectedItem}"
-            />
+        <StackLayout BackgroundColor="Red">
+            <seg:SegmentedControl
+                x:Name="TheSegmentedControl" BackgroundColor="Aquamarine" TextColor="Black"
+                ItemsSource="{Binding Items}"
+                TextPropertyName="TheValue"
+                SelectedItem="{Binding TheSelectedItem}"
+                />
+        </StackLayout>
 
         <Label Text="{Binding SelectedItem.TheValue,Source={x:Reference TheSegmentedControl}}" />
 
