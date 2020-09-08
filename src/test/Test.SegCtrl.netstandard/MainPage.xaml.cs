@@ -126,6 +126,13 @@ namespace Test.SegmentedControl
             Application.Current.MainPage = newPage;
         }
 
+        private void ThirdPage_OnClicked(object sender, EventArgs e)
+        {
+            var newPage = new NavigationPage(new SegCtrl.netstandard.ThirdPage());
+            Application.Current.MainPage = newPage;
+        }
+
+
         private bool _isTextColorChanged;
         private Color _defaultTextColor;
 
