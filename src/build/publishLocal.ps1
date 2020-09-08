@@ -9,4 +9,4 @@ else {
 
 .\build.ps1 $version
 
-nuget.exe push -Source "1iveowlNuGetRepo" -ApiKey key ".\NuGet\Plugin.SegmentedControl.Netstandard.$version.symbols.snupkg"
+#nuget.exe push -Source "1iveowlNuGetRepo" -ApiKey key ".\NuGet\Plugin.SegmentedControl.Netstandard.$version.symbols.snupkg"
