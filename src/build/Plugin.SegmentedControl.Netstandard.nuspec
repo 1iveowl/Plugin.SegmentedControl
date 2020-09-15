@@ -13,6 +13,8 @@
     <description>
 Segmented control for Xamarin Forms for iOS, Android, UWP. Mac OS also supported albeit currently with fewer features.</description>
     <releaseNotes>
+[All] New TextPropertyName object for ItemSource
+[All] ItemSource is not IEnumerable (was IList)
 [Android, UWP] SegmentedControlOption.IsEnabled fixed.
 [UWP, Android] Lower the required SDK: UWP supports UWP 16299+; Android supports 21+
 [UWP] Fixed TextColor not initially set bug.

@@ -4,8 +4,24 @@
 
 *Please star this project if you find it useful. Thank you!*
 
-## Update
+## Update - Version 5.2+
 Version 5.2 and forward migrated to AndroidX for Android.
+
+## Update - Version 5.4.5+ (PR: #101)
+ItemsSource is now of type IEnumerable instead of IList<string>.
+It can contains full objects.
+When it contains a list of full object, the text displayed in a segment is read from a property on each object: define this property using TextPropertyName.
+
+`TextPropertyName`: string, name of a property in an `ItemsSource[i]` object.
+If `TextPropertyName` is set, the displayed text is read from this property on each source object.
+If `TextPropertyName` is not set, ItemsSource must be a list of string.
+
+New property: `SelectedItem`
+`SelectedItem = Items[SelectedSegment]`
+`SelectedItem` contains the current selected object from `ItemsSource`.
+
+### Fix:
+Remove the extra padding below the control on Android, caused by the wrong usage of match_parent.
 
 ## Why this library?
 There are other Segmented Control libraries out there. This library adds two important capabilities:
@@ -139,5 +155,5 @@ You can bind to the SegmentSelectedCommand for notification in your view model w
 ## Credits
 For inspiration and for the Android and iOS part I'd like to thank Alex Rainman for his great work on [SegmentedControl.FormsPlugin](https://www.nuget.org/packages/SegmentedControl.FormsPlugin/).
 
-Thank you to [rjantz3](https://github.com/rjantz3) for adding much requested features and enhancements to this control library.
+Thank you to [rjantz3](https://github.com/rjantz3) for adding much requested features and enhancements.
 Thank you to [Thomas Kälin](https://github.com/thomaskaelin) for critical Android and iOS fixes and improvements.
