@@ -59,6 +59,7 @@
                     <Button Text="Change Text Size" Clicked="ChangeTextSize_OnClicked"></Button>
                     <Button Text="Change Font Family" Clicked="ChangeFontFamily_OnClicked"></Button>
                     <Button Text="Go to Second Page" Clicked="SecondPage_OnClicked"/>
+                    <Button Text="Go to Third Page" Clicked="ThirdPage_OnClicked"/>
                     <Button Text="Text Color" Clicked="Button_TextColor"/>
                 </StackLayout>
             </ScrollView>

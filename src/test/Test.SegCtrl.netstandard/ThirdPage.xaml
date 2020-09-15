@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="Test.SegCtrl.netstandard.ThirdPage"
+             Visual="Material"
+             Title="Use TextPropertyName"
+             xmlns:seg="clr-namespace:Plugin.Segmented.Control;assembly=Plugin.Segmented">
+    
+    <StackLayout Margin="8" BackgroundColor="AliceBlue" Spacing="20">
+        <StackLayout BackgroundColor="Red">
+            <seg:SegmentedControl
+                x:Name="TheSegmentedControl" BackgroundColor="Aquamarine" TextColor="Black"
+                ItemsSource="{Binding Items}"
+                TextPropertyName="TheValue"
+                SelectedItem="{Binding TheSelectedItem}"
+                />
+        </StackLayout>
+
+        <Label Text="{Binding SelectedItem.TheValue,Source={x:Reference TheSegmentedControl}}" />
+
+        <Button Text="Back" Clicked="Button_Clicked"/>
+    </StackLayout>
+
+</ContentPage>

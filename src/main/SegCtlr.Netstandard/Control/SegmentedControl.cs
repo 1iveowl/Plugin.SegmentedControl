@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Input;
 using Plugin.Segmented.Event;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace Plugin.Segmented.Control
 {
@@ -46,23 +49,92 @@ namespace Plugin.Segmented.Control
         #endregion
 
         #region ItemsSource
-        public static readonly BindableProperty ItemsSourceProperty = BindableProperty.Create(nameof(ItemsSource), typeof(IList<string>), typeof(SegmentedControl), default(IList<string>), propertyChanged: OnItemsSourceChanged);
-        private static void OnItemsSourceChanged(BindableObject bindable, object oldValue, object newValue)
+        public static readonly BindableProperty ItemsSourceProperty = BindableProperty.Create(nameof(ItemsSource), typeof(IEnumerable), typeof(SegmentedControl));
+        public static readonly BindableProperty TextPropertyNameProperty = BindableProperty.Create(nameof(TextPropertyName), typeof(string), typeof(SegmentedControl));
+        
+        private void OnItemsSourceChanged()
         {
-            if (bindable is SegmentedControl segmentedControl && newValue is IList<string> textValues)
+            var itemsSource = ItemsSource;
+            var items = itemsSource as IList;
+            if (items == null && itemsSource is IEnumerable list)
+                items = list.Cast<object>().ToList();
+
+            if (items != null)
             {
-                var newChildren = new List<SegmentedControlOption>(textValues.Count);
-                foreach (var child in textValues)
+                var textValues = items as IEnumerable<string>;
+                if (textValues == null && items.Count > 0 && items[0] is string)
+                    textValues = items.Cast<string>();
+
+                if (textValues != null)
                 {
-                    newChildren.Add(new SegmentedControlOption { Text = child });
+                    Children = new List<SegmentedControlOption>(textValues.Select(child => new SegmentedControlOption {Text = child}));
+                    OnSelectedItemChanged(true);
                 }
-                segmentedControl.Children = newChildren;
+                else
+                {
+                    var textPropertyName = TextPropertyName;
+                    if (textPropertyName != null)
+                    {
+                        var newChildren = new List<SegmentedControlOption>();
+                        foreach (var item in items)
+                            newChildren.Add(new SegmentedControlOption { Item = item, TextPropertyName = textPropertyName });
+                        Children = newChildren;
+                        OnSelectedItemChanged(true);
+                    }
+                }
             }
         }
-        public IList<string> ItemsSource
+
+        protected override void OnPropertyChanged(string propertyName = null)
         {
-            get => (IList<string>)GetValue(ItemsSourceProperty);
-            set { SetValue(ItemsSourceProperty, value); }
+            base.OnPropertyChanged(propertyName);
+
+            if (propertyName == nameof(ItemsSource) || propertyName == nameof(TextPropertyName))
+                OnItemsSourceChanged();
+            else if(propertyName == nameof(SelectedItem))
+                OnSelectedItemChanged();
+            else if(propertyName == nameof(SelectedSegment))
+                OnSelectedSegmentChanged();
+        }
+
+        private void OnSelectedSegmentChanged()
+        {
+            var segmentIndex = SelectedSegment;
+            if (segmentIndex >= 0 && segmentIndex < Children.Count && SelectedItem != Children[segmentIndex].Item)
+                SelectedItem = Children[segmentIndex].Item;
+        }
+
+        private void OnSelectedItemChanged(bool forceUpdateSelectedSegment = false)
+        {
+            if (TextPropertyName != null)
+            {
+                var selectedItem = SelectedItem;
+                var selectedIndex = Children.IndexOf(item => item.Item == selectedItem);
+                if (selectedIndex == -1)
+                {
+                    selectedIndex = SelectedSegment;
+                    if (selectedIndex < 0 || selectedIndex >= Children.Count)
+                        SelectedSegment = 0;
+                    else if(SelectedSegment != selectedIndex)
+                        SelectedSegment = selectedIndex;
+                    else if(forceUpdateSelectedSegment)
+                        OnSelectedSegmentChanged();
+                }
+                else if (selectedIndex != SelectedSegment)
+                    SelectedSegment = selectedIndex;
+            }
+        }
+
+        public IEnumerable ItemsSource
+        {
+            get => (IEnumerable)GetValue(ItemsSourceProperty);
+            set => SetValue(ItemsSourceProperty, value);
+        }
+
+        public string TextPropertyName
+        {
+            get => (string)GetValue(TextPropertyNameProperty);
+            set => SetValue(TextPropertyNameProperty, value);
         }
         #endregion
 
@@ -119,12 +191,20 @@ namespace Plugin.Segmented.Control
         }
 
         public static readonly BindableProperty SelectedSegmentProperty = BindableProperty.Create(nameof(SelectedSegment), typeof(int), typeof(SegmentedControl), 0);
+        public static readonly BindableProperty SelectedItemProperty = BindableProperty.Create(nameof(SelectedItem), typeof(object), typeof(SegmentedControl), defaultBindingMode: BindingMode.TwoWay);
 
         public int SelectedSegment
         {
             get => (int)GetValue(SelectedSegmentProperty);
             set => SetValue(SelectedSegmentProperty, value);
         }
+
+        public object SelectedItem
+        {
+            get => (object)GetValue(SelectedItemProperty);
+            set => SetValue(SelectedItemProperty, value);
+        }
+       
 
         public static readonly BindableProperty SegmentSelectedCommandProperty = BindableProperty.Create(nameof(SegmentSelectedCommand), typeof(ICommand), typeof(SegmentedControl));
         public ICommand SegmentSelectedCommand
