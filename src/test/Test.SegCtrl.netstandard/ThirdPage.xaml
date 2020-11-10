@@ -4,21 +4,35 @@
              x:Class="Test.SegCtrl.netstandard.ThirdPage"
              Visual="Material"
              Title="Use TextPropertyName"
-             xmlns:seg="clr-namespace:Plugin.Segmented.Control;assembly=Plugin.Segmented">
+             xmlns:seg="clr-namespace:Plugin.Segmented.Control;assembly=Plugin.Segmented"
+             >
     
-    <StackLayout Margin="8" BackgroundColor="AliceBlue" Spacing="20">
-        <StackLayout BackgroundColor="Red">
-            <seg:SegmentedControl
-                x:Name="TheSegmentedControl" BackgroundColor="Aquamarine" TextColor="Black"
-                ItemsSource="{Binding Items}"
-                TextPropertyName="TheValue"
-                SelectedItem="{Binding TheSelectedItem}"
-                />
+    <StackLayout BackgroundColor="White" Spacing="20">
+        <StackLayout BackgroundColor="AntiqueWhite" Spacing="0" Padding="10">
+            <StackLayout BackgroundColor="Red">
+                <seg:SegmentedControl
+                    x:Name="TheSegmentedControl" 
+                    ItemsSource="{Binding Items}"
+                    TextPropertyName="TheValue"
+                    SelectedItem="{Binding TheSelectedItem}"
+                    BackgroundColor="White" TextColor="Gray" TintColor="NavajoWhite" SelectedTextColor="Black"
+                    BorderWidth="1" BorderColor="DarkOrange"
+                    FontSize="Body"
+                    Margin="0"
+                    />
+            </StackLayout>
+
+            <Label HorizontalOptions="Center">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Selected label: "/>
+                        <Span TextColor="Black" Text="{Binding SelectedItem.TheValue,Source={x:Reference TheSegmentedControl}}"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
         </StackLayout>
 
-        <Label Text="{Binding SelectedItem.TheValue,Source={x:Reference TheSegmentedControl}}" />
-
-        <Button Text="Back" Clicked="Button_Clicked"/>
+        <Button Text="🏚 Home 🏚" Clicked="Button_Clicked" BackgroundColor="Orange" HorizontalOptions="Center" Padding="40,0" />
     </StackLayout>
 
 </ContentPage>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Globalization;
 using Xamarin.Forms;
 
 namespace Plugin.Segmented.Control
@@ -10,6 +11,7 @@ namespace Plugin.Segmented.Control
         public static readonly BindableProperty TextProperty = BindableProperty.Create(nameof(Text), typeof(string), typeof(SegmentedControlOption), string.Empty);
         public static readonly BindableProperty ItemProperty = BindableProperty.Create(nameof(Item), typeof(object), typeof(SegmentedControlOption), propertyChanged: (bindable, value, newValue) => ((SegmentedControlOption)bindable).OnItemChanged(value, newValue));
         public static readonly BindableProperty TextPropertyNameProperty = BindableProperty.Create(nameof(TextPropertyName), typeof(string), typeof(SegmentedControlOption));
+        public static readonly BindableProperty TextConverterProperty = BindableProperty.Create(nameof(TextConverter), typeof(IValueConverter), typeof(SegmentedControl));
 
         public string Text
         {
@@ -29,6 +31,12 @@ namespace Plugin.Segmented.Control
             set => SetValue(TextPropertyNameProperty, value);
         }
 
+        public IValueConverter TextConverter
+        {
+            get => (IValueConverter)GetValue(TextConverterProperty);
+            set => SetValue(TextConverterProperty, value);
+        }
+
         private void OnItemChanged(object value, object newValue)
         {
             if (value is INotifyPropertyChanged mutableItem)
@@ -41,7 +49,7 @@ namespace Plugin.Segmented.Control
         {
             base.OnPropertyChanged(propertyName);
 
-            if (propertyName == nameof(Item) || propertyName == nameof(TextPropertyName))
+            if (propertyName == nameof(Item) || propertyName == nameof(TextPropertyName) || propertyName == nameof(TextConverter))
                 SetTextFromItemProperty();
         }
 
@@ -53,8 +61,13 @@ namespace Plugin.Segmented.Control
 
         private void SetTextFromItemProperty()
         {
-            if (Item != null && TextPropertyName != null)
-                Text = Item.GetType().GetProperty(TextPropertyName)?.GetValue(Item)?.ToString();
+            if (Item != null && (TextPropertyName != null || TextConverter != null))
+            {
+                var value = TextPropertyName != null ? Item.GetType().GetProperty(TextPropertyName)?.GetValue(Item) : Item;
+                if (TextConverter != null)
+                    value = TextConverter.Convert(value, typeof(string), null, CultureInfo.CurrentCulture);
+                Text = value?.ToString();
+            }
         }
     }
 }
