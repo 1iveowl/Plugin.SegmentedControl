@@ -51,6 +51,7 @@ namespace Plugin.Segmented.Control
         #region ItemsSource
         public static readonly BindableProperty ItemsSourceProperty = BindableProperty.Create(nameof(ItemsSource), typeof(IEnumerable), typeof(SegmentedControl));
         public static readonly BindableProperty TextPropertyNameProperty = BindableProperty.Create(nameof(TextPropertyName), typeof(string), typeof(SegmentedControl));
+        public static readonly BindableProperty TextConverterProperty = BindableProperty.Create(nameof(TextConverter), typeof(IValueConverter), typeof(SegmentedControl));
         
         private void OnItemsSourceChanged()
         {
@@ -72,12 +73,13 @@ namespace Plugin.Segmented.Control
                 }
                 else
                 {
+                    var converter = TextConverter;
                     var textPropertyName = TextPropertyName;
-                    if (textPropertyName != null)
+                    if (textPropertyName != null || converter != null)
                     {
                         var newChildren = new List<SegmentedControlOption>();
                         foreach (var item in items)
-                            newChildren.Add(new SegmentedControlOption { Item = item, TextPropertyName = textPropertyName });
+                            newChildren.Add(new SegmentedControlOption { Item = item, TextPropertyName = textPropertyName, TextConverter = converter });
                         Children = newChildren;
                         OnSelectedItemChanged(true);
                     }
@@ -89,7 +91,7 @@ namespace Plugin.Segmented.Control
         {
             base.OnPropertyChanged(propertyName);
 
-            if (propertyName == nameof(ItemsSource) || propertyName == nameof(TextPropertyName))
+            if (propertyName == nameof(ItemsSource) || propertyName == nameof(TextPropertyName) || propertyName == nameof(TextConverter))
                 OnItemsSourceChanged();
             else if(propertyName == nameof(SelectedItem))
                 OnSelectedItemChanged();
@@ -106,7 +108,7 @@ namespace Plugin.Segmented.Control
 
         private void OnSelectedItemChanged(bool forceUpdateSelectedSegment = false)
         {
-            if (TextPropertyName != null)
+            if (TextPropertyName != null || TextConverter != null)
             {
                 var selectedItem = SelectedItem;
                 var selectedIndex = Children.IndexOf(item => item.Item == selectedItem);
@@ -135,6 +137,12 @@ namespace Plugin.Segmented.Control
         {
             get => (string)GetValue(TextPropertyNameProperty);
             set => SetValue(TextPropertyNameProperty, value);
+        }
+
+        public IValueConverter TextConverter
+        {
+            get => (IValueConverter)GetValue(TextConverterProperty);
+            set => SetValue(TextConverterProperty, value);
         }
         #endregion
 
