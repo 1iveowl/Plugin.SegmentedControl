@@ -21,7 +21,10 @@ namespace Plugin.Segmented.Control.iOS
 
             if (Control is null && Element != null)
             {
-                _nativeControl = new UISegmentedControl();
+                _nativeControl = new UISegmentedControl
+                {
+                    //ApportionsSegmentWidthsByContent = true
+                };
                 SetNativeControlSegments(Element.Children);
                 _nativeControl.Enabled = Element.IsEnabled;
 
@@ -68,6 +71,8 @@ namespace Plugin.Segmented.Control.iOS
                 {
                     _nativeControl.InsertSegment(children[i].Text, i, false);
                     _nativeControl.SetEnabled(children[i].IsEnabled, i);
+                    if(children[i].WidthRequest > 0)
+                        _nativeControl.SetWidth((nfloat)children[i].WidthRequest, i);
                 }
 
                 if (!(Element is null))

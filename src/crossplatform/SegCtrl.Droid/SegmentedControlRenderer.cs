@@ -226,7 +226,10 @@ namespace Plugin.Segmented.Control.Droid
                     return;
                 }
 
-                radioButton.LayoutParameters = new RadioGroup.LayoutParams(0, LayoutParams.WrapContent, 1f);
+                if(o.WidthRequest > 0)
+                    radioButton.LayoutParameters = new RadioGroup.LayoutParams((int)Math.Round(o.WidthRequest), LayoutParams.WrapContent, 0);
+                else
+                    radioButton.LayoutParameters = new RadioGroup.LayoutParams(0, LayoutParams.WrapContent, 1f);
 
                 radioButton.Text = o.Text;
 

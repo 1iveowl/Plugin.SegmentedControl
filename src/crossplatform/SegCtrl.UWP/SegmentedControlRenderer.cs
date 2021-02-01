@@ -245,11 +245,15 @@ namespace Plugin.Segmented.Control.UWP
                 {
                     segmentButton.FontFamily = new FontFamily(Element.FontFamily);
                 }
-                
-                grid.ColumnDefinitions.Add(new ColumnDefinition
+
+                var cd = new ColumnDefinition
                 {
                     Width = new GridLength(1, GridUnitType.Star),
-                });
+                };
+                if (Element.WidthRequest > 0)
+                    cd.Width = new GridLength(Element.WidthRequest);
+
+                grid.ColumnDefinitions.Add(cd);
 
                 segmentButton.SetValue(Grid.ColumnProperty, child.i);
 
