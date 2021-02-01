@@ -39,6 +39,13 @@ namespace SegCtrl.macOS
             _nativeControl.Enabled = Element.IsEnabled;
             _nativeControl.SetSelected(true, Element.SelectedSegment);
             _nativeControl.FocusRingType = NSFocusRingType.None;
+            var i = 0;
+            foreach (var o in Element.Children)
+            {
+                if(o.WidthRequest >= 0)
+                    _nativeControl.SetWidth((nfloat)o.WidthRequest, i);
+                i++;
+            }
 
             SetFont();
             SetNativeControl(_nativeControl);
