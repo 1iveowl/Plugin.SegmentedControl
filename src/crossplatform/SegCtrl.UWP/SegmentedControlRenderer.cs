@@ -209,14 +209,14 @@ namespace Plugin.Segmented.Control.UWP
             grid.ColumnDefinitions.Clear();
             grid.Children.Clear();
 
-            foreach (var child in Element.Children.Select((value, i) => new {i, value}))
+            foreach (var (child, i) in Element.Children.Select((child, i) => (child, i)))
             {
                 var segmentButton = new SegmentRadioButton
                 {
                     GroupName = radioButtonGroupName,
                     Style = (Style)_segmentedUserControl.Resources["SegmentedRadioButtonStyle"],
-                    Content = child.value.Text,
-                    Tag = child.i,
+                    Content = child.Text,
+                    Tag = i,
                     HorizontalAlignment = HorizontalAlignment.Stretch,
                     VerticalAlignment = VerticalAlignment.Stretch,
                     BorderBrush = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, ""),
@@ -224,14 +224,14 @@ namespace Plugin.Segmented.Control.UWP
                     SelectedTextColor = (SolidColorBrush)_colorConverter.Convert(Element.SelectedTextColor, null, null, ""),
                     TintColor = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, ""),
                     DisabledColor = (SolidColorBrush)_colorConverter.Convert(Element.DisabledColor, null, null, ""),
-                    BorderThickness = child.i > 0 ? new Thickness(1, 0, 0, 0) : new Thickness(0, 0, 0, 0),
-                    IsEnabled = Element.Children[child.i].IsEnabled, 
+                    BorderThickness = i > 0 ? new Thickness(1, 0, 0, 0) : new Thickness(0, 0, 0, 0),
+                    IsEnabled = Element.Children[i].IsEnabled, 
                     MinWidth = 0,
                 };
 
                 segmentButton.Checked += SegmentRadioButtonOnChecked;
 
-                if (child.i == Element.SelectedSegment)
+                if (i == Element.SelectedSegment)
                 {
                     segmentButton.IsChecked = true;
                 }
@@ -246,20 +246,21 @@ namespace Plugin.Segmented.Control.UWP
                     segmentButton.FontFamily = new FontFamily(Element.FontFamily);
                 }
 
-                var cd = new ColumnDefinition
+                var columnDefinition = new ColumnDefinition
                 {
                     Width = new GridLength(1, GridUnitType.Star),
                 };
+
                 if (Element.WidthRequest > 0)
-                    cd.Width = new GridLength(Element.WidthRequest);
+                    columnDefinition.Width = new GridLength(Element.WidthRequest);
 
-                grid.ColumnDefinitions.Add(cd);
+                grid.ColumnDefinitions.Add(columnDefinition);
 
-                segmentButton.SetValue(Grid.ColumnProperty, child.i);
+                segmentButton.SetValue(Grid.ColumnProperty, i);
 
                 grid.Children.Add(segmentButton);
 
-                child.value.PropertyChanged += Segment_PropertyChanged;
+                child.PropertyChanged += Segment_PropertyChanged;
             }
 
             SetNativeControl(_segmentedUserControl);

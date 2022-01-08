@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Android.Content;
 using Android.Graphics;
 using Android.Graphics.Drawables;
@@ -216,9 +217,8 @@ namespace Plugin.Segmented.Control.Droid
                 _nativeControl.RemoveAllViews();
             }
 
-            for (var i = 0; i < Element.Children.Count; i++)
+            foreach (var (child, i) in Element?.Children.Select((child, i) => (child, i)))
             {
-                var o = Element.Children[i];
                 var radioButton = (RadioButton)layoutInflater.Inflate(Resource.Layout.RadioButton, null);
 
                 if (radioButton is null)
@@ -226,24 +226,25 @@ namespace Plugin.Segmented.Control.Droid
                     return;
                 }
 
-                if(o.WidthRequest > 0)
-                    radioButton.LayoutParameters = new RadioGroup.LayoutParams((int)Math.Round(o.WidthRequest), LayoutParams.WrapContent, 0);
+                if (child.WidthRequest > 0)
+                    radioButton.LayoutParameters = new RadioGroup.LayoutParams(
+                        Convert.ToInt32(Math.Round(child.WidthRequest)), 
+                        LayoutParams.WrapContent, 0);
                 else
                     radioButton.LayoutParameters = new RadioGroup.LayoutParams(0, LayoutParams.WrapContent, 1f);
 
-                radioButton.Text = o.Text;
+                radioButton.Text = child.Text;
 
                 if (i == 0)
                 {
                     radioButton.SetBackgroundResource(Resource.Drawable.segmented_control_first_background);
                 }
-                else if (i == Element.Children.Count - 1)
+                else
                 {
                     radioButton.SetBackgroundResource(Resource.Drawable.segmented_control_last_background);
                 }
 
                 ConfigureRadioButton(i, radioButton);
-
                 _nativeControl.AddView(radioButton);
             }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Plugin.Segmented.Control;
 using Plugin.Segmented.Control.iOS;
 using UIKit;
@@ -23,13 +24,11 @@ namespace Plugin.Segmented.Control.iOS
             {
                 _nativeControl = new UISegmentedControl
                 {
-                    //ApportionsSegmentWidthsByContent = true
+                    Enabled = Element.IsEnabled
                 };
+
                 SetNativeControlSegments(Element.Children);
-                _nativeControl.Enabled = Element.IsEnabled;
-
                 SetNativeControl(_nativeControl);
-
                 SetEnabledStateColor();
                 SetFont();
                 SetSelectedTextColor();
@@ -66,12 +65,13 @@ namespace Plugin.Segmented.Control.iOS
                 {
                     _nativeControl.RemoveAllSegments();
                 }
-                
-                for (var i = 0; i < children.Count; i++)
+
+                foreach (var (child, i) in children.Select((child, i) => ( child, i)))
                 {
-                    _nativeControl.InsertSegment(children[i].Text, i, false);
+                    _nativeControl.InsertSegment(child.Text, i, false);
                     _nativeControl.SetEnabled(children[i].IsEnabled, i);
-                    if(children[i].WidthRequest > 0)
+
+                    if (children[i].WidthRequest > 0)
                         _nativeControl.SetWidth((nfloat)children[i].WidthRequest, i);
                 }
 
