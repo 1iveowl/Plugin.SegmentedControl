@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>Plugin.Segmented</AssemblyName>
     <RootNamespace>Plugin.Segmented</RootNamespace>
-    <AssemblyVersion>5.5</AssemblyVersion>
+    <AssemblyVersion>5.5.0.0</AssemblyVersion>
     <FileVersion>5.5.0.0</FileVersion>
     <Configurations>Debug;Release;DebugNative</Configurations>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
