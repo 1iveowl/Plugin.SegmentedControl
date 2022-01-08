@@ -221,12 +221,11 @@ namespace Plugin.Segmented.Control.UWP
                     VerticalAlignment = VerticalAlignment.Stretch,
                     BorderBrush = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, ""),
                     TextColor = (SolidColorBrush)_colorConverter.Convert(Element.TextColor, null, null, ""),
-                    //Foreground = (SolidColorBrush)_colorConverter.Convert(Element.TextColor, null, null, ""),
                     SelectedTextColor = (SolidColorBrush)_colorConverter.Convert(Element.SelectedTextColor, null, null, ""),
                     TintColor = (SolidColorBrush)_colorConverter.Convert(Element.TintColor, null, null, ""),
                     DisabledColor = (SolidColorBrush)_colorConverter.Convert(Element.DisabledColor, null, null, ""),
                     BorderThickness = child.i > 0 ? new Thickness(1, 0, 0, 0) : new Thickness(0, 0, 0, 0),
-                    IsEnabled = Element.Children[child.i].IsEnabled,
+                    IsEnabled = Element.Children[child.i].IsEnabled, 
                     MinWidth = 0,
                 };
 
