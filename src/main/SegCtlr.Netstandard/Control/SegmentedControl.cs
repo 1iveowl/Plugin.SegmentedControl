@@ -12,6 +12,7 @@ namespace Plugin.Segmented.Control
 {
     [DesignTimeVisible(true)]
     [Preserve(AllMembers = true)]
+    [ContentProperty(nameof(Children))]
     public class SegmentedControl : View, IViewContainer<SegmentedControlOption>
     {
         public SegmentedControl()
