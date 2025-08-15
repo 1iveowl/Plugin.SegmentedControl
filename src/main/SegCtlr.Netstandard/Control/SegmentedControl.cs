@@ -68,7 +68,7 @@ namespace Plugin.Segmented.Control
 
                 if (textValues != null)
                 {
-                    Children = new List<SegmentedControlOption>(textValues.Select(child => new SegmentedControlOption {Text = child}));
+                    Children = new List<SegmentedControlOption>(textValues.Select(child => new SegmentedControlOption { Text = child, Item = child }));
                     OnSelectedItemChanged(true);
                 }
                 else
