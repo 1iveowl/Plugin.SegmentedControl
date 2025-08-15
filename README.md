@@ -1,6 +1,6 @@
 # Plugin Segmented Control for Xamarin Forms and .NET Standard
 
-[![NuGet Badge](https://buildstats.info/nuget/Plugin.SegmentedControl.Netstandard)](https://www.nuget.org/packages/Plugin.SegmentedControl.Netstandard/)
+[![NuGet Badge](https://img.shields.io/nuget/v/Plugin.SegmentedControl.Netstandard)]([https://www.nuget.org/packages/HttpMachine.PCL](https://www.nuget.org/packages/Plugin.SegmentedControl.Netstandard/))
 
 *Please star this project if you find it useful. Thank you!*
 
