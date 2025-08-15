@@ -9,12 +9,12 @@ Version 5.2 and forward migrated to AndroidX for Android.
 
 ## Update - Version 5.4.5+ (PR: #101)
 ItemsSource is now of type IEnumerable instead of IList<string>.
-It can contains full objects.
-When it contains a list of full object, the text displayed in a segment is read from a property on each object: define this property using TextPropertyName.
+It can contain full objects.
+When it contains a list of full objects, the text displayed in each segment is read from a property on each object. Define this property using `TextPropertyName`.
 
-`TextPropertyName`: string, name of a property in an `ItemsSource[i]` object.
+`TextPropertyName`: string, the name of a property in an `ItemsSource[i]` object.
 If `TextPropertyName` is set, the displayed text is read from this property on each source object.
-If `TextPropertyName` is not set, ItemsSource must be a list of string.
+If `TextPropertyName` is not set, ItemsSource must be a list of strings.
 
 New property: `SelectedItem`
 `SelectedItem = Items[SelectedSegment]`
@@ -25,12 +25,12 @@ Remove the extra padding below the control on Android, caused by the wrong usage
 
 ## Why this library?
 There are other Segmented Control libraries out there. This library adds two important capabilities:
-- It works across all four key platforms: iOS, Android, macOS, and UWP - all other libraries I've encounted lack UWP and/or macOS.
-- It's based on .NET Standard 2.0
+- It works across all four key platforms—iOS, Android, macOS, and UWP—whereas other libraries I've encountered lack UWP and/or macOS support.
+- It's based on .NET Standard 2.0.
 
-Furthermore, this library is has more flexibility and features than other libraries that I'm aware of. 
+Furthermore, this library has more flexibility and features than any other library I'm aware of.
 
-Enjoy! And please don't forget to star this project if you find it useful and/or provide feedback if you run into issues or shortcomings.
+Enjoy! Please star this project if you find it useful, and provide feedback if you encounter issues or shortcomings.
 
 ## Supported platforms
 |Platform|Supported|Version|Renderer|
@@ -76,7 +76,7 @@ public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 
 ### UWP
 
-You need to add the assembly to App.xaml.cs in you project. For more details see the Xamarin documentation [here](https://developer.xamarin.com/guides/xamarin-forms/platform-features/windows/installation/universal/#Troubleshooting).
+You need to add the assembly to App.xaml.cs in your project. For more details, see the Xamarin documentation [here](https://developer.xamarin.com/guides/xamarin-forms/platform-features/windows/installation/universal/#Troubleshooting).
 
 ```csharp
 var assembliesToInclude = new List<Assembly> {typeof(Plugin.Segmented.Control.UWP.SegmentedControlRenderer).GetTypeInfo().Assembly};
@@ -85,12 +85,12 @@ Xamarin.Forms.Forms.Init(e, assembliesToInclude);
 ```
 
 ### Android
-No special needs.
+No special requirements.
 
-For using custom fonts with Android see this blog post: [https://blog.verslu.is/xamarin/xamarin-forms-xamarin/custom-fonts-with-xamarin-forms-revisited/](https://blog.verslu.is/xamarin/xamarin-forms-xamarin/custom-fonts-with-xamarin-forms-revisited/)
+For custom fonts on Android, see this blog post: [https://blog.verslu.is/xamarin/xamarin-forms-xamarin/custom-fonts-with-xamarin-forms-revisited/](https://blog.verslu.is/xamarin/xamarin-forms-xamarin/custom-fonts-with-xamarin-forms-revisited/)
 
 #### .NET Standard
-The Xamarin Forms must use .NET Standard. I suggest using .NET Standard 2.0+. 
+The Xamarin Forms project must use .NET Standard. I suggest using .NET Standard 2.0+.
 
 Here is a great blog post about how to move your PCL to .NET Standard: [Building Xamarin.Forms Apps with .NET Standard](https://blog.xamarin.com/building-xamarin-forms-apps-net-standard/)
 
