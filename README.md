@@ -1,36 +1,39 @@
 # Plugin Segmented Control for Xamarin Forms and .NET Standard
 
-[![NuGet Badge](https://img.shields.io/nuget/v/Plugin.SegmentedControl.Netstandard)](https://www.nuget.org/packages/Plugin.SegmentedControl.Netstandard/)
+[![NuGet](https://img.shields.io/nuget/v/Plugin.SegmentedControl.Netstandard?logo=nuget&label=Plugin.SegmentedControl.Netstandard)](https://www.nuget.org/packages/Plugin.SegmentedControl.Netstandard)
+[![Downloads](https://img.shields.io/nuget/dt/Plugin.SegmentedControl.Netstandard?logo=nuget&color=blue)](https://www.nuget.org/packages/Plugin.SegmentedControl.Netstandard)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENCE)
+
+[![.NET Standard](https://img.shields.io/badge/.NET%20Standard-2.0-5C2D91?logo=dotnet&logoColor=white)](https://learn.microsoft.com/dotnet/standard/net-standard)
+
+> **Warning**
+> This library is no longer maintained. There are no plans to migrate it to .NET MAUI or extend it with new features. It remains available for existing Xamarin.Forms applications.
+
+A legacy Xamarin.Forms segmented-control plugin for iOS, Android, UWP, and macOS. The shared library targets .NET Standard 2.0.
 
 *Please star this project if you find it useful. Thank you!*
 
-## Update - Version 5.2+
-Version 5.2 and forward migrated to AndroidX for Android.
+## Release notes
 
-## Update - Version 5.4.5+ (PR: #101)
-ItemsSource is now of type IEnumerable instead of IList<string>.
-It can contain full objects.
-When it contains a list of full objects, the text displayed in each segment is read from a property on each object. Define this property using `TextPropertyName`.
+### Version 5.2+
 
-`TextPropertyName`: string, the name of a property in an `ItemsSource[i]` object.
-If `TextPropertyName` is set, the displayed text is read from this property on each source object.
-If `TextPropertyName` is not set, ItemsSource must be a list of strings.
+Version 5.2 and later use AndroidX on Android.
 
-New property: `SelectedItem`
-`SelectedItem = Items[SelectedSegment]`
-`SelectedItem` contains the current selected object from `ItemsSource`.
+### Version 5.4.5+ (PR #101)
 
-### Fix:
-Remove the extra padding below the control on Android, caused by the wrong usage of match_parent.
+`ItemsSource` is now an `IEnumerable` rather than an `IList<string>`, so it can contain full objects. When it does, the text displayed in each segment is read from the property named by `TextPropertyName`.
 
-## Why this library?
-There are other Segmented Control libraries out there. This library adds two important capabilities:
-- It works across all four key platforms—iOS, Android, macOS, and UWP—whereas other libraries I've encountered lack UWP and/or macOS support.
-- It's based on .NET Standard 2.0.
+- `TextPropertyName`: the name of the property on each `ItemsSource` item to display.
+- Without `TextPropertyName`, `ItemsSource` must contain strings.
+- `SelectedItem`: the currently selected object from `ItemsSource` (`Items[SelectedSegment]`).
 
-Furthermore, this library has more flexibility and features than any other library I'm aware of.
+Fixed an Android layout issue that added extra padding below the control because `match_parent` was used incorrectly.
 
-Enjoy! Please star this project if you find it useful, and provide feedback if you encounter issues or shortcomings.
+## Overview
+
+The plugin provides a bindable segmented control for Xamarin.Forms applications. At the time of its last release, it supported iOS, Android, UWP, and partial macOS support, with a .NET Standard 2.0 shared library.
+
+The platform support listed below reflects the final release and is not a statement of current compatibility.
 
 ## Supported platforms
 |Platform|Supported|Version|Renderer|
@@ -56,13 +59,13 @@ Enjoy! Please star this project if you find it useful, and provide feedback if y
 - Bindable Border color (Android & iOS only)
 - Bindable Border width (Android & iOS only)
 
-For more details please see below or for even more details see: [Test/Demo App](https://github.com/1iveowl/Plugin.SegmentedControl/tree/master/src/test/Test.SegCtrl.netstandard)
+For additional examples, see the [test/demo app](https://github.com/1iveowl/Plugin.SegmentedControl/tree/master/src/test/Test.SegCtrl.netstandard).
 
-## How to use
-Using this plugin is easy. 
+## Usage
 
 ### iOS
-Add initializer to `AppDelegate`
+
+Register the renderer in `AppDelegate`:
 
 ```csharp
 public override bool FinishedLaunching(UIApplication app, NSDictionary options)
@@ -76,7 +79,7 @@ public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 
 ### UWP
 
-You need to add the assembly to App.xaml.cs in your project. For more details, see the Xamarin documentation [here](https://developer.xamarin.com/guides/xamarin-forms/platform-features/windows/installation/universal/#Troubleshooting).
+Add the assembly in your project's `App.xaml.cs`. For more detail, see the Xamarin documentation [here](https://developer.xamarin.com/guides/xamarin-forms/platform-features/windows/installation/universal/#Troubleshooting).
 
 ```csharp
 var assembliesToInclude = new List<Assembly> {typeof(Plugin.Segmented.Control.UWP.SegmentedControlRenderer).GetTypeInfo().Assembly};
@@ -85,12 +88,14 @@ Xamarin.Forms.Forms.Init(e, assembliesToInclude);
 ```
 
 ### Android
-No special requirements.
+
+No additional setup is required.
 
 For custom fonts on Android, see this blog post: [https://blog.verslu.is/xamarin/xamarin-forms-xamarin/custom-fonts-with-xamarin-forms-revisited/](https://blog.verslu.is/xamarin/xamarin-forms-xamarin/custom-fonts-with-xamarin-forms-revisited/)
 
 #### .NET Standard
-The Xamarin Forms project must use .NET Standard. I suggest using .NET Standard 2.0+.
+
+The Xamarin.Forms project must target .NET Standard 2.0 or later.
 
 Here is a great blog post about how to move your PCL to .NET Standard: [Building Xamarin.Forms Apps with .NET Standard](https://blog.xamarin.com/building-xamarin-forms-apps-net-standard/)
 
@@ -145,7 +150,7 @@ Here is a great blog post about how to move your PCL to .NET Standard: [Building
 </ContentPage>
 
 ```
-You can bind to the SegmentSelectedCommand for notification in your view model when a segment change has occurred.
+Bind `SegmentSelectedCommand` to notify your view model when the selected segment changes.
 ```xml
 <control:SegmentedControl
     SegmentSelectedCommand="{Binding SegmentChangedCommand}"
