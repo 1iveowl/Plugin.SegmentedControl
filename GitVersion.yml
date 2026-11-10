@@ -1,0 +1,7 @@
+# The version of the next release. Changing this file on a releases/** branch starts .github/workflows/build.yml,
+# which builds, packs and publishes that version. README.md must contain a "## New in Version <x.y.z>" section for it.
+next-version: 5.6.0
+branches: {}
+ignore:
+  sha: []
+merge-message-formats: {}

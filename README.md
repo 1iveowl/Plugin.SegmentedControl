@@ -2,16 +2,32 @@
 
 [![NuGet](https://img.shields.io/nuget/v/Plugin.SegmentedControl.Netstandard?logo=nuget&label=Plugin.SegmentedControl.Netstandard)](https://www.nuget.org/packages/Plugin.SegmentedControl.Netstandard)
 [![Downloads](https://img.shields.io/nuget/dt/Plugin.SegmentedControl.Netstandard?logo=nuget&color=blue)](https://www.nuget.org/packages/Plugin.SegmentedControl.Netstandard)
-[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENCE)
+[![CI](https://github.com/1iveowl/Plugin.SegmentedControl/actions/workflows/ci.yml/badge.svg)](https://github.com/1iveowl/Plugin.SegmentedControl/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-[![.NET Standard](https://img.shields.io/badge/.NET%20Standard-2.0-5C2D91?logo=dotnet&logoColor=white)](https://learn.microsoft.com/dotnet/standard/net-standard)
+[![.NET](https://img.shields.io/badge/.NET-10%20%7C%20Standard%202.0-512BD4?logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
+[![Xamarin.Forms](https://img.shields.io/badge/Xamarin.Forms-5.0-3498DB?logo=xamarin&logoColor=white)](https://learn.microsoft.com/xamarin/xamarin-forms/)
 
 > **Warning**
 > This library is no longer maintained. There are no plans to migrate it to .NET MAUI or extend it with new features. It remains available for existing Xamarin.Forms applications.
 
-A legacy Xamarin.Forms segmented-control plugin for iOS, Android, UWP, and macOS. The shared library targets .NET Standard 2.0.
+A legacy Xamarin.Forms segmented-control plugin for iOS, Android, UWP, and macOS. The shared library targets .NET Standard 2.0 and .NET 10.
 
 *Please star this project if you find it useful. Thank you!*
+
+## New in Version 5.6.0
+
+- Adds a .NET 10 (`net10.0`) build next to .NET Standard 2.0, and updates Xamarin.Forms to 5.0.0.2662.
+- **Behaviour change:** `OnSegmentSelected` and `SegmentSelectedCommand` are raised by the control once for every
+  `SelectedSegment` change, and no longer when the page loads. `RaiseSelectionChanged` is obsolete.
+- `SelectedItem` selects the matching segment for string `ItemsSource` and for options with `Item` set; items are
+  compared with `Equals`.
+- Replacing `Children` no longer clears or refills the list assigned before.
+- The control can be created before `Forms.Init()`.
+- Android: several controls no longer share one set of colors.
+- UWP: `WidthRequest` is applied per segment; fixed a crash when an old segment's text changed.
+- macOS: the renderer assembly is now included in the package.
+- All platforms: event handlers are removed from the old element when a renderer is reused.
 
 ## Release notes
 

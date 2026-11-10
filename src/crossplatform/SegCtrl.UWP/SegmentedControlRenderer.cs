@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Windows.UI.Xaml;
@@ -17,6 +18,10 @@ namespace Plugin.Segmented.Control.UWP
         private SegmentedUserControl _segmentedUserControl;
 
         private readonly ColorConverter _colorConverter = new ColorConverter();
+
+        // The options this renderer is subscribed to. Tracked separately because by the time Children or the
+        // element changes, Element.Children already returns the new list.
+        private readonly List<SegmentedControlOption> _subscribedOptions = new List<SegmentedControlOption>();
 
         public SegmentedControlRenderer() {}
 
@@ -38,12 +43,6 @@ namespace Plugin.Segmented.Control.UWP
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
-
-            if (e.PropertyName == "Renderer")
-            {
-                Element?.RaiseSelectionChanged();
-                return;
-            }
 
             if (_segmentedUserControl is null || Element is null) return;
 
@@ -251,8 +250,8 @@ namespace Plugin.Segmented.Control.UWP
                     Width = new GridLength(1, GridUnitType.Star),
                 };
 
-                if (Element.WidthRequest > 0)
-                    columnDefinition.Width = new GridLength(Element.WidthRequest);
+                if (child.WidthRequest > 0)
+                    columnDefinition.Width = new GridLength(child.WidthRequest);
 
                 grid.ColumnDefinitions.Add(columnDefinition);
 
@@ -261,6 +260,7 @@ namespace Plugin.Segmented.Control.UWP
                 grid.Children.Add(segmentButton);
 
                 child.PropertyChanged += Segment_PropertyChanged;
+                _subscribedOptions.Add(child);
             }
 
             SetNativeControl(_segmentedUserControl);
@@ -271,6 +271,11 @@ namespace Plugin.Segmented.Control.UWP
             if (!(_segmentedUserControl is null) && !(Element is null) && sender is SegmentedControlOption option)
             {
                 var index = Element.Children.IndexOf(option);
+                if (index < 0 || index >= _segmentedUserControl.SegmentedControlGrid.Children.Count)
+                {
+                    return;
+                }
+
                 switch (e.PropertyName)
                 {
                     case nameof(SegmentedControlOption.Text):
@@ -285,12 +290,10 @@ namespace Plugin.Segmented.Control.UWP
 
         private void SegmentRadioButtonOnChecked(object sender, RoutedEventArgs e)
         {
-            var button = (SegmentRadioButton) sender;
-
-            if (!(button is null))
+            // SegmentedControl raises OnSegmentSelected and the command itself when SelectedSegment changes.
+            if (sender is SegmentRadioButton button && !(Element is null))
             {
-                Element.SelectedSegment = int.Parse(button.Tag.ToString());
-                Element?.RaiseSelectionChanged();
+                Element.SelectedSegment = (int)button.Tag;
             }
         }
 
@@ -314,13 +317,12 @@ namespace Plugin.Segmented.Control.UWP
                 }
             }
 
-            if (!(Element is null))
+            foreach (var option in _subscribedOptions)
             {
-                foreach (var child in Element.Children)
-                {
-                    child.PropertyChanged -= Segment_PropertyChanged;
-                }
+                option.PropertyChanged -= Segment_PropertyChanged;
             }
+
+            _subscribedOptions.Clear();
         }
 
     }

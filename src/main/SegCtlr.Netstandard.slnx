@@ -1,0 +1,132 @@
+<Solution>
+  <Configurations>
+    <BuildType Name="Ad-Hoc" />
+    <BuildType Name="AppStore" />
+    <BuildType Name="Debug" />
+    <BuildType Name="DebugNAtive" />
+    <BuildType Name="Release" />
+    <Platform Name="Any CPU" />
+    <Platform Name="ARM" />
+    <Platform Name="iPhone" />
+    <Platform Name="iPhoneSimulator" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/Build/">
+    <File Path="../../GitVersion.yml" />
+    <File Path="../../.github/workflows/ci.yml" />
+    <File Path="../../.github/workflows/build.yml" />
+    <File Path="../build/Plugin.SegmentedControl.Netstandard.nuspec" />
+    <File Path="../build/Plugin.SegmentedControl.Package.csproj" />
+  </Folder>
+  <Folder Name="/GitHub/">
+    <File Path="../../.editorconfig" />
+    <File Path="../../.gitignore" />
+    <File Path="../../Directory.Build.props" />
+    <File Path="../../global.json" />
+    <File Path="../../README.md" />
+  </Folder>
+  <Folder Name="/Main/" />
+  <Folder Name="/Main/Abstraction/">
+    <Project Path="SegCtlr.Netstandard/SegCtlr.Netstandard.csproj">
+      <BuildType Solution="Ad-Hoc|*" Project="Release" />
+      <BuildType Solution="AppStore|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/Main/CrossPlatform/">
+    <Project Path="../crossplatform/SegCtrl.Droid/SegCtrl.Droid.csproj">
+      <BuildType Solution="Ad-Hoc|*" Project="Release" />
+      <BuildType Solution="AppStore|*" Project="Release" />
+    </Project>
+    <Project Path="../crossplatform/SegCtrl.iOS/SegCtrl.iOS.csproj">
+      <BuildType Solution="Ad-Hoc|*" Project="Release" />
+      <BuildType Solution="AppStore|*" Project="Release" />
+    </Project>
+    <Project Path="../crossplatform/SegCtrl.macOS/SegCtrl.macOS.csproj">
+      <BuildType Solution="Ad-Hoc|*" Project="Release" />
+      <BuildType Solution="AppStore|*" Project="Release" />
+      <BuildType Solution="DebugNAtive|*" Project="Release" />
+    </Project>
+    <Project Path="../crossplatform/SegCtrl.UWP/SegCtrl.UWP.csproj">
+      <BuildType Solution="Ad-Hoc|*" Project="Release" />
+      <BuildType Solution="AppStore|*" Project="Release" />
+      <Platform Solution="*|ARM" Project="ARM" />
+      <Platform Solution="*|x64" Project="x64" />
+      <Platform Solution="*|x86" Project="x86" />
+      <Build Solution="Release|x64" Project="false" />
+    </Project>
+  </Folder>
+  <Folder Name="/Test/">
+    <Project Path="../test/SegCtlr.Tests/SegCtlr.Tests.csproj">
+      <BuildType Solution="Ad-Hoc|*" Project="Release" />
+      <BuildType Solution="AppStore|*" Project="Release" />
+      <BuildType Solution="DebugNAtive|*" Project="Debug" />
+    </Project>
+    <Project Path="../test/Test.SegCtrl.Android/Test.SegCtrl.Android.csproj">
+      <BuildType Solution="Ad-Hoc|*" Project="Release" />
+      <BuildType Solution="AppStore|*" Project="Release" />
+      <Deploy />
+    </Project>
+    <Project Path="../test/Test.SegCtrl.iOS/Test.SegCtlr.iOS.csproj">
+      <Platform Solution="*|Any CPU" Project="iPhone" />
+      <Platform Solution="*|ARM" Project="iPhone" />
+      <Platform Solution="*|iPhone" Project="iPhone" />
+      <Platform Solution="*|iPhoneSimulator" Project="iPhoneSimulator" />
+      <Platform Solution="*|x64" Project="iPhone" />
+      <Platform Solution="*|x86" Project="iPhone" />
+      <Build Solution="*|Any CPU" Project="false" />
+      <Build Solution="*|ARM" Project="false" />
+      <Build Solution="*|x86" Project="false" />
+      <Build Solution="Ad-Hoc|x64" Project="false" />
+      <Build Solution="AppStore|x64" Project="false" />
+      <Build Solution="DebugNAtive|iPhone" Project="false" />
+      <Build Solution="DebugNAtive|iPhoneSimulator" Project="false" />
+      <Build Solution="DebugNAtive|x64" Project="false" />
+      <Build Solution="Debug|x64" Project="false" />
+    </Project>
+    <Project Path="../test/Test.SegCtrl.macOS/Test.SegCtrl.macOS.csproj">
+      <BuildType Solution="Ad-Hoc|*" Project="Debug" />
+      <BuildType Solution="AppStore|*" Project="Debug" />
+      <BuildType Solution="DebugNAtive|Any CPU" Project="Debug" />
+      <BuildType Solution="DebugNAtive|ARM" Project="Debug" />
+      <BuildType Solution="DebugNAtive|iPhone" Project="Debug" />
+      <BuildType Solution="DebugNAtive|iPhoneSimulator" Project="Release" />
+      <BuildType Solution="DebugNAtive|x64" Project="Debug" />
+      <BuildType Solution="DebugNAtive|x86" Project="Debug" />
+      <Platform Project="iPhoneSimulator" />
+    </Project>
+    <Project Path="../test/Test.SegCtrl.netstandard/Test.SegCtrl.netstandard.csproj">
+      <BuildType Solution="Ad-Hoc|*" Project="Debug" />
+      <BuildType Solution="AppStore|*" Project="Debug" />
+    </Project>
+    <Project Path="../test/Test.SegCtrl.UWP/Test.SegCtlr.UWP.csproj">
+      <BuildType Solution="Ad-Hoc|*" Project="Release" />
+      <BuildType Solution="AppStore|*" Project="Release" />
+      <Platform Solution="*|Any CPU" Project="x86" />
+      <Platform Solution="*|ARM" Project="ARM" />
+      <Platform Solution="*|iPhone" Project="x86" />
+      <Platform Solution="*|iPhoneSimulator" Project="x86" />
+      <Platform Solution="*|x64" Project="x64" />
+      <Platform Solution="*|x86" Project="x86" />
+      <Build Solution="DebugNAtive|ARM" Project="false" />
+      <Build Solution="DebugNAtive|iPhone" Project="false" />
+      <Build Solution="DebugNAtive|iPhoneSimulator" Project="false" />
+      <Build Solution="Debug|iPhone" Project="false" />
+      <Build Solution="Debug|iPhoneSimulator" Project="false" />
+      <Build Solution="Release|Any CPU" Project="false" />
+      <Build Solution="Release|iPhone" Project="false" />
+      <Build Solution="Release|iPhoneSimulator" Project="false" />
+      <Deploy Solution="*|ARM" />
+      <Deploy Solution="*|x64" />
+      <Deploy Solution="*|x86" />
+      <Deploy Solution="Ad-Hoc|Any CPU" />
+      <Deploy Solution="Ad-Hoc|iPhone" />
+      <Deploy Solution="Ad-Hoc|iPhoneSimulator" />
+      <Deploy Solution="AppStore|Any CPU" />
+      <Deploy Solution="AppStore|iPhone" />
+      <Deploy Solution="AppStore|iPhoneSimulator" />
+      <Deploy Solution="DebugNAtive|Any CPU" />
+      <Deploy Solution="Debug|Any CPU" />
+    </Project>
+  </Folder>
+</Solution>

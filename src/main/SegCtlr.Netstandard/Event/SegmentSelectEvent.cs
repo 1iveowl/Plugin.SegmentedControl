@@ -1,10 +1,11 @@
 ﻿using System;
 
-namespace Plugin.Segmented.Event
+namespace Plugin.Segmented.Event;
+
+/// <summary>Data for <see cref="Control.SegmentedControl.OnSegmentSelected"/>.</summary>
+[Preserve(AllMembers = true)]
+public class SegmentSelectEventArgs : EventArgs
 {
-    [Preserve(AllMembers = true)]
-    public class SegmentSelectEventArgs : EventArgs
-    {
-        public int NewValue { get; set; }
-    }
+    /// <summary>The newly selected <see cref="Control.SegmentedControl.SelectedSegment"/>.</summary>
+    public int NewValue { get; set; }
 }

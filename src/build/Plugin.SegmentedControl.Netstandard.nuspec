@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>Plugin.SegmentedControl.Netstandard</id>
-    <version>0</version>
+    <version>$version$</version>
     <title>Segmented Control for Xamarin Forms (.Net Standard)</title>
     <authors>1iveowl Development</authors>
     <owners>Jasper H. Bojsen</owners>
@@ -13,6 +13,16 @@
     <description>
 Segmented control for Xamarin Forms for iOS, Android, UWP. Mac OS also supported albeit currently with fewer features.</description>
     <releaseNotes>
+[All] Added a .NET 10 (net10.0) target alongside .NET Standard 2.0
+[All] Updated Xamarin.Forms to 5.0.0.2662
+[macOS] The macOS renderer assembly (SegCtrl.macOS) is now included in the package; earlier packages left it out.
+[All] Behaviour change: OnSegmentSelected and SegmentSelectedCommand are raised by SegmentedControl on every SelectedSegment change, once, and no longer on page load. RaiseSelectionChanged is obsolete.
+[All] SelectedItem now selects the matching segment for string ItemsSource and for options with Item set; items are compared with Equals.
+[All] Replacing Children no longer clears or refills the list assigned before.
+[All] The control can be created before Forms.Init() (FontSize default is computed lazily).
+[Android] Fixed several controls sharing one set of colors.
+[UWP] Segment WidthRequest is used per segment instead of the control's WidthRequest; fixed a crash when an old segment's text changed.
+[iOS, Android, macOS, UWP] Event handlers are removed from the old element when the renderer's element changes.
 [All] Min Width bug fixes
 [All] New TextPropertyName object for ItemSource
 [All] ItemSource is not IEnumerable (was IList)
@@ -36,7 +46,8 @@ Segmented control for Xamarin Forms for iOS, Android, UWP. Mac OS also supported
 [All] Fixes and improvements.
 [iOS] IsEnabled binding bug fixed.
     </releaseNotes>
-    <copyright>Copyright 2022</copyright>
+    <copyright>Copyright 1iveowl Development 2026</copyright>
+    <repository type="git" url="https://github.com/1iveowl/Plugin.SegmentedControl.git" commit="$commit$" />
     <tags>xamarin xamarin.forms segmentedControl netstandard iOS UWP Android macOS</tags>
     <dependencies>
 
@@ -63,25 +74,28 @@ Segmented control for Xamarin Forms for iOS, Android, UWP. Mac OS also supported
         <dependency id="Xamarin.AndroidX.Migration" version="1.0.8" />
         <dependency id="Xamarin.AndroidX.Browser" version="1.2.0.2" />
         <dependency id="Xamarin.AndroidX.Lifecycle.LiveData" version="2.2.0.2" />
-        <dependency id="Xamarin.Forms" version="5.0.0.2291" />
+        <dependency id="Xamarin.Forms" version="5.0.0.2662" />
       </group>
 
       <group targetFramework="Xamarin.Mac20">
-        <dependency id="Xamarin.Forms" version="5.0.0.2291" />
+        <dependency id="Xamarin.Forms" version="5.0.0.2662" />
       </group>
 
       <group targetFramework="Xamarin.iOS10">
-        <dependency id="Xamarin.Forms" version="5.0.0.2291" />
+        <dependency id="Xamarin.Forms" version="5.0.0.2662" />
       </group>
 
       <group targetFramework="uap10.0">
-        <dependency id="Xamarin.Forms" version="5.0.0.2291" />
+        <dependency id="Xamarin.Forms" version="5.0.0.2662" />
         <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="6.2.13" />
       </group>
 
       <group targetFramework="netstandard2.0">
-        <dependency id="Xamarin.Forms" version="5.0.0.2291" />
+        <dependency id="Xamarin.Forms" version="5.0.0.2662" />
+      </group>
 
+      <group targetFramework="net10.0">
+        <dependency id="Xamarin.Forms" version="5.0.0.2662" />
       </group>
 
     </dependencies>
@@ -90,8 +104,11 @@ Segmented control for Xamarin Forms for iOS, Android, UWP. Mac OS also supported
 
     <file src="1iveowl-logo.png" target="images\" />
 
-    <!--.NET Standard 2.1--> 
+    <!--.NET Standard 2.0-->
     <file src="..\main\SegCtlr.Netstandard\bin\Release\netstandard2.0\Plugin.Segmented.*" target="lib\netstandard2.0"/>
+
+    <!--.NET 10-->
+    <file src="..\main\SegCtlr.Netstandard\bin\Release\net10.0\Plugin.Segmented.*" target="lib\net10.0"/>
     
     <!--Xamarin.Android-->
     <file src="..\crossplatform\SegCtrl.Droid\bin\Release\Plugin.Segmented.*" target="lib\MonoAndroid10"/>
@@ -101,6 +118,7 @@ Segmented control for Xamarin Forms for iOS, Android, UWP. Mac OS also supported
 
      <!--Xamarin.macOS Unified-->
     <file src="..\crossplatform\SegCtrl.macOS\bin\Release\Plugin.Segmented.*" target="lib\Xamarin.Mac20"/>
+    <file src="..\crossplatform\SegCtrl.macOS\bin\Release\SegCtrl.macOS.*" target="lib\Xamarin.Mac20"/>
 
     <!--UWP-->
     <file src="..\crossplatform\SegCtrl.UWP\bin\Release\*.*" target="lib\uap10.0\" exclude="*.pdb"/>

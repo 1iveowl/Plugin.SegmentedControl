@@ -7,6 +7,7 @@ using Android.Views;
 using Android.Widget;
 using Plugin.Segmented.Control;
 using Plugin.Segmented.Control.Droid;
+using Plugin.Segmented.Event;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using RadioButton = Android.Widget.RadioButton;
@@ -48,7 +49,8 @@ namespace Plugin.Segmented.Control.Droid
                     _nativeControl.CheckedChange -= NativeControl_ValueChanged;
                 }
 
-                RemoveElementHandlers();
+                // Element is already e.NewElement here; detach from the element being replaced.
+                RemoveElementHandlers(e.OldElement);
             }
 
             if (!(e.NewElement is null))
@@ -79,19 +81,19 @@ namespace Plugin.Segmented.Control.Droid
         }
 
 
-        private void RemoveElementHandlers(bool removeChildrenHandlersOnly = false)
+        private void RemoveElementHandlers(SegmentedControl element, bool removeChildrenHandlersOnly = false)
         {
-            if (!(Element is null))
+            if (!(element is null))
             {
                 if (!removeChildrenHandlersOnly)
                 {
-                    Element.SizeChanged -= Element_SizeChanged;
-                    Element.OnElementChildrenChanging -= OnElementChildrenChanging;
+                    element.SizeChanged -= Element_SizeChanged;
+                    element.OnElementChildrenChanging -= OnElementChildrenChanging;
                 }
 
-                if (!(Element.Children is null))
+                if (!(element.Children is null))
                 {
-                    foreach (var child in Element.Children)
+                    foreach (var child in element.Children)
                     {
                         child.PropertyChanged -= Segment_PropertyChanged;
                     }
@@ -137,7 +139,7 @@ namespace Plugin.Segmented.Control.Droid
                             break;
 
                         case nameof(SegmentedControlOption.IsEnabled):
-                            segment.Enabled = option.IsEnabled;
+                            segment.Enabled = Element.IsEnabled && option.IsEnabled;
                             break;
                     }
                 }
@@ -153,28 +155,23 @@ namespace Plugin.Segmented.Control.Droid
             {
                 case "Renderer":
                     Element_SizeChanged(null, null);
-                    Element?.RaiseSelectionChanged();
                     break;
 
                 case nameof(SegmentedControl.SelectedSegment):
                     if (!(_nativeControl is null) && !(Element is null))
                     {
+                        // SegmentedControl raises OnSegmentSelected and the command itself.
                         if (Element.SelectedSegment < 0)
                         {
-                            var layoutInflater = LayoutInflater.From(_context);
-
-                            _nativeControl = (RadioGroup)layoutInflater.Inflate(Resource.Layout.RadioGroup, null);
-
-                            SetNativeControlSegments(layoutInflater);
-
-                            _nativeControl.CheckedChange += NativeControl_ValueChanged;
-
-                            SetNativeControl(_nativeControl);
+                            // No selection: uncheck in place and restore the unselected text colors.
+                            _nativeControl.ClearCheck();
+                            _nativeRadioButtonControl = null;
+                            OnPropertyChanged();
                         }
-
-                        SetSelectedRadioButton(Element.SelectedSegment);
-
-                        Element.RaiseSelectionChanged();
+                        else
+                        {
+                            SetSelectedRadioButton(Element.SelectedSegment);
+                        }
                     }
                     break;
 
@@ -185,15 +182,17 @@ namespace Plugin.Segmented.Control.Droid
                 case nameof(SegmentedControl.TextColor):
                 case nameof(SegmentedControl.BorderColor):
                 case nameof(SegmentedControl.BorderWidth):
+                case nameof(SegmentedControl.DisabledColor):
                     OnPropertyChanged();
                     break;
 
                 case nameof(SegmentedControl.SelectedTextColor):
                     if (!(_nativeControl is null) && !(Element is null))
                     {
-                        var v = (RadioButton)_nativeControl.GetChildAt(Element.SelectedSegment);
-
-                        v.SetTextColor(Element.SelectedTextColor.ToAndroid());
+                        if (_nativeControl.GetChildAt(Element.SelectedSegment) is RadioButton selected)
+                        {
+                            selected.SetTextColor(Element.SelectedTextColor.ToAndroid());
+                        }
                     }
                     break;
 
@@ -235,13 +234,18 @@ namespace Plugin.Segmented.Control.Droid
 
                 radioButton.Text = child.Text;
 
+                // Rounded left corners on the first segment, rounded right corners on the last, square in between.
                 if (i == 0)
                 {
                     radioButton.SetBackgroundResource(Resource.Drawable.segmented_control_first_background);
                 }
-                else
+                else if (i == Element.Children.Count - 1)
                 {
                     radioButton.SetBackgroundResource(Resource.Drawable.segmented_control_last_background);
+                }
+                else
+                {
+                    radioButton.SetBackgroundResource(Resource.Drawable.segmented_control_background);
                 }
 
                 ConfigureRadioButton(i, radioButton);
@@ -267,11 +271,13 @@ namespace Plugin.Segmented.Control.Droid
                 return;
             }
 
-            for (var i = 0; i < Element.Children.Count; i++)
+            var count = Math.Min(Element.Children.Count, _nativeControl.ChildCount);
+            for (var i = 0; i < count; i++)
             {
-                var radioButton = (RadioButton)_nativeControl.GetChildAt(i);
-
-                ConfigureRadioButton(i, radioButton);
+                if (_nativeControl.GetChildAt(i) is RadioButton radioButton)
+                {
+                    ConfigureRadioButton(i, radioButton);
+                }
             }
         }
 
@@ -298,7 +304,9 @@ namespace Plugin.Segmented.Control.Droid
 
             radioButton.SetTypeface(font, TypefaceStyle.Normal);
 
-            var gradientDrawable = (StateListDrawable)radioButton.Background;
+            // Mutate() gives this button its own drawable state. Without it, every button inflated from the same
+            // resource shares one constant state, so the last control configured sets the colors for all of them.
+            var gradientDrawable = (StateListDrawable)radioButton.Background?.Mutate();
 
             var drawableContainerState = (DrawableContainer.DrawableContainerState)gradientDrawable?.GetConstantState();
 
@@ -334,14 +342,14 @@ namespace Plugin.Segmented.Control.Droid
                 }
             }
             
-            radioButton.Enabled = Element.Children[index].IsEnabled;
+            radioButton.Enabled = Element.IsEnabled && Element.Children[index].IsEnabled;
         }
 
         private void NativeControl_ValueChanged(object sender, RadioGroup.CheckedChangeEventArgs e)
         {
             var rg = (RadioGroup)sender;
 
-            if (rg.CheckedRadioButtonId != -1)
+            if (rg.CheckedRadioButtonId != -1 && !(Element is null))
             {
                 var id = rg.CheckedRadioButtonId;
                 var radioButton = rg.FindViewById(id);
@@ -359,9 +367,19 @@ namespace Plugin.Segmented.Control.Droid
             }
         }
 
-        private void OnElementChildrenChanging(object sender, EventArgs e)
+        private void OnElementChildrenChanging(object sender, ElementChildrenChanging e)
         {
-            RemoveElementHandlers(true);
+            // Raised before Children is replaced or after an observable Children list was edited, so detach from
+            // the segments the event reports as old, not from Element.Children.
+            if (e?.OldValues is null)
+            {
+                return;
+            }
+
+            foreach (var child in e.OldValues)
+            {
+                child.PropertyChanged -= Segment_PropertyChanged;
+            }
         }
 
         private int ConvertDipToPixel(double dip)
@@ -390,7 +408,7 @@ namespace Plugin.Segmented.Control.Droid
                 _nativeRadioButtonControl = null;
             }
 
-            RemoveElementHandlers();
+            RemoveElementHandlers(Element);
 
             try
             {

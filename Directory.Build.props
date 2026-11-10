@@ -1,0 +1,16 @@
+<Project>
+
+  <!--
+    Shared settings for the SDK-style projects: the library, the shared sample app and the tests.
+    The legacy Xamarin.iOS/Android/Mac and UWP projects are not SDK-style. Their older compilers do not support
+    C# 14, so they keep their own settings and only get the .editorconfig rules in the IDE.
+  -->
+  <PropertyGroup Condition="'$(UsingMicrosoftNETSdk)' == 'true'">
+    <LangVersion>14</LangVersion>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <!-- Required for IDE0005 (unnecessary usings) to be reported at build time. -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+</Project>

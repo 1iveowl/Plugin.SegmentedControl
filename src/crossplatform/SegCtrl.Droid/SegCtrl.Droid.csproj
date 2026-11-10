@@ -170,7 +170,7 @@
       <Version>1.1.0.10</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>5.0.0.2291</Version>
+      <Version>5.0.0.2662</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.Migration" Version="1.0.8" />
   </ItemGroup>

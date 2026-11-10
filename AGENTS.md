@@ -53,10 +53,20 @@ interrupted turn or check. Verify task state before continuing.
 
 ## Project-specific guidance
 
-- Library: `src/main/SegCtlr.Netstandard` (`netstandard2.0`, Xamarin.Forms 5). Build it with
+- Library: `src/main/SegCtlr.Netstandard` (`netstandard2.0` and `net10.0`, Xamarin.Forms 5). Build it with
   `dotnet build src/main/SegCtlr.Netstandard/SegCtlr.Netstandard.csproj`.
 - `src/test/Test.SegCtrl.netstandard` is the shared sample app; it builds on Linux too.
+- Unit tests: `dotnet test src/test/SegCtlr.Tests/SegCtlr.Tests.csproj` (xUnit, `net10.0`). They cover the
+  shared control only and run without `Forms.Init()`, so the control must not touch `Device` during
+  construction. Add a test with every behaviour change in `src/main`.
+- Code style lives in `.editorconfig` and is enforced at build time for SDK-style projects through
+  `Directory.Build.props` (C# 14, `EnforceCodeStyleInBuild`). The library and tests treat warnings as errors.
+  Fix violations with `dotnet format style <project> --severity warn` and `dotnet format whitespace <project>`.
+  The legacy platform projects do not get C# 14; keep renderer code to the language version they compile with.
+- Public API in the library needs XML docs (`GenerateDocumentationFile` makes missing ones a build error).
 - The platform projects under `src/crossplatform` and the platform test apps under `src/test`
   are legacy Xamarin.iOS, Xamarin.Android, Xamarin.Mac and UWP projects. They do not build in
-  the dev container; do not try to restore or build `src/main/SegCtlr.Netstandard.sln` there.
-- Packaging scripts and the nuspec live in `src/build`.
+  the dev container; do not try to restore or build `src/main/SegCtlr.Netstandard.slnx` there.
+- Packaging: the nuspec and its pack project live in `src/build`; releases are built and published by
+  `.github/workflows/build.yml` (GitVersion, `releases/**` branches, self-hosted Xamarin runners). See
+  [docs/releasing.md](docs/releasing.md). Do not reintroduce local publish scripts.
