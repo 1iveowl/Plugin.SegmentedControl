@@ -6,6 +6,7 @@ using Xamarin.Forms.Platform.MacOS;
 using Plugin.Segmented.Control;
 using System.ComponentModel;
 using Plugin.Segmented;
+using Plugin.Segmented.Event;
 
 [assembly: ExportRenderer(typeof(SegmentedControl), typeof(SegCtrl.macOS.SegmentedControlRenderer))]
 namespace SegCtrl.macOS
@@ -26,7 +27,8 @@ namespace SegCtrl.macOS
 
             if (!(e.OldElement is null))
             {
-                RemoveElementHandlers();
+                // Element is already e.NewElement here; detach from the element being replaced.
+                RemoveElementHandlers(e.OldElement);
             }
 
             AddElementHandlers(e.NewElement);
@@ -37,12 +39,16 @@ namespace SegCtrl.macOS
             var titles = Element.Children.Select(s => s.Text);
             _nativeControl = NSSegmentedControl.FromLabels(titles.ToArray(), NSSegmentSwitchTracking.SelectOne, OnNativeSegmentChanged);
             _nativeControl.Enabled = Element.IsEnabled;
-            _nativeControl.SetSelected(true, Element.SelectedSegment);
+
+            if (Element.SelectedSegment >= 0 && Element.SelectedSegment < _nativeControl.SegmentCount)
+            {
+                _nativeControl.SetSelected(true, Element.SelectedSegment);
+            }
             _nativeControl.FocusRingType = NSFocusRingType.None;
 
             foreach (var (segmentedCtrlOption, i) in Element.Children.Select((segmentCtrlOption, i) => (segmentCtrlOption, i)))
             {
-                if(segmentedCtrlOption.WidthRequest >= 0)
+                if (segmentedCtrlOption.WidthRequest > 0)
                     _nativeControl.SetWidth((nfloat)segmentedCtrlOption.WidthRequest, i);
             }
 
@@ -52,7 +58,7 @@ namespace SegCtrl.macOS
 
         private void OnNativeSegmentChanged()
         {
-            if (!(_nativeControl is null))
+            if (!(_nativeControl is null) && !(Element is null))
             {
                 Element.SelectedSegment = (int)_nativeControl.SelectedSegment;
             }
@@ -60,15 +66,13 @@ namespace SegCtrl.macOS
 
         private void ResetNativeControl()
         {
+            // Rebuild whenever the segments change, including from an empty control.
             if (!(_nativeControl is null) && !(Element is null))
             {
-                if (_nativeControl.SegmentCount > 0)
-                {
-                    _nativeControl.RemoveFromSuperview();
-                    _nativeControl.Dispose();
-                    _nativeControl = null;
-                    CreateNativeSegmentedControl();
-                }
+                _nativeControl.RemoveFromSuperview();
+                _nativeControl.Dispose();
+                _nativeControl = null;
+                CreateNativeSegmentedControl();
             }
         }
 
@@ -90,18 +94,18 @@ namespace SegCtrl.macOS
             }
         }
 
-        private void RemoveElementHandlers(bool removeChildrenHandlersOnly = false)
+        private void RemoveElementHandlers(SegmentedControl element, bool removeChildrenHandlersOnly = false)
         {
-            if (!(Element is null))
+            if (!(element is null))
             {
                 if (!removeChildrenHandlersOnly)
                 {
-                    Element.OnElementChildrenChanging -= OnElementChildrenChanging;
+                    element.OnElementChildrenChanging -= OnElementChildrenChanging;
                 }
 
-                if (!(Element.Children is null))
+                if (!(element.Children is null))
                 {
-                    foreach (var child in Element.Children)
+                    foreach (var child in element.Children)
                     {
                         child.PropertyChanged -= SegmentPropertyChanged;
                     }
@@ -109,9 +113,19 @@ namespace SegCtrl.macOS
             }
         }
 
-        private void OnElementChildrenChanging(object sender, EventArgs e)
+        private void OnElementChildrenChanging(object sender, ElementChildrenChanging e)
         {
-            RemoveElementHandlers(true);
+            // Raised before Children is replaced or after an observable Children list was edited, so detach from
+            // the segments the event reports as old, not from Element.Children.
+            if (e?.OldValues is null)
+            {
+                return;
+            }
+
+            foreach (var child in e.OldValues)
+            {
+                child.PropertyChanged -= SegmentPropertyChanged;
+            }
         }
 
         private void SegmentPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -119,6 +133,10 @@ namespace SegCtrl.macOS
             if (!(_nativeControl is null) && !(Element is null) && sender is SegmentedControlOption option)
             {
                 var index = Element.Children.IndexOf(option);
+                if (index < 0)
+                {
+                    return;
+                }
 
                 switch (e.PropertyName)
                 {
@@ -137,12 +155,6 @@ namespace SegCtrl.macOS
         {
             base.OnElementPropertyChanged(sender, e);
 
-            if (e.PropertyName == "Renderer")
-            {
-                Element?.RaiseSelectionChanged();
-                return;
-            }
-
             if (_nativeControl is null || Element is null)
             {
                 return;
@@ -150,17 +162,19 @@ namespace SegCtrl.macOS
 
             switch (e.PropertyName)
             {
-                case nameof(NSSegmentedControl.SelectedSegment):
+                case nameof(SegmentedControl.SelectedSegment):
+                    // SegmentedControl raises OnSegmentSelected and the command itself.
                     _nativeControl.SelectedSegment = Element.SelectedSegment;
-                    Element.RaiseSelectionChanged();
                     break;
 
-                case nameof(NSSegmentedControl.IsEnabled):
+                case nameof(SegmentedControl.IsEnabled):
                     _nativeControl.Enabled = Element.IsEnabled;
                     break;
 
                 case nameof(SegmentedControl.Children):
                     ResetNativeControl();
+                    // The old segments were detached in OnElementChildrenChanging; attach to the new ones.
+                    AddElementHandlers(Element, true);
                     break;
 
                 case nameof(SegmentedControl.FontSize):
@@ -180,7 +194,7 @@ namespace SegCtrl.macOS
 
         protected override void Dispose(bool disposing)
         {
-            RemoveElementHandlers();
+            RemoveElementHandlers(Element);
 
             base.Dispose(disposing);
             _nativeControl = null;

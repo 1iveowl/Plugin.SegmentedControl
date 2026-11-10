@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using Plugin.Segmented.Control;
 using Plugin.Segmented.Control.iOS;
+using Plugin.Segmented.Event;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
@@ -29,11 +30,14 @@ namespace Plugin.Segmented.Control.iOS
 
                 SetNativeControlSegments(Element.Children);
                 SetNativeControl(_nativeControl);
-                SetEnabledStateColor();
-                SetFont();
-                SetSelectedTextColor();
-                SetTextColor();
-                SetBorder();
+                UpdateAppearance();
+            }
+            else if (!(_nativeControl is null) && !(e.NewElement is null))
+            {
+                // The renderer is being reused for another element: show that element's segments and settings.
+                _nativeControl.Enabled = Element.IsEnabled;
+                SetNativeControlSegments(Element.Children);
+                UpdateAppearance();
             }
 
             if (!(e.OldElement is null))
@@ -43,7 +47,8 @@ namespace Plugin.Segmented.Control.iOS
                     _nativeControl.ValueChanged -= NativeControl_SelectionChanged;
                 }
 
-                RemoveElementHandlers();
+                // Element is already e.NewElement here; detach from the element being replaced.
+                RemoveElementHandlers(e.OldElement);
             }
 
             if (!(e.NewElement is null))
@@ -101,18 +106,18 @@ namespace Plugin.Segmented.Control.iOS
             }
         }
 
-        private void RemoveElementHandlers(bool removeChildrenHandlersOnly = false)
+        private void RemoveElementHandlers(SegmentedControl element, bool removeChildrenHandlersOnly = false)
         {
-            if (!(Element is null))
+            if (!(element is null))
             {
                 if (!removeChildrenHandlersOnly)
                 {
-                    Element.OnElementChildrenChanging -= OnElementChildrenChanging;
+                    element.OnElementChildrenChanging -= OnElementChildrenChanging;
                 }
 
-                if (!(Element.Children is null))
+                if (!(element.Children is null))
                 {
-                    foreach (var child in Element.Children)
+                    foreach (var child in element.Children)
                     {
                         child.PropertyChanged -= SegmentPropertyChanged;
                     }
@@ -120,9 +125,19 @@ namespace Plugin.Segmented.Control.iOS
             }
         }
 
-        private void OnElementChildrenChanging(object sender, EventArgs e)
+        private void OnElementChildrenChanging(object sender, ElementChildrenChanging e)
         {
-            RemoveElementHandlers(true);
+            // Raised before Children is replaced or after an observable Children list was edited, so detach from
+            // the segments the event reports as old, not from Element.Children.
+            if (e?.OldValues is null)
+            {
+                return;
+            }
+
+            foreach (var child in e.OldValues)
+            {
+                child.PropertyChanged -= SegmentPropertyChanged;
+            }
         }
 
 
@@ -131,6 +146,10 @@ namespace Plugin.Segmented.Control.iOS
             if (!(_nativeControl is null) && !(Element is null) && sender is SegmentedControlOption option)
             {
                 var index = Element.Children.IndexOf(option);
+                if (index < 0)
+                {
+                    return;
+                }
 
                 switch (e.PropertyName)
                 {
@@ -148,12 +167,6 @@ namespace Plugin.Segmented.Control.iOS
         {
             base.OnElementPropertyChanged(sender, e);
 
-            if (e.PropertyName == "Renderer")
-            {
-                Element?.RaiseSelectionChanged();
-                return;
-            }
-
             if (_nativeControl is null || Element is null)
             {
                 return;
@@ -162,8 +175,8 @@ namespace Plugin.Segmented.Control.iOS
             switch (e.PropertyName)
             {
                 case nameof(SegmentedControl.SelectedSegment):
+                    // SegmentedControl raises OnSegmentSelected and the command itself.
                     _nativeControl.SelectedSegment = Element.SelectedSegment;
-                    Element.RaiseSelectionChanged();
                     break;
 
                 case nameof(SegmentedControl.TintColor):
@@ -173,14 +186,19 @@ namespace Plugin.Segmented.Control.iOS
                 case nameof(SegmentedControl.IsEnabled):
                     _nativeControl.Enabled = Element.IsEnabled;
                     SetEnabledStateColor();
+                    SetBorder();
+                    break;
+
+                case nameof(SegmentedControl.DisabledColor):
+                    SetEnabledStateColor();
+                    SetBorder();
                     break;
 
                 case nameof(SegmentedControl.SelectedTextColor):
-                    SetSelectedTextColor();
-                    break;
-
                 case nameof(SegmentedControl.TextColor):
-                    SetTextColor();
+                case nameof(SegmentedControl.FontSize):
+                case nameof(SegmentedControl.FontFamily):
+                    UpdateTextAttributes();
                     break;
 
                 case nameof(SegmentedControl.Children):
@@ -189,11 +207,6 @@ namespace Plugin.Segmented.Control.iOS
                         SetNativeControlSegments(Element.Children);
                         AddElementHandlers(Element, true);
                     }
-                    break;
-
-                case nameof(SegmentedControl.FontSize):
-                case nameof(SegmentedControl.FontFamily):
-                    SetFont();
                     break;
 
                 case nameof(SegmentedControl.BorderWidth):
@@ -219,35 +232,30 @@ namespace Plugin.Segmented.Control.iOS
             }
         }
 
-        private void SetFont()
+        private void UpdateAppearance()
         {
-            var uiTextAttribute = _nativeControl.GetTitleTextAttributes(UIControlState.Normal);
-
-            var font = string.IsNullOrEmpty(Element.FontFamily) 
-                ? UIFont.SystemFontOfSize((nfloat)Element.FontSize) 
-                : UIFont.FromName(Element.FontFamily, (nfloat)Element.FontSize);
-
-            uiTextAttribute.Font = font;
-
-           _nativeControl.SetTitleTextAttributes(uiTextAttribute, UIControlState.Normal);
+            SetEnabledStateColor();
+            UpdateTextAttributes();
+            SetBorder();
         }
 
-        private void SetTextColor()
+        // Font and color for both states in one place: the selected state used to be copied from the normal state
+        // once, so later font changes never reached the selected segment.
+        private void UpdateTextAttributes()
         {
-            var uiTextAttribute = _nativeControl.GetTitleTextAttributes(UIControlState.Normal);
+            var size = (nfloat)Element.FontSize;
+            var font = (string.IsNullOrEmpty(Element.FontFamily) ? null : UIFont.FromName(Element.FontFamily, size))
+                ?? UIFont.SystemFontOfSize(size);
 
-            uiTextAttribute.TextColor = Element.TextColor.ToUIColor();
+            var normal = _nativeControl.GetTitleTextAttributes(UIControlState.Normal);
+            normal.Font = font;
+            normal.TextColor = Element.TextColor.ToUIColor();
+            _nativeControl.SetTitleTextAttributes(normal, UIControlState.Normal);
 
-            _nativeControl.SetTitleTextAttributes(uiTextAttribute, UIControlState.Normal);
-        }
-
-        private void SetSelectedTextColor()
-        {
-            var uiTextAttribute = _nativeControl.GetTitleTextAttributes(UIControlState.Normal);
-
-            uiTextAttribute.TextColor = Element.SelectedTextColor.ToUIColor();
-
-            _nativeControl.SetTitleTextAttributes(uiTextAttribute, UIControlState.Selected);
+            var selected = _nativeControl.GetTitleTextAttributes(UIControlState.Selected);
+            selected.Font = font;
+            selected.TextColor = Element.SelectedTextColor.ToUIColor();
+            _nativeControl.SetTitleTextAttributes(selected, UIControlState.Selected);
         }
 
         private void SetBorder()
@@ -261,6 +269,11 @@ namespace Plugin.Segmented.Control.iOS
 
         private void NativeControl_SelectionChanged(object sender, EventArgs e)
         {
+            if (Element is null || _nativeControl is null)
+            {
+                return;
+            }
+
             Element.SelectedSegment = (int)_nativeControl.SelectedSegment;
         }
 
@@ -272,7 +285,7 @@ namespace Plugin.Segmented.Control.iOS
                 _nativeControl?.Dispose();
                 _nativeControl = null;
             }
-            RemoveElementHandlers();
+            RemoveElementHandlers(Element);
 
             base.Dispose(disposing);
         }

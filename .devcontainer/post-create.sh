@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# The solution (src/main/SegCtlr.Netstandard.sln) also holds the legacy Xamarin.iOS, Xamarin.Android, Xamarin.Mac
+# The solution (src/main/SegCtlr.Netstandard.slnx) also holds the legacy Xamarin.iOS, Xamarin.Android, Xamarin.Mac
 # and UWP projects, which cannot restore on Linux. Restore the netstandard test app instead: it references the
 # library, so both netstandard projects restore.
 solution_path="src/test/Test.SegCtrl.netstandard/Test.SegCtrl.netstandard.csproj"

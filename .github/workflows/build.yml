@@ -1,0 +1,258 @@
+name: Publish Package
+
+# Builds, packs and publishes Plugin.SegmentedControl.Netstandard. See docs/releasing.md.
+#
+# Runs when GitVersion.yml changes on a releases/** branch, or by hand. There is deliberately no pull_request
+# trigger: the renderer jobs run on self-hosted runners, which must never run code from a pull request.
+on:
+  push:
+    branches:
+      - "releases/**"
+    paths:
+      - "GitVersion.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  version:
+    runs-on: ubuntu-24.04
+    outputs:
+      version: ${{ steps.gitversion.outputs.MajorMinorPatch }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0.11.0
+        with:
+          versionSpec: "5.x"
+
+      - name: Determine version
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v0.11.0
+        with:
+          useConfigFile: true
+
+      # The release text is the README's "New in Version <x.y.z>" section for this version. It is checked before
+      # anything is built, so a release without that section stops here instead of after the package reaches NuGet.
+      - name: Release notes from README
+        env:
+          VERSION: ${{ steps.gitversion.outputs.MajorMinorPatch }}
+        run: |
+          awk -v heading="## New in Version ${VERSION}" '
+            $0 == heading { found = 1; next }
+            found && /^## / { exit }
+            found { print }
+          ' README.md > release-notes.md
+          if ! grep -q '[^[:space:]]' release-notes.md; then
+            echo "::error file=README.md::README.md has no '## New in Version ${VERSION}' section. Add it before releasing."
+            exit 1
+          fi
+          cat release-notes.md
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-notes
+          path: release-notes.md
+          if-no-files-found: error
+
+  library:
+    needs: version
+    runs-on: ubuntu-24.04
+    env:
+      VERSION: ${{ needs.version.outputs.version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Build
+        run: >-
+          dotnet build src/main/SegCtlr.Netstandard/SegCtlr.Netstandard.csproj -c Release
+          -p:Version="$VERSION" -p:ContinuousIntegrationBuild=true
+
+      - name: Test
+        run: dotnet test src/test/SegCtlr.Tests/SegCtlr.Tests.csproj -c Release -p:Version="$VERSION"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: library
+          path: src/main/SegCtlr.Netstandard/bin/Release/
+          if-no-files-found: error
+
+  # Xamarin.Android and UWP. Needs a self-hosted Windows runner labelled "xamarin" with Visual Studio 2022
+  # (Xamarin and UWP workloads) and the .NET 10 SDK. See docs/releasing.md.
+  renderers-windows:
+    needs: version
+    runs-on: [self-hosted, Windows, xamarin]
+    env:
+      VERSION: ${{ needs.version.outputs.version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Build Android renderer
+        run: msbuild src/crossplatform/SegCtrl.Droid/SegCtrl.Droid.csproj /restore /p:Configuration=Release /p:Version=${{ env.VERSION }}
+
+      - name: Build UWP renderer
+        run: msbuild src/crossplatform/SegCtrl.UWP/SegCtrl.UWP.csproj /restore /p:Configuration=Release /p:Platform=AnyCPU /p:Version=${{ env.VERSION }}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: renderers-windows
+          path: |
+            src/crossplatform/SegCtrl.Droid/bin/Release/
+            src/crossplatform/SegCtrl.UWP/bin/Release/
+          if-no-files-found: error
+
+  # Xamarin.iOS and Xamarin.Mac. Needs a self-hosted macOS runner labelled "xamarin" with Mono MSBuild, the
+  # Xamarin.iOS and Xamarin.Mac SDKs, Xcode and the .NET 10 SDK. See docs/releasing.md.
+  renderers-macos:
+    needs: version
+    runs-on: [self-hosted, macOS, xamarin]
+    env:
+      VERSION: ${{ needs.version.outputs.version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Build iOS renderer
+        run: msbuild src/crossplatform/SegCtrl.iOS/SegCtrl.iOS.csproj /restore /p:Configuration=Release /p:Version="$VERSION"
+
+      - name: Build macOS renderer
+        run: msbuild src/crossplatform/SegCtrl.macOS/SegCtrl.macOS.csproj /restore /p:Configuration=Release /p:Version="$VERSION"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: renderers-macos
+          path: |
+            src/crossplatform/SegCtrl.iOS/bin/Release/
+            src/crossplatform/SegCtrl.macOS/bin/Release/
+          if-no-files-found: error
+
+  pack:
+    needs: [version, library, renderers-windows, renderers-macos]
+    runs-on: ubuntu-24.04
+    env:
+      VERSION: ${{ needs.version.outputs.version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      # Put every binary back where the nuspec expects it.
+      - uses: actions/download-artifact@v4
+        with:
+          name: library
+          path: src/main/SegCtlr.Netstandard/bin/Release
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: renderers-windows
+          path: src/crossplatform
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: renderers-macos
+          path: src/crossplatform
+
+      # Fails (NU5128) if any platform folder ends up without binaries.
+      - name: Pack
+        run: >-
+          dotnet pack src/build/Plugin.SegmentedControl.Package.csproj -c Release
+          -p:Version="$VERSION" -p:SourceRevisionId="${{ github.sha }}" -o artifacts
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: packages
+          path: artifacts/*.nupkg
+          if-no-files-found: error
+
+  publish:
+    needs: [version, pack]
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write # create the GitHub release
+      packages: write # push to GitHub Packages
+      id-token: write # OIDC token for NuGet.org Trusted Publishing
+    env:
+      VERSION: ${{ needs.version.outputs.version }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: packages
+          path: artifacts
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: release-notes
+          path: .
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Publish to GitHub Packages
+        run: >-
+          dotnet nuget push "artifacts/*.nupkg"
+          --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
+          --api-key "${{ secrets.GITHUB_TOKEN }}" --skip-duplicate
+
+      # Trusted Publishing: exchanges this run's GitHub OIDC token for a short-lived NuGet.org API key. Requires a
+      # Trusted Publishing policy on NuGet.org (owner profile -> Trusted Publishing) for this repository and the
+      # workflow file name build.yml. There is no long-lived NUGET_TOKEN secret. The user is the NuGet.org profile
+      # that owns the policy; NuGet.org usernames are public, so it is inline rather than a secret.
+      - name: NuGet login (Trusted Publishing)
+        id: nuget-login
+        uses: NuGet/login@v1
+        with:
+          user: 1iveowl
+
+      - name: Publish to NuGet.org
+        run: >-
+          dotnet nuget push "artifacts/*.nupkg"
+          --source https://api.nuget.org/v3/index.json
+          --api-key "${{ steps.nuget-login.outputs.NUGET_API_KEY }}" --skip-duplicate
+
+      # A draft, so the release can be checked before it is published; publishing it creates the v<version> tag.
+      - name: Create draft GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="v${VERSION}"
+          if gh release view "$tag" --repo "$GITHUB_REPOSITORY" > /dev/null 2>&1; then
+            gh release upload "$tag" artifacts/*.nupkg --repo "$GITHUB_REPOSITORY" --clobber
+          else
+            gh release create "$tag" artifacts/*.nupkg --repo "$GITHUB_REPOSITORY" \
+              --target "$GITHUB_SHA" --title "$tag" --notes-file release-notes.md --draft
+          fi

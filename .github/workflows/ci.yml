@@ -1,0 +1,55 @@
+name: CI
+
+# Builds and tests the shared library on GitHub-hosted runners. The Xamarin platform renderers are only built by the
+# publish workflow (build.yml), on self-hosted runners; they never run for pull requests.
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+      - "releases/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj', 'Directory.Build.props') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+
+      # Style rules (.editorconfig) are enforced during the build; the library and tests treat warnings as errors.
+      - name: Build library
+        run: dotnet build src/main/SegCtlr.Netstandard/SegCtlr.Netstandard.csproj -c Release
+
+      - name: Build shared sample
+        run: dotnet build src/test/Test.SegCtrl.netstandard/Test.SegCtrl.netstandard.csproj -c Release
+
+      - name: Test
+        run: >-
+          dotnet test src/test/SegCtlr.Tests/SegCtlr.Tests.csproj -c Release
+          --collect "XPlat Code Coverage" --results-directory artifacts/test-results
+
+      - name: Upload test results and coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: artifacts/test-results/
+          if-no-files-found: ignore

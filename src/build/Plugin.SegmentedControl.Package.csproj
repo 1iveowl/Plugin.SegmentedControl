@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Packs Plugin.SegmentedControl.Netstandard from the nuspec next to this file:
+      dotnet pack src/build/Plugin.SegmentedControl.Package.csproj -c Release -p:Version=<x.y.z> -o artifacts
+
+    The nuspec collects binaries that must already be built: the shared library (dotnet build) and the
+    Xamarin.Android, Xamarin.iOS, Xamarin.Mac and UWP renderers (classic MSBuild on the self-hosted runners,
+    see .github/workflows/build.yml). This project compiles nothing itself.
+  -->
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <IsPackable>true</IsPackable>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <NuspecFile>Plugin.SegmentedControl.Netstandard.nuspec</NuspecFile>
+    <NuspecBasePath>$(MSBuildThisFileDirectory)</NuspecBasePath>
+    <NuspecProperties>version=$(Version);commit=$(SourceRevisionId)</NuspecProperties>
+    <!-- The nuspec ships the renderers' own .pdb files; no separate symbol package. -->
+    <IncludeSymbols>false</IncludeSymbols>
+    <!-- A platform folder with no binaries means a renderer build was skipped: fail rather than ship it. -->
+    <WarningsAsErrors>$(WarningsAsErrors);NU5128</WarningsAsErrors>
+  </PropertyGroup>
+
+</Project>

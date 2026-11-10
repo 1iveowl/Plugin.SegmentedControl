@@ -60,6 +60,7 @@ namespace Plugin.Segmented.Control.UWP
         {
             if (sender is SegmentRadioButton segment)
             {
+                UpdateBorderBrush(segment);
                 Refresh(segment);
             }
         }
@@ -68,18 +69,28 @@ namespace Plugin.Segmented.Control.UWP
         {
             if (d is SegmentRadioButton segment)
             {
-                segment.BorderBrush = (SolidColorBrush) e.NewValue;
+                UpdateBorderBrush(segment);
                 Refresh(segment);
             }
         }
-
 
         private static void OnDisabledColorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is SegmentRadioButton segment)
             {
-                segment.BorderBrush = (SolidColorBrush)e.NewValue;
+                UpdateBorderBrush(segment);
                 Refresh(segment);
+            }
+        }
+
+        // The divider uses the tint color, and the disabled color only while the segment is disabled. Setting
+        // DisabledColor used to paint the border of enabled segments too.
+        private static void UpdateBorderBrush(SegmentRadioButton segment)
+        {
+            var brush = segment.IsEnabled ? segment.TintColor : segment.DisabledColor;
+            if (brush != null)
+            {
+                segment.BorderBrush = brush;
             }
         }
 
@@ -87,7 +98,6 @@ namespace Plugin.Segmented.Control.UWP
         {
             if (d is SegmentRadioButton segment)
             {
-                segment.SelectedTextColor = (SolidColorBrush)e.NewValue;
                 Refresh(segment);
             }
         }
@@ -97,7 +107,6 @@ namespace Plugin.Segmented.Control.UWP
 
             if (d is SegmentRadioButton segment)
             {
-                segment.TextColor = (SolidColorBrush)e.NewValue;
                 Refresh(segment);
             }
         }
