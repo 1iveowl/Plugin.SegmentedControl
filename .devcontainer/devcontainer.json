@@ -32,6 +32,8 @@
 		"source=gh-config-${localWorkspaceFolderBasename},target=/home/vscode/.config/gh,type=volume",
 		// Azure CLI login (az login); without the volume a rebuild signs az out.
 		"source=azure-config-${localWorkspaceFolderBasename},target=/home/vscode/.azure,type=volume",
+		// What TokenEconomizer has learned about this repository; without the volume a rebuild starts it over.
+		"source=tokeneconomizer-${localWorkspaceFolderBasename},target=/home/vscode/.tokeneconomizer,type=volume",
 		// Keep a single host checkout as the source of truth for assistant skills.
 		// Clone ai-skill to ~/GitHub/ai-skill to get the skills; without it the folder stays empty.
 		"source=${localEnv:HOME}/GitHub/ai-skill,target=/opt/ai-skill,type=bind,consistency=cached"

@@ -25,7 +25,7 @@ fi
 
 # Docker creates named volumes as root. Make persistent tool state available to
 # the non-root account required for Claude's bypass-permissions mode.
-sudo chown -R "$(id -u):$(id -g)" "${CLAUDE_CONFIG_DIR}" "${CODEX_HOME}" "${COPILOT_HOME}" "${HOME}/.config/herdr" "${HOME}/.config/gh" "${HOME}/.azure" "${HOME}/.herdr-core-state"
+sudo chown -R "$(id -u):$(id -g)" "${CLAUDE_CONFIG_DIR}" "${CODEX_HOME}" "${COPILOT_HOME}" "${HOME}/.config/herdr" "${HOME}/.config/gh" "${HOME}/.azure" "${HOME}/.tokeneconomizer" "${HOME}/.herdr-core-state"
 
 # herdr-core, which the Herdr desktop app copies into the container, keeps its Spaces, terminal records and identity in
 # ~/.local/state/herdr-core. Link that to its volume, so after a rebuild the app finds the same machine and Spaces.
@@ -122,6 +122,40 @@ install_herdr() {
 }
 if ! install_herdr; then
 	echo "The herdr setup did not finish; continuing." >&2
+fi
+
+# TokenEconomizer (https://github.com/microsoft/TokenEconomizer) lowers what Claude Code and Codex sessions cost in
+# this repository: it remembers repository facts between sessions, leaves out tools that go unused, and redirects a
+# turn that is stuck in a failure loop. Like herdr it is a convenience, so any failure logs and the setup continues.
+# Its hooks run on every agent session in a container without permission prompts, so the clone is pinned to a
+# reviewed commit; to update, review the upstream changes and move the pin.
+tokeneconomizer_commit="264e7a7f32f0112a06aa83a97b9c2c4681563968"
+install_tokeneconomizer() {
+	# The installed plugins run from the clone, so it must stay where it is. It lives outside the persisted homes and
+	# is cloned again on each create; what the plugin learns is kept in ~/.tokeneconomizer, a volume of its own.
+	local clone="${HOME}/.local/share/TokenEconomizer"
+	if [[ ! -d "${clone}/.git" ]]; then
+		mkdir -p "$(dirname "${clone}")" || return 1
+		git clone -q https://github.com/microsoft/TokenEconomizer.git "${clone}" || return 1
+	fi
+	git -C "${clone}" fetch -q origin "${tokeneconomizer_commit}" || return 1
+	git -C "${clone}" -c advice.detachedHead=false checkout -q "${tokeneconomizer_commit}" || return 1
+
+	# The hooks need Python 3.10+ with its full standard library. The herdr setup installs it, but may have stopped
+	# before it got that far.
+	if ! python3 -c 'import json' >/dev/null 2>&1; then
+		sudo apt-get update -qq \
+			&& sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends python3 || return 1
+	fi
+
+	# Both installs are idempotent: on a rebuild the registrations in the persisted homes already exist.
+	claude plugin marketplace add "${clone}" || return 1
+	claude plugin install tokeneconomizer@tokeneconomizer || return 1
+	codex plugin marketplace add "${clone}" || return 1
+	codex plugin add tokeneconomizer@tokeneconomizer || return 1
+}
+if ! install_tokeneconomizer; then
+	echo "The TokenEconomizer setup did not finish; continuing without it." >&2
 fi
 
 # Shortcuts that start an agent without permission prompts in a terminal, as the VS Code extension already does:
