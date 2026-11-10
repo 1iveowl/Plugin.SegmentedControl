@@ -1,0 +1,95 @@
+{
+	"name": "C# (.NET)",
+	"image": "mcr.microsoft.com/devcontainers/dotnet:2-10.0-noble",
+	// Claude's VS Code extension only supports bypassPermissions from a non-root account.
+	// The standard developer account has passwordless sudo when elevated access is needed.
+	"remoteUser": "vscode",
+	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+	"features": {
+		"ghcr.io/devcontainers/features/azure-cli:1": {},
+		"ghcr.io/devcontainers/features/dotnet:2": {},
+		"ghcr.io/devcontainers/features/github-cli:1": {},
+		"ghcr.io/devcontainers/features/node:2": {
+			"version": "lts"
+		}
+	},
+	// Runs on the host before the container is created. Docker refuses to bind-mount a folder that does
+	// not exist, so a clone on a machine without ai-skill (anyone else's, for a public repository) could
+	// not start the container. Create the folder empty; post-create then skips the skills installer.
+	"initializeCommand": "mkdir -p \"${localEnv:HOME}/GitHub/ai-skill\"",
+	// Do not persist .vscode-server: a new named volume is root-owned before VS Code starts.
+	"mounts": [
+		"source=codex-home-${localWorkspaceFolderBasename},target=/home/vscode/.codex,type=volume",
+		"source=claude-home-${localWorkspaceFolderBasename},target=/home/vscode/.claude,type=volume",
+		"source=copilot-home-${localWorkspaceFolderBasename},target=/home/vscode/.copilot,type=volume",
+		// Persist layout and session records; conversation histories stay in the tool homes above.
+		"source=herdr-config-${localWorkspaceFolderBasename},target=/home/vscode/.config/herdr,type=volume",
+		// herdr-core's state: the Herdr desktop app's Spaces and terminal records, and the core's identity, which
+		// lets the app recognise a rebuilt container as the same machine. post-create links
+		// ~/.local/state/herdr-core here; mounting there would make Docker create ~/.local as root.
+		"source=herdr-core-state-${localWorkspaceFolderBasename},target=/home/vscode/.herdr-core-state,type=volume",
+		// GitHub CLI login (gh auth login); without the volume a rebuild signs gh out.
+		"source=gh-config-${localWorkspaceFolderBasename},target=/home/vscode/.config/gh,type=volume",
+		// Azure CLI login (az login); without the volume a rebuild signs az out.
+		"source=azure-config-${localWorkspaceFolderBasename},target=/home/vscode/.azure,type=volume",
+		// What TokenEconomizer has learned about this repository; without the volume a rebuild starts it over.
+		"source=tokeneconomizer-${localWorkspaceFolderBasename},target=/home/vscode/.tokeneconomizer,type=volume",
+		// Keep a single host checkout as the source of truth for assistant skills.
+		// Clone ai-skill to ~/GitHub/ai-skill to get the skills; without it the folder stays empty.
+		"source=${localEnv:HOME}/GitHub/ai-skill,target=/opt/ai-skill,type=bind,consistency=cached"
+	],
+	"containerEnv": {
+		"CODEX_HOME": "/home/vscode/.codex",
+		"CLAUDE_CONFIG_DIR": "/home/vscode/.claude",
+		"COPILOT_HOME": "/home/vscode/.copilot"
+	},
+	"remoteEnv": {
+		"ANTHROPIC_API_KEY": "${localEnv:ANTHROPIC_API_KEY}",
+		"OPENAI_API_KEY": "${localEnv:OPENAI_API_KEY}"
+	},
+	"forwardPorts": [
+		5000,
+		5001
+	],
+	"portsAttributes": {
+		"5001": {
+			"protocol": "https"
+		}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-dotnettools.csdevkit",
+				"ms-dotnettools.csharp",
+				"ms-dotnettools.vscode-dotnet-runtime",
+				"anthropic.claude-code",
+				"openai.chatgpt",
+				"GitHub.copilot",
+				"GitHub.copilot-chat"
+			],
+			"settings": {
+				"claudeCode.allowDangerouslySkipPermissions": true,
+				"claudeCode.initialPermissionMode": "bypassPermissions",
+				"claudeCode.preferredLocation": "sidebar",
+				"github.copilot.enable": {
+					"*": true
+				},
+				// Built-in chat utility flows (chat titles, commit messages) default to
+				// GitHub Copilot's utility models, which need a Copilot entitlement the
+				// container does not persist. Use the BYOK main agent model instead so a
+				// fresh container does not prompt for this setting on every rebuild.
+				"chat.byokUtilityModelDefault": "mainAgent",
+				"terminal.integrated.defaultProfile.linux": "bash",
+				// Pass Herdr's Ctrl+B prefix to the focused terminal instead of toggling the sidebar.
+				"terminal.integrated.commandsToSkipShell": [
+					"-workbench.action.toggleSidebarVisibility"
+				],
+				"files.insertFinalNewline": true,
+				"editor.rulers": [
+					120
+				]
+			}
+		}
+	},
+	"postCreateCommand": "bash .devcontainer/post-create.sh"
+}

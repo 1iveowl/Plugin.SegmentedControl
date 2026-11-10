@@ -1,0 +1,31 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "dotnet.preferCSharpExtension": true,
+
+    // A bind-mounted checkout pays a host round-trip per stat. Watching bin/obj and
+    // node_modules is what makes the window slow to become responsive on Apple silicon.
+    "files.watcherExclude": {
+      "**/.git/objects/**": true,
+      "**/.git/subtree-cache/**": true,
+      "**/node_modules/**": true,
+      "**/bin/**": true,
+      "**/obj/**": true
+    },
+    "search.exclude": {
+      "**/node_modules": true,
+      "**/bin": true,
+      "**/obj": true
+    },
+
+    // Add any directory holding git worktrees or scratch clones. VS Code runs a full
+    // "git status -z -uall" per discovered repository, each paying the bind-mount cost.
+    "git.repositoryScanIgnoredFolders": [
+      "node_modules"
+    ]
+  }
+}
